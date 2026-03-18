@@ -35,4 +35,44 @@ public class ImovelService {
         String email = usuarioService.getEmailLogado();
         return imovelRepository.findByUsuarioEmail(email);
     }
+
+    public List<Imovel> buscarPorTitulo(String titulo) {
+        String email = usuarioService.getEmailLogado();
+        return imovelRepository.findByUsuarioEmailAndTituloContainingIgnoreCase(email, titulo);
+    }
+
+    public List<Imovel> buscarPorPrecoMax(Double precoMax) {
+        String email = usuarioService.getEmailLogado();
+        return imovelRepository.findByUsuarioEmailAndPrecoLessThanEqual(email, precoMax);
+    }
+
+    public Imovel atualizar(Long id, ImovelRequest req) {
+        Usuario logado = usuarioService.getUsuarioLogado();
+
+        Imovel imovel = imovelRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Imóvel não encontrado"));
+
+        if (imovel.getUsuario() == null || !imovel.getUsuario().getId().equals(logado.getId())) {
+            throw new RuntimeException("Você não pode alterar este imóvel");
+        }
+
+        imovel.setTitulo(req.getTitulo());
+        imovel.setEndereco(req.getEndereco());
+        imovel.setPreco(req.getPreco());
+
+        return imovelRepository.save(imovel);
+    }
+
+    public void deletar(Long id) {
+        Usuario logado = usuarioService.getUsuarioLogado();
+
+        Imovel imovel = imovelRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Imóvel não encontrado"));
+
+        if (imovel.getUsuario() == null || !imovel.getUsuario().getId().equals(logado.getId())) {
+            throw new RuntimeException("Você não pode deletar este imóvel");
+        }
+
+        imovelRepository.delete(imovel);
+    }
 }

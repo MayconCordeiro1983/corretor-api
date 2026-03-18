@@ -27,7 +27,7 @@ public class UsuarioController {
     }
 
     @GetMapping
-    public List<UsuarioResponse> listar() {
+    public List<UsuarioResponse> listar() {	
         return service.listar().stream()
                 .map(u -> new UsuarioResponse(u.getId(), u.getNome(), u.getEmail()))
                 .toList();
