@@ -30,6 +30,10 @@ public class ImovelService {
 
         return imovelRepository.save(i);
     }
+    
+    public List<Imovel> listarTodos() {
+        return imovelRepository.findAll();
+    }
 
     public List<Imovel> listarMeus() {
         String email = usuarioService.getEmailLogado();
