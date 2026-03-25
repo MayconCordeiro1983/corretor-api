@@ -1,61 +1,87 @@
 package com.corretor.corretor.service;
 
+import com.corretor.corretor.dto.LoginRequest;
+import com.corretor.corretor.dto.UsuarioRequest;
 import com.corretor.corretor.model.Usuario;
 import com.corretor.corretor.repository.UsuarioRepository;
 import com.corretor.corretor.security.JwtUtil;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
 @Service
 public class UsuarioService {
 
-    @Autowired
-    private UsuarioRepository repository;
+    private final UsuarioRepository usuarioRepository;
+    private final PasswordEncoder passwordEncoder;
+    private final JwtUtil jwtUtil;
 
-    @Autowired
-    private PasswordEncoder passwordEncoder;
-
-    @Autowired
-    private JwtUtil jwtUtil;
-
-    // ✅ HELPER: pega email do usuário autenticado pelo JWT
-    public String getEmailLogado() {
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        return auth.getName(); // retorna o "name" do Authentication (no seu caso, email)
+    public UsuarioService(UsuarioRepository usuarioRepository,
+                          PasswordEncoder passwordEncoder,
+                          JwtUtil jwtUtil) {
+        this.usuarioRepository = usuarioRepository;
+        this.passwordEncoder = passwordEncoder;
+        this.jwtUtil = jwtUtil;
     }
 
-    // ✅ HELPER: pega o usuário logado no banco
-    public Usuario getUsuarioLogado() {
-        String email = getEmailLogado();
-        return buscarPorEmail(email);
+    public Usuario criar(UsuarioRequest request) {
+        if (usuarioRepository.findByEmail(request.getEmail()).isPresent()) {
+            throw new ResponseStatusException(HttpStatus.CONFLICT, "Email já cadastrado");
+        }
+
+        Usuario usuario = new Usuario();
+        usuario.setNome(request.getNome());
+        usuario.setEmail(request.getEmail());
+        usuario.setSenha(passwordEncoder.encode(request.getSenha()));
+
+        return usuarioRepository.save(usuario);
     }
 
-    public Usuario salvar(Usuario usuario) {
-        usuario.setSenha(passwordEncoder.encode(usuario.getSenha()));
-        return repository.save(usuario);
-    }
+    public String login(LoginRequest request) {
+        Usuario usuario = usuarioRepository.findByEmail(request.getEmail())
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Usuário não encontrado"));
 
-    public List<Usuario> listar() {
-        return repository.findAll();
-    }
-
-    public Usuario buscarPorEmail(String email) {
-        return repository.findByEmail(email)
-                .orElseThrow(() -> new RuntimeException("Email não encontrado"));
-    }
-
-    public String login(String email, String senha) {
-        Usuario usuario = buscarPorEmail(email);
-
-        if (!passwordEncoder.matches(senha, usuario.getSenha())) {
-            throw new RuntimeException("Senha inválida");
+        if (!passwordEncoder.matches(request.getSenha(), usuario.getSenha())) {
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Senha inválida");
         }
 
         return jwtUtil.gerarToken(usuario.getEmail());
+    }
+
+    public List<Usuario> listarTodos() {
+        return usuarioRepository.findAll();
+    }
+
+    public Usuario buscarPorId(Long id) {
+        return usuarioRepository.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Usuário não encontrado"));
+    }
+
+    public Usuario atualizar(Long id, UsuarioRequest request) {
+        Usuario usuario = usuarioRepository.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Usuário não encontrado"));
+
+        usuario.setNome(request.getNome());
+        usuario.setEmail(request.getEmail());
+
+        if (request.getSenha() != null && !request.getSenha().isBlank()) {
+            usuario.setSenha(passwordEncoder.encode(request.getSenha()));
+        }
+
+        return usuarioRepository.save(usuario);
+    }
+
+    public void deletar(Long id) {
+        Usuario usuario = usuarioRepository.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Usuário não encontrado"));
+
+        usuarioRepository.delete(usuario);
+    }
+
+    public boolean emailExiste(String email) {
+        return usuarioRepository.findByEmail(email).isPresent();
     }
 }

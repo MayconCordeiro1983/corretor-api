@@ -1,48 +1,63 @@
 package com.corretor.corretor.controller;
 
 import com.corretor.corretor.dto.LoginRequest;
-import com.corretor.corretor.dto.LoginResponse;
-import com.corretor.corretor.dto.UsuarioResponse;
+import com.corretor.corretor.dto.UsuarioRequest;
 import com.corretor.corretor.model.Usuario;
 import com.corretor.corretor.service.UsuarioService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestParam;
+import java.util.Map;
+
+import java.util.Map;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/usuarios")
-@CrossOrigin("*")
 public class UsuarioController {
 
-    @Autowired
-    private UsuarioService service;
+    private final UsuarioService usuarioService;
 
-    @PostMapping
-    public UsuarioResponse salvar(@RequestBody Usuario usuario) {
-        Usuario salvo = service.salvar(usuario);
-        return new UsuarioResponse(salvo.getId(), salvo.getNome(), salvo.getEmail());
+    public UsuarioController(UsuarioService usuarioService) {
+        this.usuarioService = usuarioService;
     }
 
-    @GetMapping
-    public List<UsuarioResponse> listar() {	
-        return service.listar().stream()
-                .map(u -> new UsuarioResponse(u.getId(), u.getNome(), u.getEmail()))
-                .toList();
+    @PostMapping
+    public ResponseEntity<Usuario> criar(@RequestBody UsuarioRequest request) {
+        return ResponseEntity.ok(usuarioService.criar(request));
     }
 
     @PostMapping("/login")
-    public ResponseEntity<LoginResponse> login(@RequestBody LoginRequest body) {
-        String token = service.login(body.getEmail(), body.getSenha());
-        return ResponseEntity.ok(new LoginResponse(token));
+    public ResponseEntity<Map<String, String>> login(@RequestBody LoginRequest request) {
+        String token = usuarioService.login(request);
+        return ResponseEntity.ok(Map.of("token", token));
     }
 
-    @GetMapping("/me")
-    public UsuarioResponse me(Authentication authentication) {
-        String email = authentication.getName(); // vem do JwtAuthFilter (principal=email)
-        Usuario u = service.buscarPorEmail(email);
-        return new UsuarioResponse(u.getId(), u.getNome(), u.getEmail());
+    @GetMapping
+    public ResponseEntity<List<Usuario>> listar() {
+        return ResponseEntity.ok(usuarioService.listarTodos());
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Usuario> buscarPorId(@PathVariable Long id) {
+        return ResponseEntity.ok(usuarioService.buscarPorId(id));
+    }
+
+    @GetMapping("/email")
+public ResponseEntity<Map<String, Boolean>> verificarEmail(@RequestParam String email) {
+    return ResponseEntity.ok(Map.of("existe", usuarioService.emailExiste(email)));
+}
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Usuario> atualizar(@PathVariable Long id, @RequestBody UsuarioRequest request) {
+        return ResponseEntity.ok(usuarioService.atualizar(id, request));
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deletar(@PathVariable Long id) {
+        usuarioService.deletar(id);
+        return ResponseEntity.noContent().build();
     }
 }
