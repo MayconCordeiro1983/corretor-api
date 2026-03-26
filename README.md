@@ -135,6 +135,7 @@ PowerShell
 
 📂 Estrutura do projeto
 
+```text
 corretor-api/
 ├── src/
 ├── frontend/
@@ -142,6 +143,7 @@ corretor-api/
 ├── pom.xml
 └── README.md
 
+```md
 ## 📸 Prints do sistema
 
 ### 🔐 Login
