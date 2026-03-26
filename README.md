@@ -147,16 +147,16 @@ corretor-api/
 ## 📸 Prints do sistema
 
 ### 🔐 Login
-(img/login.png)
+![Login](img/login.png)
 
 ### 📝 Cadastro
-(img/cadastro.png)
+![Cadastro](img/cadastro.png)
 
 ### 📊 Dashboard
-(img/dashboard.png)
+![Dashboard](img/dashboard.png)
 
 ### 🏠 Meus Imóveis
-(img/imoveis.png)
+![Imóveis](img/imoveis.png)
 
 👨‍💻 Autor
 
