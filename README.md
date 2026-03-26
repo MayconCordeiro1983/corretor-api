@@ -1,166 +1,161 @@
-header
-API de gestão de imóveis com Spring Boot e JWT
+# 🏠 Corretor API
 
-Tecnologias:
+Sistema full stack para gerenciamento de imóveis com autenticação JWT.
 
-- Java 17
-- Spring Boot
-- Spring Security
-- JWT
-- PostgreSQL
-- Maven
+O sistema permite cadastro de usuários, login seguro e gerenciamento de imóveis vinculados ao usuário autenticado.
 
-Funcionalidades:
+---
 
-- Cadastro de usuários
-- Login com autenticação JWT
-- CRUD de imóveis
-- Imóveis vinculados ao usuário logado
+## 🚀 Tecnologias utilizadas
 
-Corretor API
-
-API REST para gestão de imóveis desenvolvida com Spring Boot e JWT Authentication.  
-O sistema permite cadastro de usuários, autenticação segura e gerenciamento de imóveis vinculados ao usuário logado.
-
-Tecnologias utilizadas
-
+### Backend
 - Java 17
 - Spring Boot
 - Spring Security
 - JWT (JSON Web Token)
 - Maven
 - JPA / Hibernate
-- Banco de dados relacional (H2 / PostgreSQL)
+- PostgreSQL / H2
 
-Estrutura do Projeto
+### Frontend
+- HTML
+- CSS
+- JavaScript
+- Bootstrap
 
-src
-├── controller
-├── service
-├── repository
-├── model
-├── dto
-├── security
-└── config
+---
 
-Autenticação
+## ⚙️ Funcionalidades
 
-A API utiliza JWT (JSON Web Token) para autenticação.
+- ✔ Cadastro de usuários
+- ✔ Login com autenticação JWT
+- ✔ Rotas protegidas com Spring Security
+- ✔ Dashboard do usuário
+- ✔ CRUD completo de imóveis
+- ✔ Imóveis vinculados ao usuário logado
 
-Fluxo:
+---
 
-1️ Usuário faz login  
-2️ API gera um token JWT  
-3️ Token é enviado no header das requisições protegidas
+## 🔐 Autenticação
 
-Header:
+A API utiliza JWT (JSON Web Token).
 
+### Fluxo:
+
+1. Usuário faz login  
+2. A API gera um token JWT  
+3. O token é enviado no header das requisições protegidas  
+
+### Header:
+
+```http
 Authorization: Bearer TOKEN
 
-Endpoints da API
-
-Usuários
+📡 Endpoints da API
+👤 Usuários
 
 Criar usuário
 
-POST `/usuarios`
-
-Body:
+POST /usuarios
 
 {
-"nome": "Maycon",
-"email": "maycon@email.com
-",
-"senha": "123456"
+  "nome": "Maycon",
+  "email": "maycon@email.com",
+  "senha": "123456"
 }
 
 Login
 
-POST `/usuarios/login`
-
-Body:
+POST /usuarios/login
 
 {
-"email": "maycon@email.com
-",
-"senha": "123456"
+  "email": "maycon@email.com",
+  "senha": "123456"
 }
 
 Resposta:
 
 {
-"token": "jwt_token_aqui"
+  "token": "jwt_token_aqui"
 }
 
 Usuário logado
 
-GET `/usuarios/me`
+GET /usuarios/me
 
 Header:
 
 Authorization: Bearer TOKEN
 
 🏠 Imóveis
-
 Criar imóvel
 
-POST `/imoveis`
-
-Body:
+POST /imoveis
 
 {
-"titulo": "Casa Jardim América",
-"endereco": "Rua C-150",
-"preco": 850000
+  "titulo": "Casa Jardim América",
+  "endereco": "Rua C-150",
+  "preco": 850000
 }
 
 Listar imóveis do usuário logado
 
-GET `/imoveis/meus`
+GET /imoveis/meus
 
 Header:
 
 Authorization: Bearer TOKEN
 
-Como rodar o projeto
+🏃 Como rodar o projeto
 
-Clone o repositório:
+1. Clonar o repositório
 
 git clone https://github.com/MayconCordeiro1983/corretor-api.git
 
-Entre na pasta:
+2. Entrar na pasta
 
 cd corretor-api
 
-Execute:
+3. Executar o backend
 
-./mvnw spring-boot:run
+.\mvnw spring-boot:run
 
-A aplicação iniciará em:
+4. Acessar a aplicação
 
 http://localhost:8081
 
-estando a API
+🧪 Testes
 
-Você pode testar usando:
+Você pode testar a API utilizando:
 
-- Postman
-- Insomnia
-- PowerShell
-- Curl
+Postman
+Insomnia
+Curl
+PowerShell
 
-Funcionalidades
+📂 Estrutura do projeto
 
-✔ Cadastro de usuário  
-✔ Login com JWT  
-✔ Autenticação com Spring Security  
-✔ Cadastro de imóveis  
-✔ Imóveis vinculados ao usuário logado
+corretor-api/
+├── src/
+├── frontend/
+├── img/
+├── pom.xml
+└── README.md
 
-Autor
+📸 Prints do sistema
+
+🔐 Login
+
+📝 Cadastro
+
+📊 Dashboard
+
+🏠 Meus Imóveis
+
+👨‍💻 Autor
 
 Maycon Cordeiro
 
-GitHub:  
+🔗 GitHub:
 https://github.com/MayconCordeiro1983
-2a119d2 (Adicionado README profissional)
+
