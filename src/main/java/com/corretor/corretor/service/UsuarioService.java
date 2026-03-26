@@ -1,16 +1,18 @@
 package com.corretor.corretor.service;
 
+import java.util.List;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
+
 import com.corretor.corretor.dto.LoginRequest;
 import com.corretor.corretor.dto.UsuarioRequest;
 import com.corretor.corretor.model.Usuario;
 import com.corretor.corretor.repository.UsuarioRepository;
 import com.corretor.corretor.security.JwtUtil;
-import org.springframework.http.HttpStatus;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.stereotype.Service;
-import org.springframework.web.server.ResponseStatusException;
-
-import java.util.List;
 
 @Service
 public class UsuarioService {
@@ -57,31 +59,35 @@ public class UsuarioService {
 
     public Usuario buscarPorId(Long id) {
         return usuarioRepository.findById(id)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Usuário não encontrado"));
+                .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
     }
 
     public Usuario atualizar(Long id, UsuarioRequest request) {
-        Usuario usuario = usuarioRepository.findById(id)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Usuário não encontrado"));
+        Usuario usuario = buscarPorId(id);
 
         usuario.setNome(request.getNome());
         usuario.setEmail(request.getEmail());
 
-        if (request.getSenha() != null && !request.getSenha().isBlank()) {
-            usuario.setSenha(passwordEncoder.encode(request.getSenha()));
-        }
-
         return usuarioRepository.save(usuario);
-    }
-
-    public void deletar(Long id) {
-        Usuario usuario = usuarioRepository.findById(id)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Usuário não encontrado"));
-
-        usuarioRepository.delete(usuario);
     }
 
     public boolean emailExiste(String email) {
         return usuarioRepository.findByEmail(email).isPresent();
+    }
+
+    public void deletar(Long id) {
+        Usuario usuario = buscarPorId(id);
+        usuarioRepository.delete(usuario);
+    }
+
+    public String getEmailLogado() {
+        return SecurityContextHolder.getContext().getAuthentication().getName();
+    }
+
+    public Usuario getUsuarioLogado() {
+        String email = getEmailLogado();
+
+        return usuarioRepository.findByEmail(email)
+                .orElseThrow(() -> new RuntimeException("Usuário logado não encontrado"));
     }
 }
