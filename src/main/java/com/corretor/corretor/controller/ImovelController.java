@@ -3,8 +3,6 @@ package com.corretor.corretor.controller;
 import com.corretor.corretor.dto.ImovelRequest;
 import com.corretor.corretor.dto.ImovelResponse;
 import com.corretor.corretor.service.ImovelService;
-
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -63,8 +61,9 @@ public class ImovelController {
     }
 
     @PutMapping("/{id}")
-public ResponseEntity<?> atualizar(@PathVariable Long id, @RequestBody ImovelRequest req) {
-    return ResponseEntity.ok(service.atualizar(id, req));
+    public ImovelResponse atualizar(@PathVariable Long id, @RequestBody ImovelRequest req) {
+        var atualizado = service.atualizar(id, req);
+        return new ImovelResponse(atualizado.getId(), atualizado.getTitulo(), atualizado.getEndereco(), atualizado.getPreco());
     }
 
     @DeleteMapping("/{id}")

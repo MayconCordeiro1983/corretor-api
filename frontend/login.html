@@ -87,24 +87,25 @@ document.getElementById("btnLogin").addEventListener("click", async () => {
 
         const texto = await resposta.text();
 
-if (!resposta.ok) {
-    mostrarMensagem(texto || "Login inválido.", "danger");
-    return;
-}
+        if (!resposta.ok) {
+            mostrarMensagem(texto || "Login inválido.", "danger");
+            return;
+        }
 
-let tokenSalvo = texto;
+        let tokenSalvo = texto;
 
-try {
-    const json = JSON.parse(texto);
-    tokenSalvo = json.token ?? texto;
-} catch (e) {
-    tokenSalvo = texto;
-}
+        try {
+            const json = JSON.parse(texto);
+            tokenSalvo = json.token ?? texto;
+        } catch (e) {
+            tokenSalvo = texto;
+        }
 
-tokenSalvo = tokenSalvo.replace(/^"|"$/g, "").trim();
+        tokenSalvo = tokenSalvo.replace(/^"|"$/g, "").trim();
 
-localStorage.setItem("token", tokenSalvo);
-console.log("TOKEN SALVO:", tokenSalvo);
+        localStorage.setItem("token", tokenSalvo);
+        console.log("TOKEN SALVO:", tokenSalvo);
+
         mostrarMensagem("Login realizado com sucesso!", "success");
 
         setTimeout(() => {
@@ -119,4 +120,4 @@ console.log("TOKEN SALVO:", tokenSalvo);
 </script>
 
 </body>
-</html> 
+</html>

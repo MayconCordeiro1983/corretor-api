@@ -133,6 +133,7 @@ Insomnia
 Curl
 PowerShell
 
+```md
 📂 Estrutura do projeto
 
 ```text
@@ -143,7 +144,6 @@ corretor-api/
 ├── pom.xml
 └── README.md
 
-```md
 ## 📸 Prints do sistema
 
 ### 🔐 Login
