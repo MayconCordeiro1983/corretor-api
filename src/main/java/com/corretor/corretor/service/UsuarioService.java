@@ -85,9 +85,9 @@ public class UsuarioService {
     }
 
     public Usuario getUsuarioLogado() {
-        String email = getEmailLogado();
+    String email = SecurityContextHolder.getContext().getAuthentication().getName();
 
-        return usuarioRepository.findByEmail(email)
-                .orElseThrow(() -> new RuntimeException("Usuário logado não encontrado"));
+    return usuarioRepository.findByEmail(email)
+            .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
     }
 }
