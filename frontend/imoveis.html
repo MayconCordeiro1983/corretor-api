@@ -29,7 +29,7 @@
         }
 
         .navbar-custom {
-            background: rgba(255,255,255,0.75);
+            background: rgba(255,255,255,0.78);
             backdrop-filter: blur(10px);
             border-bottom: 1px solid rgba(255,255,255,0.6);
         }
@@ -56,15 +56,15 @@
         }
 
         .hero-badge {
-            width: 68px;
-            height: 68px;
-            border-radius: 20px;
+            width: 78px;
+            height: 78px;
+            border-radius: 24px;
             background: linear-gradient(135deg, var(--accent), #7c3aed);
             color: white;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 30px;
+            font-size: 34px;
             box-shadow: 0 12px 24px rgba(79, 70, 229, 0.25);
         }
 
@@ -77,16 +77,6 @@
         .form-control:focus {
             box-shadow: 0 0 0 0.2rem rgba(79, 70, 229, 0.15);
             border-color: var(--accent);
-        }
-
-        .table thead th {
-            background: var(--primary);
-            color: white;
-            border: none;
-        }
-
-        .table tbody tr:hover {
-            background: #f8fafc;
         }
 
         .btn-primary {
@@ -109,8 +99,72 @@
             font-weight: 600;
         }
 
-        .btn-action {
-            min-width: 90px;
+        .summary-card {
+            transition: transform 0.2s ease;
+        }
+
+        .summary-card:hover {
+            transform: translateY(-4px);
+        }
+
+        .summary-icon {
+            width: 56px;
+            height: 56px;
+            border-radius: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            margin: 0 auto 14px;
+        }
+
+        .summary-number {
+            font-size: 30px;
+            font-weight: 700;
+            color: var(--primary);
+            line-height: 1;
+        }
+
+        .summary-label {
+            color: var(--muted);
+            font-size: 14px;
+            margin-top: 8px;
+        }
+
+        .imovel-card {
+            border: none;
+            border-radius: 22px;
+            box-shadow: var(--shadow);
+            background: var(--card);
+            overflow: hidden;
+            height: 100%;
+            transition: transform 0.2s ease;
+        }
+
+        .imovel-card:hover {
+            transform: translateY(-4px);
+        }
+
+        .imovel-banner {
+            height: 90px;
+            background: linear-gradient(135deg, #4f46e5, #7c3aed);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 34px;
+        }
+
+        .imovel-preco {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .imovel-label {
+            color: var(--muted);
+            font-size: 13px;
+            margin-bottom: 2px;
         }
 
         .empty-box {
@@ -140,16 +194,52 @@
 
     <div class="card card-custom mb-4">
         <div class="card-body p-4 p-md-5">
-            <div class="d-flex flex-column flex-md-row align-items-start align-items-md-center gap-4">
+            <div class="d-flex flex-column flex-lg-row align-items-start align-items-lg-center gap-4">
                 <div class="hero-badge">
                     <i class="bi bi-house-door-fill"></i>
                 </div>
+
                 <div class="flex-grow-1">
                     <h2 class="page-title mb-2">Meus Imóveis</h2>
-                    <p class="muted mb-0">Cadastre, edite e gerencie seus imóveis com praticidade.</p>
+                    <p class="muted mb-0">Cadastre, edite e gerencie seus imóveis com uma experiência mais moderna.</p>
                 </div>
-                <div>
-                    <span class="badge text-bg-dark fs-6 px-3 py-2" id="contador">0 imóveis</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="row g-4 mb-4">
+        <div class="col-md-4">
+            <div class="card card-custom h-100 summary-card">
+                <div class="card-body p-4 text-center">
+                    <div class="summary-icon" style="background: rgba(79,70,229,0.12); color: #4f46e5;">
+                        <i class="bi bi-house-check-fill"></i>
+                    </div>
+                    <div class="summary-number" id="contador">0</div>
+                    <div class="summary-label">Imóveis cadastrados</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card card-custom h-100 summary-card">
+                <div class="card-body p-4 text-center">
+                    <div class="summary-icon" style="background: rgba(16,185,129,0.12); color: #10b981;">
+                        <i class="bi bi-currency-dollar"></i>
+                    </div>
+                    <div class="summary-number" id="mediaPreco">R$ 0</div>
+                    <div class="summary-label">Preço médio</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card card-custom h-100 summary-card">
+                <div class="card-body p-4 text-center">
+                    <div class="summary-icon" style="background: rgba(59,130,246,0.12); color: #3b82f6;">
+                        <i class="bi bi-graph-up-arrow"></i>
+                    </div>
+                    <div class="summary-number" id="maiorPreco">R$ 0</div>
+                    <div class="summary-label">Maior preço</div>
                 </div>
             </div>
         </div>
@@ -181,7 +271,7 @@
                     <i class="bi bi-save"></i> Salvar
                 </button>
                 <button class="btn btn-success" id="btnCarregar">
-                    <i class="bi bi-arrow-clockwise"></i> Carregar imóveis
+                    <i class="bi bi-arrow-clockwise"></i> Atualizar lista
                 </button>
                 <button class="btn btn-outline-secondary d-none" id="btnCancelarEdicao">
                     <i class="bi bi-x-circle"></i> Cancelar edição
@@ -196,24 +286,11 @@
         <div class="card-body p-4">
             <div class="d-flex justify-content-between align-items-center mb-3">
                 <h3 class="page-title h4 mb-0">
-                    <i class="bi bi-list-ul"></i> Lista de imóveis
+                    <i class="bi bi-grid-1x2-fill"></i> Lista de imóveis
                 </h3>
             </div>
 
-            <div class="table-responsive">
-                <table class="table align-middle table-hover mb-0" id="tabela">
-                    <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>Título</th>
-                            <th>Endereço</th>
-                            <th>Preço</th>
-                            <th style="width: 230px;">Ações</th>
-                        </tr>
-                    </thead>
-                    <tbody></tbody>
-                </table>
-            </div>
+            <div class="row g-4" id="listaImoveis"></div>
 
             <div class="empty-box text-center text-muted d-none mt-3" id="vazio">
                 <i class="bi bi-house-x fs-1 d-block mb-2"></i>
@@ -221,6 +298,7 @@
             </div>
         </div>
     </div>
+
 </div>
 
 <script>
@@ -238,7 +316,10 @@ const btnSalvar = document.getElementById("btnSalvar");
 const btnCarregar = document.getElementById("btnCarregar");
 const btnCancelarEdicao = document.getElementById("btnCancelarEdicao");
 const contador = document.getElementById("contador");
+const mediaPreco = document.getElementById("mediaPreco");
+const maiorPreco = document.getElementById("maiorPreco");
 const vazio = document.getElementById("vazio");
+const listaImoveis = document.getElementById("listaImoveis");
 
 function mostrarMensagem(texto, tipo = "success") {
     mensagem.className = `alert alert-${tipo} mt-4`;
@@ -266,6 +347,12 @@ async function extrairMensagemErro(resposta) {
     } catch {
         return "Ocorreu um erro na requisição.";
     }
+}
+
+function tratarSessaoExpirada() {
+    localStorage.removeItem("token");
+    alert("Sessão expirada. Faça login novamente.");
+    window.location.href = "login.html";
 }
 
 function resetForm() {
@@ -333,9 +420,7 @@ btnSalvar.addEventListener("click", async () => {
         });
 
         if (resposta.status === 401 || resposta.status === 403) {
-            localStorage.removeItem("token");
-            alert("Sessão expirada. Faça login novamente.");
-            window.location.href = "login.html";
+            tratarSessaoExpirada();
             return;
         }
 
@@ -364,7 +449,9 @@ btnSalvar.addEventListener("click", async () => {
     }
 });
 
-btnCarregar.addEventListener("click", async () => {
+btnCarregar.addEventListener("click", carregarImoveis);
+
+async function carregarImoveis() {
     esconderMensagem();
     btnCarregar.disabled = true;
     btnCarregar.innerHTML = `<i class="bi bi-hourglass-split"></i> Carregando...`;
@@ -378,9 +465,7 @@ btnCarregar.addEventListener("click", async () => {
         });
 
         if (resposta.status === 401 || resposta.status === 403) {
-            localStorage.removeItem("token");
-            alert("Sessão expirada. Faça login novamente.");
-            window.location.href = "login.html";
+            tratarSessaoExpirada();
             return;
         }
 
@@ -391,37 +476,67 @@ btnCarregar.addEventListener("click", async () => {
         }
 
         const dados = await resposta.json();
-        const tbody = document.querySelector("#tabela tbody");
-        tbody.innerHTML = "";
+        listaImoveis.innerHTML = "";
 
-        contador.innerText = `${dados.length} imóvel(is)`;
+        contador.innerText = Array.isArray(dados) ? dados.length : 0;
         vazio.classList.toggle("d-none", dados.length !== 0);
+
+        if (dados.length > 0) {
+            const precos = dados.map(i => Number(i.preco) || 0);
+            const media = precos.reduce((a, b) => a + b, 0) / precos.length;
+            const maior = Math.max(...precos);
+
+            mediaPreco.innerText = `R$ ${media.toLocaleString("pt-BR", { maximumFractionDigits: 2 })}`;
+            maiorPreco.innerText = `R$ ${maior.toLocaleString("pt-BR", { maximumFractionDigits: 2 })}`;
+        } else {
+            mediaPreco.innerText = "R$ 0";
+            maiorPreco.innerText = "R$ 0";
+        }
 
         dados.forEach(imovel => {
             const tituloSeguro = String(imovel.titulo).replace(/'/g, "\\'");
             const enderecoSeguro = String(imovel.endereco).replace(/'/g, "\\'");
 
-            const linha = `
-                <tr>
-                    <td>${imovel.id}</td>
-                    <td>${imovel.titulo}</td>
-                    <td>${imovel.endereco}</td>
-                    <td>R$ ${Number(imovel.preco).toLocaleString("pt-BR")}</td>
-                    <td>
-                        <div class="d-flex flex-wrap gap-2">
-                            <button class="btn btn-outline-primary btn-sm btn-action"
-                                onclick="editarImovel(${imovel.id}, '${tituloSeguro}', '${enderecoSeguro}', ${imovel.preco})">
-                                <i class="bi bi-pencil"></i> Editar
-                            </button>
-                            <button class="btn btn-danger btn-sm btn-action"
-                                onclick="excluirImovel(${imovel.id})">
-                                <i class="bi bi-trash"></i> Excluir
-                            </button>
+            const card = `
+                <div class="col-md-6 col-xl-4">
+                    <div class="imovel-card">
+                        <div class="imovel-banner">
+                            <i class="bi bi-house-fill"></i>
                         </div>
-                    </td>
-                </tr>
+                        <div class="p-4">
+                            <div class="d-flex justify-content-between align-items-start mb-3">
+                                <div>
+                                    <div class="imovel-label">ID do imóvel</div>
+                                    <div class="fw-bold text-dark">#${imovel.id}</div>
+                                </div>
+                                <span class="badge text-bg-light border">Ativo</span>
+                            </div>
+
+                            <h5 class="fw-bold text-dark mb-2">${imovel.titulo}</h5>
+                            <p class="text-secondary mb-3">
+                                <i class="bi bi-geo-alt-fill text-danger"></i> ${imovel.endereco}
+                            </p>
+
+                            <div class="imovel-preco mb-3">
+                                R$ ${Number(imovel.preco).toLocaleString("pt-BR", { maximumFractionDigits: 2 })}
+                            </div>
+
+                            <div class="d-flex flex-wrap gap-2">
+                                <button class="btn btn-outline-primary btn-sm"
+                                    onclick="editarImovel(${imovel.id}, '${tituloSeguro}', '${enderecoSeguro}', ${imovel.preco})">
+                                    <i class="bi bi-pencil"></i> Editar
+                                </button>
+                                <button class="btn btn-danger btn-sm"
+                                    onclick="excluirImovel(${imovel.id})">
+                                    <i class="bi bi-trash"></i> Excluir
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             `;
-            tbody.innerHTML += linha;
+
+            listaImoveis.innerHTML += card;
         });
 
     } catch (e) {
@@ -429,9 +544,9 @@ btnCarregar.addEventListener("click", async () => {
         mostrarMensagem("Não foi possível carregar os imóveis. Tente novamente.", "danger");
     } finally {
         btnCarregar.disabled = false;
-        btnCarregar.innerHTML = `<i class="bi bi-arrow-clockwise"></i> Carregar imóveis`;
+        btnCarregar.innerHTML = `<i class="bi bi-arrow-clockwise"></i> Atualizar lista`;
     }
-});
+}
 
 async function excluirImovel(id) {
     const confirmar = confirm("Deseja excluir este imóvel?");
@@ -446,9 +561,7 @@ async function excluirImovel(id) {
         });
 
         if (resposta.status === 401 || resposta.status === 403) {
-            localStorage.removeItem("token");
-            alert("Sessão expirada. Faça login novamente.");
-            window.location.href = "login.html";
+            tratarSessaoExpirada();
             return;
         }
 
@@ -468,7 +581,7 @@ async function excluirImovel(id) {
 }
 
 window.onload = () => {
-    btnCarregar.click();
+    carregarImoveis();
 };
 </script>
 
