@@ -2,85 +2,588 @@
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <title>Corretor Pro | Imóveis</title>
-    <link rel="icon" href="/favicon.ico">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Corretor Pro | Meus Imóveis</title>
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #eef3f9;
+            --card: rgba(255, 255, 255, 0.92);
+            --primary: #1f2d3d;
+            --accent: #4f46e5;
+            --accent-hover: #4338ca;
+            --muted: #6b7280;
+            --border: #e5e7eb;
+            --shadow: 0 18px 45px rgba(31, 45, 61, 0.08);
+            --radius: 24px;
+        }
+
+        body {
+            background:
+                radial-gradient(circle at top left, rgba(79, 70, 229, 0.08), transparent 30%),
+                radial-gradient(circle at bottom right, rgba(59, 130, 246, 0.08), transparent 30%),
+                var(--bg);
+            min-height: 100vh;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        .navbar-custom {
+            background: rgba(255,255,255,0.78);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255,255,255,0.6);
+        }
+
+        .brand {
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .card-custom {
+            border: none;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            background: var(--card);
+        }
+
+        .page-title {
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .muted {
+            color: var(--muted);
+        }
+
+        .hero-badge {
+            width: 78px;
+            height: 78px;
+            border-radius: 24px;
+            background: linear-gradient(135deg, var(--accent), #7c3aed);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 34px;
+            box-shadow: 0 12px 24px rgba(79, 70, 229, 0.25);
+        }
+
+        .form-control {
+            border-radius: 14px;
+            border: 1px solid var(--border);
+            padding: 12px 14px;
+        }
+
+        .form-control:focus {
+            box-shadow: 0 0 0 0.2rem rgba(79, 70, 229, 0.15);
+            border-color: var(--accent);
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--accent), #6366f1);
+            border: none;
+            border-radius: 14px;
+            font-weight: 600;
+        }
+
+        .btn-primary:hover {
+            background: linear-gradient(135deg, var(--accent-hover), #4f46e5);
+        }
+
+        .btn-success,
+        .btn-secondary,
+        .btn-outline-secondary,
+        .btn-danger,
+        .btn-outline-primary {
+            border-radius: 14px;
+            font-weight: 600;
+        }
+
+        .summary-card {
+            transition: transform 0.2s ease;
+        }
+
+        .summary-card:hover {
+            transform: translateY(-4px);
+        }
+
+        .summary-icon {
+            width: 56px;
+            height: 56px;
+            border-radius: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            margin: 0 auto 14px;
+        }
+
+        .summary-number {
+            font-size: 30px;
+            font-weight: 700;
+            color: var(--primary);
+            line-height: 1;
+        }
+
+        .summary-label {
+            color: var(--muted);
+            font-size: 14px;
+            margin-top: 8px;
+        }
+
+        .imovel-card {
+            border: none;
+            border-radius: 22px;
+            box-shadow: var(--shadow);
+            background: var(--card);
+            overflow: hidden;
+            height: 100%;
+            transition: transform 0.2s ease;
+        }
+
+        .imovel-card:hover {
+            transform: translateY(-4px);
+        }
+
+        .imovel-banner {
+            height: 90px;
+            background: linear-gradient(135deg, #4f46e5, #7c3aed);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 34px;
+        }
+
+        .imovel-preco {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .imovel-label {
+            color: var(--muted);
+            font-size: 13px;
+            margin-bottom: 2px;
+        }
+
+        .empty-box {
+            border: 2px dashed var(--border);
+            border-radius: 18px;
+            padding: 32px;
+            background: #f8fafc;
+        }
+    </style>
 </head>
 <body>
 
-<nav class="navbar bg-white shadow-sm">
-    <div class="container">
-        <span class="navbar-brand fw-bold">Corretor Pro</span>
-        <button class="btn btn-danger btn-sm" onclick="logout()">Sair</button>
+<nav class="navbar navbar-expand-lg navbar-custom">
+    <div class="container py-2">
+        <span class="navbar-brand brand mb-0 h1">
+            <i class="bi bi-buildings-fill"></i> Corretor Pro
+        </span>
+        <div class="d-flex gap-2">
+            <button class="btn btn-outline-secondary" onclick="window.location.href='dashboard.html'">
+                <i class="bi bi-arrow-left"></i> Voltar
+            </button>
+        </div>
     </div>
 </nav>
 
-<div class="container mt-4">
+<div class="container py-4">
 
-    <h3>Meus Imóveis</h3>
+    <div class="card card-custom mb-4">
+        <div class="card-body p-4 p-md-5">
+            <div class="d-flex flex-column flex-lg-row align-items-start align-items-lg-center gap-4">
+                <div class="hero-badge">
+                    <i class="bi bi-house-door-fill"></i>
+                </div>
 
-    <input id="titulo" class="form-control mb-2" placeholder="Título">
-    <input id="endereco" class="form-control mb-2" placeholder="Endereço">
-    <input id="preco" type="number" class="form-control mb-3" placeholder="Preço">
+                <div class="flex-grow-1">
+                    <h2 class="page-title mb-2">Meus Imóveis</h2>
+                    <p class="muted mb-0">Cadastre, edite e gerencie seus imóveis com uma experiência mais moderna.</p>
+                </div>
+            </div>
+        </div>
+    </div>
 
-    <button class="btn btn-primary mb-3" onclick="salvar()">Salvar</button>
+    <div class="row g-4 mb-4">
+        <div class="col-md-4">
+            <div class="card card-custom h-100 summary-card">
+                <div class="card-body p-4 text-center">
+                    <div class="summary-icon" style="background: rgba(79,70,229,0.12); color: #4f46e5;">
+                        <i class="bi bi-house-check-fill"></i>
+                    </div>
+                    <div class="summary-number" id="contador">0</div>
+                    <div class="summary-label">Imóveis cadastrados</div>
+                </div>
+            </div>
+        </div>
 
-    <ul id="lista" class="list-group"></ul>
+        <div class="col-md-4">
+            <div class="card card-custom h-100 summary-card">
+                <div class="card-body p-4 text-center">
+                    <div class="summary-icon" style="background: rgba(16,185,129,0.12); color: #10b981;">
+                        <i class="bi bi-currency-dollar"></i>
+                    </div>
+                    <div class="summary-number" id="mediaPreco">R$ 0</div>
+                    <div class="summary-label">Preço médio</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card card-custom h-100 summary-card">
+                <div class="card-body p-4 text-center">
+                    <div class="summary-icon" style="background: rgba(59,130,246,0.12); color: #3b82f6;">
+                        <i class="bi bi-graph-up-arrow"></i>
+                    </div>
+                    <div class="summary-number" id="maiorPreco">R$ 0</div>
+                    <div class="summary-label">Maior preço</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card card-custom mb-4">
+        <div class="card-body p-4">
+            <h3 class="page-title h4 mb-4">
+                <i class="bi bi-plus-circle-fill text-primary"></i> Cadastrar novo imóvel
+            </h3>
+
+            <div class="row g-3">
+                <div class="col-md-4">
+                    <label class="form-label fw-semibold">Título</label>
+                    <input type="text" id="titulo" class="form-control" placeholder="Ex: Casa no centro">
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label fw-semibold">Endereço</label>
+                    <input type="text" id="endereco" class="form-control" placeholder="Digite o endereço">
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label fw-semibold">Preço</label>
+                    <input type="number" id="preco" class="form-control" placeholder="Digite o preço">
+                </div>
+            </div>
+
+            <div class="d-flex flex-wrap gap-2 mt-4">
+                <button class="btn btn-primary" id="btnSalvar">
+                    <i class="bi bi-save"></i> Salvar
+                </button>
+                <button class="btn btn-success" id="btnCarregar">
+                    <i class="bi bi-arrow-clockwise"></i> Atualizar lista
+                </button>
+                <button class="btn btn-outline-secondary d-none" id="btnCancelarEdicao">
+                    <i class="bi bi-x-circle"></i> Cancelar edição
+                </button>
+            </div>
+
+            <div class="alert mt-4 d-none" id="mensagem" role="alert"></div>
+        </div>
+    </div>
+
+    <div class="card card-custom">
+        <div class="card-body p-4">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <h3 class="page-title h4 mb-0">
+                    <i class="bi bi-grid-1x2-fill"></i> Lista de imóveis
+                </h3>
+            </div>
+
+            <div class="row g-4" id="listaImoveis"></div>
+
+            <div class="empty-box text-center text-muted d-none mt-3" id="vazio">
+                <i class="bi bi-house-x fs-1 d-block mb-2"></i>
+                Nenhum imóvel encontrado.
+            </div>
+        </div>
+    </div>
 
 </div>
 
-<footer class="text-center mt-5 text-muted">
-    © 2026 Corretor Pro
-</footer>
-
 <script>
-if (!localStorage.getItem("token")) {
+let idEditando = null;
+
+const token = localStorage.getItem("token");
+
+if (!token) {
+    alert("Você precisa fazer login.");
     window.location.href = "login.html";
 }
 
-function logout() {
+const mensagem = document.getElementById("mensagem");
+const btnSalvar = document.getElementById("btnSalvar");
+const btnCarregar = document.getElementById("btnCarregar");
+const btnCancelarEdicao = document.getElementById("btnCancelarEdicao");
+const contador = document.getElementById("contador");
+const mediaPreco = document.getElementById("mediaPreco");
+const maiorPreco = document.getElementById("maiorPreco");
+const vazio = document.getElementById("vazio");
+const listaImoveis = document.getElementById("listaImoveis");
+
+function mostrarMensagem(texto, tipo = "success") {
+    mensagem.className = `alert alert-${tipo} mt-4`;
+    mensagem.classList.remove("d-none");
+    mensagem.innerText = texto;
+}
+
+function esconderMensagem() {
+    mensagem.classList.add("d-none");
+}
+
+async function extrairMensagemErro(resposta) {
+    try {
+        const data = await resposta.json();
+
+        if (data.fields) {
+            return Object.values(data.fields).join(" | ");
+        }
+
+        if (data.error) {
+            return data.error;
+        }
+
+        return "Ocorreu um erro na requisição.";
+    } catch {
+        return "Ocorreu um erro na requisição.";
+    }
+}
+
+function tratarSessaoExpirada() {
     localStorage.removeItem("token");
+    alert("Sessão expirada. Faça login novamente.");
     window.location.href = "login.html";
 }
 
-async function salvar() {
-    const token = localStorage.getItem("token");
-
-    await fetch("https://corretor-api-1.onrender.com/imoveis", {
-        method: "POST",
-        headers: {
-            "Content-Type":"application/json",
-            "Authorization":"Bearer " + token
-        },
-        body: JSON.stringify({
-            titulo: titulo.value,
-            endereco: endereco.value,
-            preco: Number(preco.value)
-        })
-    });
-
-    carregar();
+function resetForm() {
+    idEditando = null;
+    document.getElementById("titulo").value = "";
+    document.getElementById("endereco").value = "";
+    document.getElementById("preco").value = "";
+    btnSalvar.innerHTML = `<i class="bi bi-save"></i> Salvar`;
+    btnCancelarEdicao.classList.add("d-none");
 }
 
-async function carregar() {
-    const token = localStorage.getItem("token");
+function editarImovel(id, titulo, endereco, preco) {
+    document.getElementById("titulo").value = titulo;
+    document.getElementById("endereco").value = endereco;
+    document.getElementById("preco").value = preco;
 
-    const res = await fetch("https://corretor-api-1.onrender.com/imoveis/meus", {
-        headers: {"Authorization":"Bearer " + token}
-    });
+    idEditando = id;
+    btnSalvar.innerHTML = `<i class="bi bi-pencil-square"></i> Atualizar`;
+    btnCancelarEdicao.classList.remove("d-none");
 
-    const data = await res.json();
-
-    lista.innerHTML = "";
-
-    data.forEach(i => {
-        lista.innerHTML += `<li class="list-group-item">
-            ${i.titulo} - R$ ${i.preco}
-        </li>`;
-    });
+    mostrarMensagem("Editando imóvel ID: " + id, "warning");
+    window.scrollTo({ top: 0, behavior: "smooth" });
 }
 
-carregar();
+btnCancelarEdicao.addEventListener("click", () => {
+    resetForm();
+    mostrarMensagem("Edição cancelada.", "secondary");
+});
+
+btnSalvar.addEventListener("click", async () => {
+    esconderMensagem();
+
+    const titulo = document.getElementById("titulo").value.trim();
+    const endereco = document.getElementById("endereco").value.trim();
+    const preco = document.getElementById("preco").value;
+
+    if (!titulo || !endereco || !preco) {
+        mostrarMensagem("Preencha todos os campos.", "danger");
+        return;
+    }
+
+    btnSalvar.disabled = true;
+    btnSalvar.innerHTML = idEditando
+        ? `<i class="bi bi-hourglass-split"></i> Atualizando...`
+        : `<i class="bi bi-hourglass-split"></i> Salvando...`;
+
+    try {
+        const url = idEditando
+            ? `https://corretor-api-1.onrender.com/imoveis/${idEditando}`
+            : "https://corretor-api-1.onrender.com/imoveis";
+
+        const metodo = idEditando ? "PUT" : "POST";
+
+        const resposta = await fetch(url, {
+            method: metodo,
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": "Bearer " + token
+            },
+            body: JSON.stringify({
+                titulo,
+                endereco,
+                preco: Number(preco)
+            })
+        });
+
+        if (resposta.status === 401 || resposta.status === 403) {
+            tratarSessaoExpirada();
+            return;
+        }
+
+        if (!resposta.ok) {
+            const erro = await extrairMensagemErro(resposta);
+            mostrarMensagem(erro, "danger");
+            return;
+        }
+
+        mostrarMensagem(
+            idEditando ? "Imóvel atualizado com sucesso!" : "Imóvel cadastrado com sucesso!",
+            "success"
+        );
+
+        resetForm();
+        btnCarregar.click();
+
+    } catch (e) {
+        console.error(e);
+        mostrarMensagem("Não foi possível salvar o imóvel. Tente novamente.", "danger");
+    } finally {
+        btnSalvar.disabled = false;
+        btnSalvar.innerHTML = idEditando
+            ? `<i class="bi bi-pencil-square"></i> Atualizar`
+            : `<i class="bi bi-save"></i> Salvar`;
+    }
+});
+
+btnCarregar.addEventListener("click", carregarImoveis);
+
+async function carregarImoveis() {
+    esconderMensagem();
+    btnCarregar.disabled = true;
+    btnCarregar.innerHTML = `<i class="bi bi-hourglass-split"></i> Carregando...`;
+
+    try {
+        const resposta = await fetch("https://corretor-api-1.onrender.com/imoveis/meus", {
+            method: "GET",
+            headers: {
+                "Authorization": "Bearer " + token
+            }
+        });
+
+        if (resposta.status === 401 || resposta.status === 403) {
+            tratarSessaoExpirada();
+            return;
+        }
+
+        if (!resposta.ok) {
+            const erro = await extrairMensagemErro(resposta);
+            mostrarMensagem(erro, "danger");
+            return;
+        }
+
+        const dados = await resposta.json();
+        listaImoveis.innerHTML = "";
+
+        contador.innerText = Array.isArray(dados) ? dados.length : 0;
+        vazio.classList.toggle("d-none", dados.length !== 0);
+
+        if (dados.length > 0) {
+            const precos = dados.map(i => Number(i.preco) || 0);
+            const media = precos.reduce((a, b) => a + b, 0) / precos.length;
+            const maior = Math.max(...precos);
+
+            mediaPreco.innerText = `R$ ${media.toLocaleString("pt-BR", { maximumFractionDigits: 2 })}`;
+            maiorPreco.innerText = `R$ ${maior.toLocaleString("pt-BR", { maximumFractionDigits: 2 })}`;
+        } else {
+            mediaPreco.innerText = "R$ 0";
+            maiorPreco.innerText = "R$ 0";
+        }
+
+        dados.forEach(imovel => {
+            const tituloSeguro = String(imovel.titulo).replace(/'/g, "\\'");
+            const enderecoSeguro = String(imovel.endereco).replace(/'/g, "\\'");
+
+            const card = `
+                <div class="col-md-6 col-xl-4">
+                    <div class="imovel-card">
+                        <div class="imovel-banner">
+                            <i class="bi bi-house-fill"></i>
+                        </div>
+                        <div class="p-4">
+                            <div class="d-flex justify-content-between align-items-start mb-3">
+                                <div>
+                                    <div class="imovel-label">ID do imóvel</div>
+                                    <div class="fw-bold text-dark">#${imovel.id}</div>
+                                </div>
+                                <span class="badge text-bg-light border">Ativo</span>
+                            </div>
+
+                            <h5 class="fw-bold text-dark mb-2">${imovel.titulo}</h5>
+                            <p class="text-secondary mb-3">
+                                <i class="bi bi-geo-alt-fill text-danger"></i> ${imovel.endereco}
+                            </p>
+
+                            <div class="imovel-preco mb-3">
+                                R$ ${Number(imovel.preco).toLocaleString("pt-BR", { maximumFractionDigits: 2 })}
+                            </div>
+
+                            <div class="d-flex flex-wrap gap-2">
+                                <button class="btn btn-outline-primary btn-sm"
+                                    onclick="editarImovel(${imovel.id}, '${tituloSeguro}', '${enderecoSeguro}', ${imovel.preco})">
+                                    <i class="bi bi-pencil"></i> Editar
+                                </button>
+                                <button class="btn btn-danger btn-sm"
+                                    onclick="excluirImovel(${imovel.id})">
+                                    <i class="bi bi-trash"></i> Excluir
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            listaImoveis.innerHTML += card;
+        });
+
+    } catch (e) {
+        console.error(e);
+        mostrarMensagem("Não foi possível carregar os imóveis. Tente novamente.", "danger");
+    } finally {
+        btnCarregar.disabled = false;
+        btnCarregar.innerHTML = `<i class="bi bi-arrow-clockwise"></i> Atualizar lista`;
+    }
+}
+
+async function excluirImovel(id) {
+    const confirmar = confirm("Deseja excluir este imóvel?");
+    if (!confirmar) return;
+
+    try {
+        const resposta = await fetch(`https://corretor-api-1.onrender.com/imoveis/${id}`, {
+            method: "DELETE",
+            headers: {
+                "Authorization": "Bearer " + token
+            }
+        });
+
+        if (resposta.status === 401 || resposta.status === 403) {
+            tratarSessaoExpirada();
+            return;
+        }
+
+        if (!resposta.ok) {
+            const erro = await extrairMensagemErro(resposta);
+            mostrarMensagem(erro, "danger");
+            return;
+        }
+
+        mostrarMensagem("Imóvel excluído com sucesso!", "success");
+        btnCarregar.click();
+
+    } catch (e) {
+        console.error(e);
+        mostrarMensagem("Não foi possível excluir o imóvel. Tente novamente.", "danger");
+    }
+}
+
+window.onload = () => {
+    carregarImoveis();
+};
 </script>
 
 </body>
