@@ -12,6 +12,7 @@
             --card: rgba(255, 255, 255, 0.92);
             --primary: #1f2d3d;
             --accent: #4f46e5;
+            --accent-hover: #4338ca;
             --muted: #6b7280;
             --border: #e5e7eb;
             --shadow: 0 18px 45px rgba(31, 45, 61, 0.08);
@@ -55,15 +56,15 @@
         }
 
         .hero-badge {
-            width: 68px;
-            height: 68px;
-            border-radius: 20px;
+            width: 72px;
+            height: 72px;
+            border-radius: 22px;
             background: linear-gradient(135deg, var(--accent), #7c3aed);
             color: white;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 30px;
+            font-size: 32px;
             box-shadow: 0 12px 24px rgba(79, 70, 229, 0.25);
         }
 
@@ -72,6 +73,33 @@
             border: 1px solid var(--border);
             border-radius: 18px;
             padding: 18px;
+        }
+
+        .summary-card i {
+            font-size: 32px;
+        }
+
+        .summary-number {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--accent), #6366f1);
+            border: none;
+            border-radius: 14px;
+            font-weight: 600;
+        }
+
+        .btn-primary:hover {
+            background: linear-gradient(135deg, var(--accent-hover), #4f46e5);
+        }
+
+        .btn-success,
+        .btn-outline-danger {
+            border-radius: 14px;
+            font-weight: 600;
         }
 
         pre {
@@ -103,8 +131,9 @@
                 <div class="hero-badge">
                     <i class="bi bi-speedometer2"></i>
                 </div>
+
                 <div class="flex-grow-1">
-                    <h2 class="title mb-2">Bem-vindo ao sistema</h2>
+                    <h2 class="title mb-2" id="boasVindas">Bem-vindo ao sistema</h2>
                     <p class="muted mb-4">Gerencie seus dados e seus imóveis em um só lugar.</p>
 
                     <div class="d-flex flex-wrap gap-2">
@@ -126,29 +155,34 @@
 
     <div class="row g-4 mb-4">
         <div class="col-md-4">
-            <div class="card card-custom h-100">
+            <div class="card card-custom h-100 summary-card">
                 <div class="card-body p-4 text-center">
-                    <i class="bi bi-shield-lock fs-1 text-primary"></i>
-                    <h5 class="mt-3 mb-1">Autenticação JWT</h5>
-                    <p class="muted mb-0">Seu acesso está protegido com token.</p>
+                    <i class="bi bi-person-check-fill text-primary"></i>
+                    <h5 class="mt-3 mb-1">Usuário autenticado</h5>
+                    <p class="muted mb-2">Acesso seguro com JWT</p>
+                    <div class="summary-number" id="statusUsuario">OK</div>
                 </div>
             </div>
         </div>
+
         <div class="col-md-4">
-            <div class="card card-custom h-100">
+            <div class="card card-custom h-100 summary-card">
                 <div class="card-body p-4 text-center">
-                    <i class="bi bi-cloud-check fs-1 text-success"></i>
-                    <h5 class="mt-3 mb-1">Sistema Online</h5>
-                    <p class="muted mb-0">Frontend e backend publicados na nuvem.</p>
+                    <i class="bi bi-cloud-check-fill text-success"></i>
+                    <h5 class="mt-3 mb-1">Sistema online</h5>
+                    <p class="muted mb-2">Frontend e backend na nuvem</p>
+                    <div class="summary-number">Live</div>
                 </div>
             </div>
         </div>
+
         <div class="col-md-4">
-            <div class="card card-custom h-100">
+            <div class="card card-custom h-100 summary-card">
                 <div class="card-body p-4 text-center">
-                    <i class="bi bi-database-check fs-1 text-dark"></i>
-                    <h5 class="mt-3 mb-1">Banco Persistente</h5>
-                    <p class="muted mb-0">Dados armazenados em PostgreSQL no Render.</p>
+                    <i class="bi bi-shield-lock-fill text-dark"></i>
+                    <h5 class="mt-3 mb-1">Segurança ativa</h5>
+                    <p class="muted mb-2">Rotas protegidas</p>
+                    <div class="summary-number">JWT</div>
                 </div>
             </div>
         </div>
@@ -156,7 +190,9 @@
 
     <div class="card card-custom">
         <div class="card-body p-4">
-            <h3 class="title mb-3"><i class="bi bi-person-lines-fill"></i> Meus dados</h3>
+            <h3 class="title mb-3">
+                <i class="bi bi-person-lines-fill"></i> Meus dados
+            </h3>
             <div class="info-box">
                 <pre id="resultado">Clique em "Buscar meus dados" para carregar as informações.</pre>
             </div>
@@ -169,6 +205,7 @@
 const token = localStorage.getItem("token");
 const mensagem = document.getElementById("mensagem");
 const resultado = document.getElementById("resultado");
+const boasVindas = document.getElementById("boasVindas");
 
 if (!token) {
     mensagem.className = "alert alert-warning mt-4 mb-0";
@@ -196,7 +233,7 @@ async function extrairMensagemErro(resposta) {
     }
 }
 
-document.getElementById("btnPerfil").addEventListener("click", async function() {
+async function carregarPerfil() {
     try {
         const resposta = await fetch("https://corretor-api-1.onrender.com/usuarios/me", {
             method: "GET",
@@ -226,6 +263,10 @@ document.getElementById("btnPerfil").addEventListener("click", async function() 
         const dados = await resposta.json();
         resultado.innerText = JSON.stringify(dados, null, 2);
 
+        if (dados.nome) {
+            boasVindas.innerText = `Bem-vindo, ${dados.nome}!`;
+        }
+
         mensagem.className = "alert alert-success mt-4 mb-0";
         mensagem.innerText = "Dados carregados com sucesso.";
 
@@ -235,12 +276,18 @@ document.getElementById("btnPerfil").addEventListener("click", async function() 
         resultado.innerText = "Erro ao buscar dados.";
         console.error(erro);
     }
-});
+}
+
+document.getElementById("btnPerfil").addEventListener("click", carregarPerfil);
 
 document.getElementById("btnLogout").addEventListener("click", function() {
     localStorage.removeItem("token");
     window.location.href = "login.html";
 });
+
+window.onload = () => {
+    carregarPerfil();
+};
 </script>
 
 </body>
