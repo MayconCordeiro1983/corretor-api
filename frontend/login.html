@@ -10,7 +10,7 @@
     <style>
         :root {
             --bg: #eef3f9;
-            --card: rgba(255, 255, 255, 0.9);
+            --card: rgba(255, 255, 255, 0.92);
             --primary: #1f2d3d;
             --accent: #4f46e5;
             --accent-hover: #4338ca;
@@ -20,6 +20,10 @@
             --radius: 24px;
         }
 
+        * {
+            transition: all 0.2s ease;
+        }
+
         body {
             min-height: 100vh;
             background:
@@ -27,6 +31,21 @@
                 radial-gradient(circle at bottom right, rgba(59, 130, 246, 0.10), transparent 30%),
                 var(--bg);
             font-family: Arial, Helvetica, sans-serif;
+        }
+
+        .navbar-custom {
+            background: rgba(255,255,255,0.78);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255,255,255,0.6);
+        }
+
+        .brand {
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .auth-wrapper {
+            min-height: calc(100vh - 140px);
         }
 
         .auth-card {
@@ -40,27 +59,32 @@
         }
 
         .brand-badge {
-            width: 64px;
-            height: 64px;
-            border-radius: 18px;
+            width: 68px;
+            height: 68px;
+            border-radius: 20px;
             background: linear-gradient(135deg, var(--accent), #7c3aed);
             color: white;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 28px;
+            font-size: 30px;
             margin: 0 auto 18px;
             box-shadow: 0 12px 24px rgba(79, 70, 229, 0.25);
         }
 
         .brand-title {
-            font-weight: 700;
+            font-weight: 800;
             color: var(--primary);
         }
 
         .subtitle {
             color: var(--muted);
             font-size: 14px;
+        }
+
+        .form-label {
+            font-weight: 600;
+            color: var(--primary);
         }
 
         .form-control {
@@ -79,7 +103,7 @@
             border: none;
             border-radius: 14px;
             padding: 12px;
-            font-weight: 600;
+            font-weight: 700;
         }
 
         .btn-primary:hover {
@@ -94,41 +118,68 @@
         .link-auth:hover {
             color: var(--accent-hover);
         }
+
+        footer {
+            color: var(--muted);
+            font-size: 14px;
+        }
     </style>
 </head>
-<body class="d-flex align-items-center justify-content-center p-3">
+<body>
 
-<div class="card auth-card p-4">
-    <div class="card-body">
-        <div class="brand-badge">
-            <i class="bi bi-house-door-fill"></i>
+<nav class="navbar navbar-expand-lg navbar-custom">
+    <div class="container py-2">
+        <span class="navbar-brand brand mb-0 h1">
+            <i class="bi bi-buildings-fill"></i> Corretor Pro
+        </span>
+        <div class="d-flex gap-2">
+            <a href="index.html" class="btn btn-outline-secondary btn-sm">
+                <i class="bi bi-house-door"></i> Início
+            </a>
+            <a href="cadastro.html" class="btn btn-outline-primary btn-sm">
+                <i class="bi bi-person-plus"></i> Criar conta
+            </a>
         </div>
+    </div>
+</nav>
 
-        <h2 class="brand-title text-center mb-2">Corretor Pro</h2>
-        <p class="subtitle text-center mb-4">Faça login para acessar seu painel</p>
+<div class="container auth-wrapper d-flex align-items-center justify-content-center py-4">
+    <div class="card auth-card p-4">
+        <div class="card-body">
+            <div class="brand-badge">
+                <i class="bi bi-box-arrow-in-right"></i>
+            </div>
 
-        <div class="mb-3">
-            <label class="form-label fw-semibold">E-mail</label>
-            <input type="email" id="email" class="form-control" placeholder="Digite seu e-mail">
+            <h2 class="brand-title text-center mb-2">Entrar no sistema</h2>
+            <p class="subtitle text-center mb-4">Acesse sua conta para gerenciar seus imóveis</p>
+
+            <div class="mb-3">
+                <label class="form-label">E-mail</label>
+                <input type="email" id="email" class="form-control" placeholder="Digite seu e-mail">
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Senha</label>
+                <input type="password" id="senha" class="form-control" placeholder="Digite sua senha">
+            </div>
+
+            <button class="btn btn-primary w-100" id="btnLogin">
+                <i class="bi bi-box-arrow-in-right"></i> Entrar
+            </button>
+
+            <div id="mensagem" class="alert mt-3 d-none" role="alert"></div>
+
+            <p class="text-center mt-4 mb-0 text-secondary">
+                Não tem conta?
+                <a href="cadastro.html" class="text-decoration-none link-auth">Cadastre-se</a>
+            </p>
         </div>
-
-        <div class="mb-3">
-            <label class="form-label fw-semibold">Senha</label>
-            <input type="password" id="senha" class="form-control" placeholder="Digite sua senha">
-        </div>
-
-        <button class="btn btn-primary w-100" id="btnLogin">
-            <i class="bi bi-box-arrow-in-right"></i> Entrar
-        </button>
-
-        <div id="mensagem" class="alert mt-3 d-none" role="alert"></div>
-
-        <p class="text-center mt-4 mb-0 text-secondary">
-            Não tem conta?
-            <a href="cadastro.html" class="text-decoration-none link-auth">Cadastre-se</a>
-        </p>
     </div>
 </div>
+
+<footer class="text-center py-4">
+    <small>© 2026 Corretor Pro • Desenvolvido por Maycon Cordeiro</small>
+</footer>
 
 <script>
 const mensagem = document.getElementById("mensagem");
