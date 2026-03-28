@@ -174,8 +174,8 @@ btnSalvar.addEventListener("click", async () => {
 
     try {
         const url = idEditando
-            ? `http://localhost:8081/imoveis/${idEditando}`
-            : "http://localhost:8081/imoveis";
+            ? `https://corretor-api-1.onrender.com/imoveis/${idEditando}`
+            : "https://corretor-api-1.onrender.com/imoveis";
 
         const metodo = idEditando ? "PUT" : "POST";
 
@@ -209,7 +209,7 @@ btnCarregar.addEventListener("click", async () => {
     esconderMensagem();
 
     try {
-        const resposta = await fetch("http://localhost:8081/imoveis/meus", {
+        const resposta = await fetch("https://corretor-api-1.onrender.com/imoveis/meus", {
             headers: {
                 "Authorization": "Bearer " + token
             }
@@ -266,7 +266,7 @@ async function excluirImovel(id) {
     if (!confirmar) return;
 
     try {
-        const resposta = await fetch(`http://localhost:8081/imoveis/${id}`, {
+        const resposta = await fetch(`https://corretor-api-1.onrender.com/imoveis/${id}`, {
             method: "DELETE",
             headers: {
                 "Authorization": "Bearer " + token

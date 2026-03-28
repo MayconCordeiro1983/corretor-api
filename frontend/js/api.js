@@ -1,4 +1,4 @@
-const API_URL = "http://localhost:8081";
+const API_URL = "https://corretor-api-1.onrender.com";
 
 function salvarToken(token) {
   localStorage.setItem("token", token);
@@ -10,8 +10,4 @@ function obterToken() {
 
 function removerToken() {
   localStorage.removeItem("token");
-}
-
-function estaLogado() {
-  return !!obterToken();
 }

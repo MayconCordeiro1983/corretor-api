@@ -83,7 +83,7 @@ document.getElementById("btnCadastro").addEventListener("click", async () => {
     }
 
     try {
-        const resposta = await fetch("http://localhost:8081/usuarios", {
+        const resposta = await fetch("https://corretor-api-1.onrender.com/usuarios", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
