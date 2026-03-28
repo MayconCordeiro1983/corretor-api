@@ -133,6 +133,24 @@ function esconderMensagem() {
     mensagem.classList.add("d-none");
 }
 
+async function extrairMensagemErro(resposta) {
+    try {
+        const data = await resposta.json();
+
+        if (data.fields) {
+            return Object.values(data.fields).join(" | ");
+        }
+
+        if (data.error) {
+            return data.error;
+        }
+
+        return "Ocorreu um erro na requisição.";
+    } catch {
+        return "Ocorreu um erro na requisição.";
+    }
+}
+
 function resetForm() {
     idEditando = null;
     document.getElementById("titulo").value = "";
@@ -172,6 +190,9 @@ btnSalvar.addEventListener("click", async () => {
         return;
     }
 
+    btnSalvar.disabled = true;
+    btnSalvar.innerText = idEditando ? "Atualizando..." : "Salvando...";
+
     try {
         const url = idEditando
             ? `https://corretor-api-1.onrender.com/imoveis/${idEditando}`
@@ -192,8 +213,6 @@ btnSalvar.addEventListener("click", async () => {
             })
         });
 
-        const texto = await resposta.text();
-
         if (resposta.status === 401 || resposta.status === 403) {
             localStorage.removeItem("token");
             alert("Sessão expirada. Faça login novamente.");
@@ -202,7 +221,8 @@ btnSalvar.addEventListener("click", async () => {
         }
 
         if (!resposta.ok) {
-            mostrarMensagem("Erro: " + texto, "danger");
+            const erro = await extrairMensagemErro(resposta);
+            mostrarMensagem(erro, "danger");
             return;
         }
 
@@ -217,6 +237,9 @@ btnSalvar.addEventListener("click", async () => {
     } catch (e) {
         console.error(e);
         mostrarMensagem("Erro ao salvar imóvel.", "danger");
+    } finally {
+        btnSalvar.disabled = false;
+        btnSalvar.innerText = idEditando ? "Atualizar" : "Salvar";
     }
 });
 
@@ -239,8 +262,8 @@ btnCarregar.addEventListener("click", async () => {
         }
 
         if (!resposta.ok) {
-            const texto = await resposta.text();
-            mostrarMensagem("Erro: " + texto, "danger");
+            const erro = await extrairMensagemErro(resposta);
+            mostrarMensagem(erro, "danger");
             return;
         }
 
@@ -296,8 +319,6 @@ async function excluirImovel(id) {
             }
         });
 
-        const texto = await resposta.text();
-
         if (resposta.status === 401 || resposta.status === 403) {
             localStorage.removeItem("token");
             alert("Sessão expirada. Faça login novamente.");
@@ -306,7 +327,8 @@ async function excluirImovel(id) {
         }
 
         if (!resposta.ok) {
-            mostrarMensagem("Erro: " + texto, "danger");
+            const erro = await extrairMensagemErro(resposta);
+            mostrarMensagem(erro, "danger");
             return;
         }
 

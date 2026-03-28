@@ -4,13 +4,12 @@ import com.corretor.corretor.dto.LoginRequest;
 import com.corretor.corretor.dto.UsuarioRequest;
 import com.corretor.corretor.model.Usuario;
 import com.corretor.corretor.service.UsuarioService;
+import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import jakarta.validation.Valid;
-
-import java.util.Map;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/usuarios")
@@ -28,7 +27,7 @@ public class UsuarioController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<Map<String, String>> login(@RequestBody LoginRequest request) {
+    public ResponseEntity<Map<String, String>> login(@Valid @RequestBody LoginRequest request) {
         String token = usuarioService.login(request);
         return ResponseEntity.ok(Map.of("token", token));
     }
@@ -39,9 +38,9 @@ public class UsuarioController {
     }
 
     @GetMapping("/me")
-public ResponseEntity<?> me() {
-    return ResponseEntity.ok(usuarioService.getUsuarioLogado());
-}
+    public ResponseEntity<?> me() {
+        return ResponseEntity.ok(usuarioService.getUsuarioLogado());
+    }
 
     @GetMapping("/{id}")
     public ResponseEntity<Usuario> buscarPorId(@PathVariable Long id) {
@@ -49,12 +48,12 @@ public ResponseEntity<?> me() {
     }
 
     @GetMapping("/email")
-public ResponseEntity<Map<String, Boolean>> verificarEmail(@RequestParam String email) {
-    return ResponseEntity.ok(Map.of("existe", usuarioService.emailExiste(email)));
-}
+    public ResponseEntity<Map<String, Boolean>> verificarEmail(@RequestParam String email) {
+        return ResponseEntity.ok(Map.of("existe", usuarioService.emailExiste(email)));
+    }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Usuario> atualizar(@PathVariable Long id, @RequestBody UsuarioRequest request) {
+    public ResponseEntity<Usuario> atualizar(@PathVariable Long id, @Valid @RequestBody UsuarioRequest request) {
         return ResponseEntity.ok(usuarioService.atualizar(id, request));
     }
 
