@@ -6,6 +6,7 @@ import com.corretor.corretor.model.Usuario;
 import com.corretor.corretor.service.UsuarioService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import jakarta.validation.Valid;
 
 import java.util.Map;
 
@@ -22,7 +23,7 @@ public class UsuarioController {
     }
 
     @PostMapping
-    public ResponseEntity<Usuario> criar(@RequestBody UsuarioRequest request) {
+    public ResponseEntity<Usuario> criar(@Valid @RequestBody UsuarioRequest request) {
         return ResponseEntity.ok(usuarioService.criar(request));
     }
 
