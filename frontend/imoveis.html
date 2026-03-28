@@ -185,17 +185,32 @@ btnSalvar.addEventListener("click", async () => {
                 "Content-Type": "application/json",
                 "Authorization": "Bearer " + token
             },
-            body: JSON.stringify({ titulo, endereco, preco })
+            body: JSON.stringify({
+                titulo,
+                endereco,
+                preco: Number(preco)
+            })
         });
 
         const texto = await resposta.text();
+
+        if (resposta.status === 401 || resposta.status === 403) {
+            localStorage.removeItem("token");
+            alert("Sessão expirada. Faça login novamente.");
+            window.location.href = "login.html";
+            return;
+        }
 
         if (!resposta.ok) {
             mostrarMensagem("Erro: " + texto, "danger");
             return;
         }
 
-        mostrarMensagem(idEditando ? "Imóvel atualizado com sucesso!" : "Imóvel cadastrado com sucesso!", "success");
+        mostrarMensagem(
+            idEditando ? "Imóvel atualizado com sucesso!" : "Imóvel cadastrado com sucesso!",
+            "success"
+        );
+
         resetForm();
         btnCarregar.click();
 
@@ -210,10 +225,18 @@ btnCarregar.addEventListener("click", async () => {
 
     try {
         const resposta = await fetch("https://corretor-api-1.onrender.com/imoveis/meus", {
+            method: "GET",
             headers: {
                 "Authorization": "Bearer " + token
             }
         });
+
+        if (resposta.status === 401 || resposta.status === 403) {
+            localStorage.removeItem("token");
+            alert("Sessão expirada. Faça login novamente.");
+            window.location.href = "login.html";
+            return;
+        }
 
         if (!resposta.ok) {
             const texto = await resposta.text();
@@ -275,6 +298,13 @@ async function excluirImovel(id) {
 
         const texto = await resposta.text();
 
+        if (resposta.status === 401 || resposta.status === 403) {
+            localStorage.removeItem("token");
+            alert("Sessão expirada. Faça login novamente.");
+            window.location.href = "login.html";
+            return;
+        }
+
         if (!resposta.ok) {
             mostrarMensagem("Erro: " + texto, "danger");
             return;
@@ -288,6 +318,10 @@ async function excluirImovel(id) {
         mostrarMensagem("Erro ao excluir imóvel.", "danger");
     }
 }
+
+window.onload = () => {
+    btnCarregar.click();
+};
 </script>
 </body>
 </html>

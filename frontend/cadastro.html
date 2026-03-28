@@ -65,6 +65,7 @@
 
 <script>
 const mensagem = document.getElementById("mensagem");
+const btnCadastro = document.getElementById("btnCadastro");
 
 function mostrarMensagem(texto, tipo = "danger") {
     mensagem.className = `alert alert-${tipo} mt-3`;
@@ -72,7 +73,13 @@ function mostrarMensagem(texto, tipo = "danger") {
     mensagem.innerText = texto;
 }
 
+function esconderMensagem() {
+    mensagem.classList.add("d-none");
+}
+
 document.getElementById("btnCadastro").addEventListener("click", async () => {
+    esconderMensagem();
+
     const nome = document.getElementById("nome").value.trim();
     const email = document.getElementById("email").value.trim();
     const senha = document.getElementById("senha").value.trim();
@@ -81,6 +88,9 @@ document.getElementById("btnCadastro").addEventListener("click", async () => {
         mostrarMensagem("Preencha todos os campos.", "warning");
         return;
     }
+
+    btnCadastro.disabled = true;
+    btnCadastro.innerText = "Cadastrando...";
 
     try {
         const resposta = await fetch("https://corretor-api-1.onrender.com/usuarios", {
@@ -98,15 +108,18 @@ document.getElementById("btnCadastro").addEventListener("click", async () => {
             return;
         }
 
-        mostrarMensagem("Cadastro realizado com sucesso!", "success");
+        mostrarMensagem("Cadastro realizado com sucesso! Redirecionando para o login...", "success");
 
         setTimeout(() => {
             window.location.href = "login.html";
-        }, 1000);
+        }, 1200);
 
     } catch (e) {
         console.error(e);
         mostrarMensagem("Erro ao conectar com a API.", "danger");
+    } finally {
+        btnCadastro.disabled = false;
+        btnCadastro.innerText = "Cadastrar";
     }
 });
 </script>

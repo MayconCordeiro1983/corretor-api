@@ -95,6 +95,16 @@ document.getElementById("btnPerfil").addEventListener("click", async function() 
 
         const texto = await resposta.text();
 
+        if (resposta.status === 401 || resposta.status === 403) {
+            localStorage.removeItem("token");
+            mensagem.className = "alert alert-warning mt-4 mb-0";
+            mensagem.innerText = "Sessão expirada ou inválida. Redirecionando para o login...";
+            setTimeout(() => {
+                window.location.href = "login.html";
+            }, 1200);
+            return;
+        }
+
         if (!resposta.ok) {
             mensagem.className = "alert alert-danger mt-4 mb-0";
             mensagem.innerText = "Erro ao buscar dados.";
