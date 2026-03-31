@@ -10,10 +10,11 @@
     <style>
         :root {
             --bg: #eef3f9;
-            --card: rgba(255, 255, 255, 0.92);
+            --card: rgba(255, 255, 255, 0.94);
             --primary: #1f2d3d;
             --accent: #4f46e5;
             --accent-hover: #4338ca;
+            --success: #198754;
             --muted: #6b7280;
             --border: #e5e7eb;
             --shadow: 0 18px 45px rgba(31, 45, 61, 0.08);
@@ -31,12 +32,13 @@
                 var(--bg);
             min-height: 100vh;
             font-family: Arial, Helvetica, sans-serif;
+            color: var(--primary);
         }
 
         .navbar-custom {
             background: rgba(255,255,255,0.78);
             backdrop-filter: blur(10px);
-            border-bottom: 1px solid rgba(255,255,255,0.6);
+            border-bottom: 1px solid rgba(255,255,255,0.65);
         }
 
         .brand {
@@ -47,12 +49,12 @@
         .card-custom {
             border: none;
             border-radius: var(--radius);
-            box-shadow: var(--shadow);
             background: var(--card);
+            box-shadow: var(--shadow);
         }
 
-        .page-title {
-            font-weight: 700;
+        .title {
+            font-weight: 800;
             color: var(--primary);
         }
 
@@ -73,6 +75,25 @@
             box-shadow: 0 12px 24px rgba(79, 70, 229, 0.25);
         }
 
+        .btn-primary {
+            background: linear-gradient(135deg, var(--accent), #6366f1);
+            border: none;
+            border-radius: 14px;
+            font-weight: 700;
+        }
+
+        .btn-primary:hover {
+            background: linear-gradient(135deg, var(--accent-hover), #4f46e5);
+        }
+
+        .btn-success,
+        .btn-outline-secondary,
+        .btn-outline-danger,
+        .btn-outline-primary {
+            border-radius: 14px;
+            font-weight: 700;
+        }
+
         .form-control {
             border-radius: 14px;
             border: 1px solid var(--border);
@@ -84,33 +105,14 @@
             border-color: var(--accent);
         }
 
-        .btn-primary {
-            background: linear-gradient(135deg, var(--accent), #6366f1);
-            border: none;
-            border-radius: 14px;
-            font-weight: 600;
-        }
-
-        .btn-primary:hover {
-            background: linear-gradient(135deg, var(--accent-hover), #4f46e5);
-        }
-
-        .btn-success,
-        .btn-secondary,
-        .btn-outline-secondary,
-        .btn-danger,
-        .btn-outline-primary {
-            border-radius: 14px;
-            font-weight: 600;
-        }
-
-        .summary-card:hover {
+        .stat-card:hover,
+        .imovel-card:hover {
             transform: translateY(-4px);
         }
 
-        .summary-icon {
-            width: 56px;
-            height: 56px;
+        .stat-icon {
+            width: 58px;
+            height: 58px;
             border-radius: 18px;
             display: flex;
             align-items: center;
@@ -119,14 +121,14 @@
             margin: 0 auto 14px;
         }
 
-        .summary-number {
+        .stat-number {
             font-size: 30px;
-            font-weight: 700;
-            color: var(--primary);
+            font-weight: 800;
             line-height: 1;
+            color: var(--primary);
         }
 
-        .summary-label {
+        .stat-label {
             color: var(--muted);
             font-size: 14px;
             margin-top: 8px;
@@ -141,12 +143,8 @@
             height: 100%;
         }
 
-        .imovel-card:hover {
-            transform: translateY(-4px);
-        }
-
         .imovel-banner {
-            height: 90px;
+            height: 88px;
             background: linear-gradient(135deg, #4f46e5, #7c3aed);
             display: flex;
             align-items: center;
@@ -157,14 +155,13 @@
 
         .imovel-preco {
             font-size: 24px;
-            font-weight: 700;
+            font-weight: 800;
             color: var(--primary);
         }
 
-        .imovel-label {
+        .imovel-meta {
             color: var(--muted);
-            font-size: 13px;
-            margin-bottom: 2px;
+            font-size: 14px;
         }
 
         .empty-box {
@@ -187,6 +184,7 @@
         <span class="navbar-brand brand mb-0 h1">
             <i class="bi bi-buildings-fill"></i> Corretor Pro
         </span>
+
         <div class="d-flex gap-2">
             <a href="dashboard.html" class="btn btn-outline-secondary btn-sm">
                 <i class="bi bi-arrow-left"></i> Dashboard
@@ -208,8 +206,10 @@
                 </div>
 
                 <div class="flex-grow-1">
-                    <h2 class="page-title mb-2">Meus Imóveis</h2>
-                    <p class="muted mb-0">Cadastre, edite e gerencie seus imóveis com uma experiência moderna e organizada.</p>
+                    <h2 class="title mb-2">Meus imóveis</h2>
+                    <p class="muted mb-0">
+                        Cadastre, atualize e acompanhe seus imóveis em um só lugar.
+                    </p>
                 </div>
             </div>
         </div>
@@ -217,37 +217,37 @@
 
     <div class="row g-4 mb-4">
         <div class="col-md-4">
-            <div class="card card-custom h-100 summary-card">
+            <div class="card card-custom h-100 stat-card">
                 <div class="card-body p-4 text-center">
-                    <div class="summary-icon" style="background: rgba(79,70,229,0.12); color: #4f46e5;">
+                    <div class="stat-icon" style="background: rgba(79,70,229,0.12); color: #4f46e5;">
                         <i class="bi bi-house-check-fill"></i>
                     </div>
-                    <div class="summary-number" id="contador">0</div>
-                    <div class="summary-label">Imóveis cadastrados</div>
+                    <div class="stat-number" id="contador">0</div>
+                    <div class="stat-label">Imóveis cadastrados</div>
                 </div>
             </div>
         </div>
 
         <div class="col-md-4">
-            <div class="card card-custom h-100 summary-card">
+            <div class="card card-custom h-100 stat-card">
                 <div class="card-body p-4 text-center">
-                    <div class="summary-icon" style="background: rgba(16,185,129,0.12); color: #10b981;">
+                    <div class="stat-icon" style="background: rgba(16,185,129,0.12); color: #198754;">
                         <i class="bi bi-currency-dollar"></i>
                     </div>
-                    <div class="summary-number" id="mediaPreco">R$ 0</div>
-                    <div class="summary-label">Preço médio</div>
+                    <div class="stat-number" id="mediaPreco">R$ 0</div>
+                    <div class="stat-label">Preço médio</div>
                 </div>
             </div>
         </div>
 
         <div class="col-md-4">
-            <div class="card card-custom h-100 summary-card">
+            <div class="card card-custom h-100 stat-card">
                 <div class="card-body p-4 text-center">
-                    <div class="summary-icon" style="background: rgba(59,130,246,0.12); color: #3b82f6;">
+                    <div class="stat-icon" style="background: rgba(59,130,246,0.12); color: #3b82f6;">
                         <i class="bi bi-graph-up-arrow"></i>
                     </div>
-                    <div class="summary-number" id="maiorPreco">R$ 0</div>
-                    <div class="summary-label">Maior preço</div>
+                    <div class="stat-number" id="maiorPreco">R$ 0</div>
+                    <div class="stat-label">Maior preço</div>
                 </div>
             </div>
         </div>
@@ -255,8 +255,8 @@
 
     <div class="card card-custom mb-4">
         <div class="card-body p-4">
-            <h3 class="page-title h4 mb-4">
-                <i class="bi bi-plus-circle-fill text-primary"></i> Cadastrar novo imóvel
+            <h3 class="title h4 mb-4">
+                <i class="bi bi-plus-circle-fill text-primary"></i> Novo imóvel
             </h3>
 
             <div class="row g-3">
@@ -264,10 +264,12 @@
                     <label class="form-label fw-semibold">Título</label>
                     <input type="text" id="titulo" class="form-control" placeholder="Ex: Casa no centro">
                 </div>
+
                 <div class="col-md-4">
                     <label class="form-label fw-semibold">Endereço</label>
                     <input type="text" id="endereco" class="form-control" placeholder="Digite o endereço">
                 </div>
+
                 <div class="col-md-4">
                     <label class="form-label fw-semibold">Preço</label>
                     <input type="number" id="preco" class="form-control" placeholder="Digite o preço">
@@ -278,22 +280,22 @@
                 <button class="btn btn-primary" id="btnSalvar">
                     <i class="bi bi-save"></i> Salvar
                 </button>
-                <button class="btn btn-success" id="btnCarregar">
+
+                <button class="btn btn-outline-secondary" id="btnAtualizarLista">
                     <i class="bi bi-arrow-clockwise"></i> Atualizar lista
                 </button>
-                <button class="btn btn-outline-secondary d-none" id="btnCancelarEdicao">
+
+                <button class="btn btn-outline-danger d-none" id="btnCancelarEdicao">
                     <i class="bi bi-x-circle"></i> Cancelar edição
                 </button>
             </div>
-
-            <div id="mensagem" class="alert mt-4 d-none" role="alert"></div>
         </div>
     </div>
 
     <div class="card card-custom">
         <div class="card-body p-4">
             <div class="d-flex justify-content-between align-items-center mb-3">
-                <h3 class="page-title h4 mb-0">
+                <h3 class="title h4 mb-0">
                     <i class="bi bi-grid-1x2-fill"></i> Lista de imóveis
                 </h3>
             </div>
@@ -309,7 +311,7 @@
 
 </div>
 
-<footer class="text-center py-4">
+<footer class="text-center py-4 mt-4">
     <small>© 2026 Corretor Pro • Desenvolvido por Maycon Cordeiro</small>
 </footer>
 
@@ -333,10 +335,10 @@ if (!token) {
     window.location.href = "login.html";
 }
 
-const mensagem = document.getElementById("mensagem");
 const btnSalvar = document.getElementById("btnSalvar");
-const btnCarregar = document.getElementById("btnCarregar");
+const btnAtualizarLista = document.getElementById("btnAtualizarLista");
 const btnCancelarEdicao = document.getElementById("btnCancelarEdicao");
+
 const contador = document.getElementById("contador");
 const mediaPreco = document.getElementById("mediaPreco");
 const maiorPreco = document.getElementById("maiorPreco");
@@ -346,16 +348,6 @@ const listaImoveis = document.getElementById("listaImoveis");
 function logout() {
     localStorage.removeItem("token");
     window.location.href = "login.html";
-}
-
-function mostrarMensagem(texto, tipo = "success") {
-    mensagem.className = `alert alert-${tipo} mt-4`;
-    mensagem.classList.remove("d-none");
-    mensagem.innerText = texto;
-}
-
-function esconderMensagem() {
-    mensagem.classList.add("d-none");
 }
 
 function mostrarToast(texto, tipo = "success") {
@@ -379,7 +371,7 @@ function mostrarToast(texto, tipo = "success") {
         toastEl.classList.add("bg-primary");
     }
 
-    const toast = new bootstrap.Toast(toastEl, { delay: 3000 });
+    const toast = new bootstrap.Toast(toastEl, { delay: 2800 });
     toast.show();
 }
 
@@ -414,6 +406,7 @@ function resetForm() {
     document.getElementById("titulo").value = "";
     document.getElementById("endereco").value = "";
     document.getElementById("preco").value = "";
+
     btnSalvar.innerHTML = `<i class="bi bi-save"></i> Salvar`;
     btnCancelarEdicao.classList.add("d-none");
 }
@@ -437,8 +430,6 @@ btnCancelarEdicao.addEventListener("click", () => {
 });
 
 btnSalvar.addEventListener("click", async () => {
-    esconderMensagem();
-
     const titulo = document.getElementById("titulo").value.trim();
     const endereco = document.getElementById("endereco").value.trim();
     const preco = document.getElementById("preco").value;
@@ -490,7 +481,7 @@ btnSalvar.addEventListener("click", async () => {
         );
 
         resetForm();
-        btnCarregar.click();
+        await carregarImoveis();
 
     } catch (e) {
         console.error(e);
@@ -503,12 +494,14 @@ btnSalvar.addEventListener("click", async () => {
     }
 });
 
-btnCarregar.addEventListener("click", carregarImoveis);
+btnAtualizarLista.addEventListener("click", async () => {
+    await carregarImoveis();
+    mostrarToast("Lista atualizada com sucesso.", "success");
+});
 
 async function carregarImoveis() {
-    esconderMensagem();
-    btnCarregar.disabled = true;
-    btnCarregar.innerHTML = `<i class="bi bi-hourglass-split"></i> Carregando...`;
+    btnAtualizarLista.disabled = true;
+    btnAtualizarLista.innerHTML = `<i class="bi bi-hourglass-split"></i> Carregando...`;
 
     try {
         const resposta = await fetch("https://corretor-api-1.onrender.com/imoveis/meus", {
@@ -530,8 +523,8 @@ async function carregarImoveis() {
         }
 
         const dados = await resposta.json();
-        listaImoveis.innerHTML = "";
 
+        listaImoveis.innerHTML = "";
         contador.innerText = Array.isArray(dados) ? dados.length : 0;
         vazio.classList.toggle("d-none", dados.length !== 0);
 
@@ -560,13 +553,14 @@ async function carregarImoveis() {
                         <div class="p-4">
                             <div class="d-flex justify-content-between align-items-start mb-3">
                                 <div>
-                                    <div class="imovel-label">ID do imóvel</div>
+                                    <div class="imovel-meta">ID do imóvel</div>
                                     <div class="fw-bold text-dark">#${imovel.id}</div>
                                 </div>
-                                <span class="badge text-bg-light border">Ativo</span>
+                                <span class="badge text-bg-light border">Cadastrado</span>
                             </div>
 
                             <h5 class="fw-bold text-dark mb-2">${imovel.titulo}</h5>
+
                             <p class="text-secondary mb-3">
                                 <i class="bi bi-geo-alt-fill text-danger"></i> ${imovel.endereco}
                             </p>
@@ -580,7 +574,8 @@ async function carregarImoveis() {
                                     onclick="editarImovel(${imovel.id}, '${tituloSeguro}', '${enderecoSeguro}', ${imovel.preco})">
                                     <i class="bi bi-pencil"></i> Editar
                                 </button>
-                                <button class="btn btn-danger btn-sm"
+
+                                <button class="btn btn-outline-danger btn-sm"
                                     onclick="excluirImovel(${imovel.id})">
                                     <i class="bi bi-trash"></i> Excluir
                                 </button>
@@ -597,8 +592,8 @@ async function carregarImoveis() {
         console.error(e);
         mostrarToast("Não foi possível carregar os imóveis. Tente novamente.", "danger");
     } finally {
-        btnCarregar.disabled = false;
-        btnCarregar.innerHTML = `<i class="bi bi-arrow-clockwise"></i> Atualizar lista`;
+        btnAtualizarLista.disabled = false;
+        btnAtualizarLista.innerHTML = `<i class="bi bi-arrow-clockwise"></i> Atualizar lista`;
     }
 }
 
@@ -626,7 +621,7 @@ async function excluirImovel(id) {
         }
 
         mostrarToast("Imóvel excluído com sucesso!", "success");
-        btnCarregar.click();
+        await carregarImoveis();
 
     } catch (e) {
         console.error(e);
@@ -634,8 +629,8 @@ async function excluirImovel(id) {
     }
 }
 
-window.onload = () => {
-    carregarImoveis();
+window.onload = async () => {
+    await carregarImoveis();
 };
 </script>
 
