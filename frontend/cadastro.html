@@ -1,55 +1,198 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Cadastro | Corretor Pro</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Corretor Pro | Cadastro</title>
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #eef3f9;
+            --card: rgba(255, 255, 255, 0.92);
+            --primary: #1f2d3d;
+            --accent: #4f46e5;
+            --accent-hover: #4338ca;
+            --success: #10b981;
+            --success-hover: #059669;
+            --muted: #6b7280;
+            --border: #e5e7eb;
+            --shadow: 0 18px 45px rgba(31, 45, 61, 0.10);
+            --radius: 24px;
+        }
 
-<link rel="icon" href="/favicon.ico">
+        * {
+            transition: all 0.2s ease;
+        }
 
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+        body {
+            min-height: 100vh;
+            background:
+                radial-gradient(circle at top left, rgba(16, 185, 129, 0.10), transparent 30%),
+                radial-gradient(circle at bottom right, rgba(79, 70, 229, 0.10), transparent 30%),
+                var(--bg);
+            font-family: Arial, Helvetica, sans-serif;
+        }
 
-<style>
-body {
-    background: linear-gradient(135deg,#eef3f9,#d1fae5);
-    height:100vh;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-}
+        .navbar-custom {
+            background: rgba(255,255,255,0.78);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255,255,255,0.6);
+        }
 
-.card {
-    border-radius:20px;
-    box-shadow:0 10px 30px rgba(0,0,0,0.1);
-}
+        .brand {
+            font-weight: 700;
+            color: var(--primary);
+        }
 
-.btn-success {
-    background:linear-gradient(135deg,#10b981,#34d399);
-    border:none;
-}
-</style>
+        .auth-wrapper {
+            min-height: calc(100vh - 140px);
+        }
+
+        .auth-card {
+            width: 100%;
+            max-width: 460px;
+            background: var(--card);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.6);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+        }
+
+        .brand-badge {
+            width: 68px;
+            height: 68px;
+            border-radius: 20px;
+            background: linear-gradient(135deg, var(--success), #34d399);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 30px;
+            margin: 0 auto 18px;
+            box-shadow: 0 12px 24px rgba(16, 185, 129, 0.25);
+        }
+
+        .brand-title {
+            font-weight: 800;
+            color: var(--primary);
+        }
+
+        .subtitle {
+            color: var(--muted);
+            font-size: 14px;
+        }
+
+        .form-label {
+            font-weight: 600;
+            color: var(--primary);
+        }
+
+        .form-control {
+            border-radius: 14px;
+            border: 1px solid var(--border);
+            padding: 12px 14px;
+        }
+
+        .form-control:focus {
+            box-shadow: 0 0 0 0.2rem rgba(16, 185, 129, 0.15);
+            border-color: var(--success);
+        }
+
+        .btn-success {
+            background: linear-gradient(135deg, var(--success), #34d399);
+            border: none;
+            border-radius: 14px;
+            padding: 12px;
+            font-weight: 700;
+        }
+
+        .btn-success:hover {
+            background: linear-gradient(135deg, var(--success-hover), #10b981);
+        }
+
+        .link-auth {
+            color: var(--accent);
+            font-weight: 600;
+        }
+
+        .link-auth:hover {
+            color: var(--accent-hover);
+        }
+
+        footer {
+            color: var(--muted);
+            font-size: 14px;
+        }
+    </style>
 </head>
 <body>
 
-<div class="card p-4" style="width:420px">
-    <h3 class="text-center mb-3">Cadastro</h3>
+<nav class="navbar navbar-expand-lg navbar-custom">
+    <div class="container py-2">
+        <span class="navbar-brand brand mb-0 h1">
+            <i class="bi bi-buildings-fill"></i> Corretor Pro
+        </span>
+        <div class="d-flex gap-2">
+            <a href="index.html" class="btn btn-outline-secondary btn-sm">
+                <i class="bi bi-house-door"></i> Início
+            </a>
+            <a href="login.html" class="btn btn-outline-primary btn-sm">
+                <i class="bi bi-box-arrow-in-right"></i> Entrar
+            </a>
+        </div>
+    </div>
+</nav>
 
-    <input id="nome" class="form-control mb-2" placeholder="Nome">
-    <input id="email" class="form-control mb-2" placeholder="Email">
-    <input id="senha" type="password" class="form-control mb-3" placeholder="Senha">
+<div class="container auth-wrapper d-flex align-items-center justify-content-center py-4">
+    <div class="card auth-card p-4">
+        <div class="card-body">
+            <div class="brand-badge">
+                <i class="bi bi-person-plus-fill"></i>
+            </div>
 
-    <button class="btn btn-success w-100" id="btnCadastro">
-        Cadastrar
-    </button>
+            <h2 class="brand-title text-center mb-2">Criar conta</h2>
+            <p class="subtitle text-center mb-4">Cadastre-se para acessar o sistema</p>
+
+            <div class="mb-3">
+                <label class="form-label">Nome</label>
+                <input type="text" id="nome" class="form-control" placeholder="Digite seu nome">
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">E-mail</label>
+                <input type="email" id="email" class="form-control" placeholder="Digite seu e-mail">
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Senha</label>
+                <input type="password" id="senha" class="form-control" placeholder="Digite sua senha">
+            </div>
+
+            <button class="btn btn-success w-100" id="btnCadastro">
+                <i class="bi bi-person-check-fill"></i> Cadastrar
+            </button>
+
+            <div id="mensagem" class="alert mt-3 d-none" role="alert"></div>
+
+            <p class="text-center mt-4 mb-0 text-secondary">
+                Já tem conta?
+                <a href="login.html" class="text-decoration-none link-auth">Fazer login</a>
+            </p>
+        </div>
+    </div>
 </div>
 
-<!-- TOAST -->
-<div class="toast-container position-fixed top-0 end-0 p-3">
-    <div id="appToast" class="toast border-0 text-white">
+<footer class="text-center py-4">
+    <small>© 2026 Corretor Pro • Desenvolvido por Maycon Cordeiro</small>
+</footer>
+
+<div class="toast-container position-fixed top-0 end-0 p-3" style="z-index: 1080;">
+    <div id="appToast" class="toast align-items-center border-0 text-white" role="alert" aria-live="assertive" aria-atomic="true">
         <div class="d-flex">
-            <div id="appToastBody" class="toast-body"></div>
-            <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
+            <div id="appToastBody" class="toast-body fw-semibold">Mensagem</div>
+            <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Fechar"></button>
         </div>
     </div>
 </div>
@@ -57,54 +200,106 @@ body {
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
 <script>
-function mostrarToast(msg, tipo="success") {
-    const toastEl = document.getElementById("appToast");
-    const body = document.getElementById("appToastBody");
+const mensagem = document.getElementById("mensagem");
+const btnCadastro = document.getElementById("btnCadastro");
 
-    body.innerText = msg;
-
-    toastEl.className = "toast border-0 text-white";
-
-    if(tipo==="success") toastEl.classList.add("bg-success");
-    if(tipo==="danger") toastEl.classList.add("bg-danger");
-    if(tipo==="warning") toastEl.classList.add("bg-warning","text-dark");
-
-    new bootstrap.Toast(toastEl).show();
+function mostrarMensagem(texto, tipo = "danger") {
+    mensagem.className = `alert alert-${tipo} mt-3`;
+    mensagem.classList.remove("d-none");
+    mensagem.innerText = texto;
 }
 
-document.getElementById("btnCadastro").onclick = async () => {
+function esconderMensagem() {
+    mensagem.classList.add("d-none");
+}
 
-    const nome = document.getElementById("nome").value;
-    const email = document.getElementById("email").value;
-    const senha = document.getElementById("senha").value;
+function mostrarToast(texto, tipo = "success") {
+    const toastEl = document.getElementById("appToast");
+    const toastBody = document.getElementById("appToastBody");
+    const closeBtn = toastEl.querySelector(".btn-close");
 
-    if(!nome || !email || !senha){
-        mostrarToast("Preencha todos os campos","warning");
+    toastBody.innerText = texto;
+
+    toastEl.className = "toast align-items-center border-0 text-white";
+    closeBtn.className = "btn-close btn-close-white me-2 m-auto";
+
+    if (tipo === "success") {
+        toastEl.classList.add("bg-success");
+    } else if (tipo === "danger") {
+        toastEl.classList.add("bg-danger");
+    } else if (tipo === "warning") {
+        toastEl.classList.add("bg-warning", "text-dark");
+        closeBtn.className = "btn-close me-2 m-auto";
+    } else {
+        toastEl.classList.add("bg-primary");
+    }
+
+    const toast = new bootstrap.Toast(toastEl, { delay: 3000 });
+    toast.show();
+}
+
+async function extrairMensagemErro(resposta) {
+    try {
+        const data = await resposta.json();
+
+        if (data.fields) {
+            return Object.values(data.fields).join(" | ");
+        }
+
+        if (data.error) {
+            return data.error;
+        }
+
+        return "Ocorreu um erro na requisição.";
+    } catch {
+        return "Ocorreu um erro na requisição.";
+    }
+}
+
+document.getElementById("btnCadastro").addEventListener("click", async () => {
+    esconderMensagem();
+
+    const nome = document.getElementById("nome").value.trim();
+    const email = document.getElementById("email").value.trim();
+    const senha = document.getElementById("senha").value.trim();
+
+    if (!nome || !email || !senha) {
+        mostrarToast("Preencha todos os campos.", "warning");
         return;
     }
 
-    try{
-        const res = await fetch("https://corretor-api-1.onrender.com/usuarios",{
-            method:"POST",
-            headers:{"Content-Type":"application/json"},
-            body: JSON.stringify({nome,email,senha})
+    btnCadastro.disabled = true;
+    btnCadastro.innerHTML = `<i class="bi bi-hourglass-split"></i> Cadastrando...`;
+
+    try {
+        const resposta = await fetch("https://corretor-api-1.onrender.com/usuarios", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ nome, email, senha })
         });
 
-        if(!res.ok){
-            mostrarToast("Erro ao cadastrar","danger");
+        if (!resposta.ok) {
+            const erro = await extrairMensagemErro(resposta);
+            mostrarToast(erro, "danger");
             return;
         }
 
-        mostrarToast("Cadastro realizado com sucesso!");
+        mostrarToast("Cadastro realizado com sucesso!", "success");
 
-        setTimeout(()=>{
-            window.location="login.html";
-        },1000);
+        setTimeout(() => {
+            window.location.href = "login.html";
+        }, 1200);
 
-    }catch(e){
-        mostrarToast("Erro ao conectar","danger");
+    } catch (e) {
+        console.error(e);
+        mostrarToast("Não foi possível conectar ao servidor. Tente novamente.", "danger");
+    } finally {
+        btnCadastro.disabled = false;
+        btnCadastro.innerHTML = `<i class="bi bi-person-check-fill"></i> Cadastrar`;
     }
-}
+});
 </script>
 
 </body>
