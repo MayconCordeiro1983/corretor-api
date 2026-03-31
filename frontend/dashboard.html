@@ -10,10 +10,11 @@
     <style>
         :root {
             --bg: #eef3f9;
-            --card: rgba(255, 255, 255, 0.92);
+            --card: rgba(255, 255, 255, 0.94);
             --primary: #1f2d3d;
             --accent: #4f46e5;
             --accent-hover: #4338ca;
+            --success: #198754;
             --muted: #6b7280;
             --border: #e5e7eb;
             --shadow: 0 18px 45px rgba(31, 45, 61, 0.08);
@@ -31,12 +32,13 @@
                 var(--bg);
             min-height: 100vh;
             font-family: Arial, Helvetica, sans-serif;
+            color: var(--primary);
         }
 
         .navbar-custom {
-            background: rgba(255,255,255,0.78);
+            background: rgba(255, 255, 255, 0.78);
             backdrop-filter: blur(10px);
-            border-bottom: 1px solid rgba(255,255,255,0.6);
+            border-bottom: 1px solid rgba(255,255,255,0.65);
         }
 
         .brand {
@@ -47,17 +49,8 @@
         .card-custom {
             border: none;
             border-radius: var(--radius);
-            box-shadow: var(--shadow);
             background: var(--card);
-        }
-
-        .title {
-            font-weight: 700;
-            color: var(--primary);
-        }
-
-        .muted {
-            color: var(--muted);
+            box-shadow: var(--shadow);
         }
 
         .hero-badge {
@@ -73,39 +66,13 @@
             box-shadow: 0 12px 24px rgba(79, 70, 229, 0.25);
         }
 
-        .summary-card:hover {
-            transform: translateY(-4px);
-        }
-
-        .summary-icon {
-            width: 56px;
-            height: 56px;
-            border-radius: 18px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 24px;
-            margin: 0 auto 14px;
-        }
-
-        .summary-number {
-            font-size: 30px;
-            font-weight: 700;
+        .title {
+            font-weight: 800;
             color: var(--primary);
-            line-height: 1;
         }
 
-        .summary-label {
+        .muted {
             color: var(--muted);
-            font-size: 14px;
-            margin-top: 8px;
-        }
-
-        .info-box {
-            background: #f8fafc;
-            border: 1px solid var(--border);
-            border-radius: 18px;
-            padding: 18px;
         }
 
         .profile-mini {
@@ -131,7 +98,7 @@
             background: linear-gradient(135deg, var(--accent), #6366f1);
             border: none;
             border-radius: 14px;
-            font-weight: 600;
+            font-weight: 700;
         }
 
         .btn-primary:hover {
@@ -139,22 +106,95 @@
         }
 
         .btn-success,
-        .btn-outline-danger,
-        .btn-outline-secondary {
+        .btn-outline-secondary,
+        .btn-outline-danger {
             border-radius: 14px;
-            font-weight: 600;
+            font-weight: 700;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-4px);
+        }
+
+        .stat-icon {
+            width: 58px;
+            height: 58px;
+            border-radius: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            margin: 0 auto 14px;
+        }
+
+        .stat-number {
+            font-size: 30px;
+            font-weight: 800;
+            line-height: 1;
+            color: var(--primary);
+        }
+
+        .stat-label {
+            color: var(--muted);
+            font-size: 14px;
+            margin-top: 8px;
+        }
+
+        .info-box {
+            background: #f8fafc;
+            border: 1px solid var(--border);
+            border-radius: 18px;
+            padding: 18px;
+        }
+
+        .info-item {
+            padding: 14px 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .info-item:last-child {
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+
+        .info-label {
+            color: var(--muted);
+            font-size: 14px;
+            margin-bottom: 4px;
+        }
+
+        .info-value {
+            font-weight: 700;
+            color: var(--primary);
+            word-break: break-word;
+        }
+
+        .quick-card {
+            height: 100%;
+        }
+
+        .quick-link {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 16px 18px;
+            border: 1px solid var(--border);
+            border-radius: 18px;
+            text-decoration: none;
+            color: var(--primary);
+            background: #f8fafc;
+            font-weight: 700;
+        }
+
+        .quick-link:hover {
+            background: #eef2ff;
+            color: var(--accent);
+            border-color: rgba(79, 70, 229, 0.18);
         }
 
         footer {
             color: var(--muted);
             font-size: 14px;
-        }
-
-        pre {
-            margin: 0;
-            white-space: pre-wrap;
-            word-break: break-word;
-            font-size: 15px;
         }
     </style>
 </head>
@@ -165,6 +205,7 @@
         <span class="navbar-brand brand mb-0 h1">
             <i class="bi bi-buildings-fill"></i> Corretor Pro
         </span>
+
         <div class="d-flex gap-2">
             <a href="index.html" class="btn btn-outline-secondary btn-sm">
                 <i class="bi bi-house-door"></i> Início
@@ -181,20 +222,24 @@
     <div class="card card-custom mb-4">
         <div class="card-body p-4 p-md-5">
             <div class="d-flex flex-column flex-lg-row align-items-start align-items-lg-center gap-4">
+                
                 <div class="hero-badge">
-                    <i class="bi bi-speedometer2"></i>
+                    <i class="bi bi-person-workspace"></i>
                 </div>
 
                 <div class="flex-grow-1">
-                    <h2 class="title mb-2" id="boasVindas">Bem-vindo ao sistema</h2>
-                    <p class="muted mb-4">Gerencie seus dados e seus imóveis em um só lugar, com segurança e praticidade.</p>
+                    <h2 class="title mb-2" id="boasVindas">Bem-vindo ao painel</h2>
+                    <p class="muted mb-4">
+                        Aqui você acompanha suas informações e acessa rapidamente as principais áreas do sistema.
+                    </p>
 
                     <div class="d-flex flex-wrap gap-2">
-                        <button class="btn btn-primary" id="btnPerfil">
-                            <i class="bi bi-person-badge"></i> Atualizar meus dados
+                        <button class="btn btn-primary" id="btnAtualizar">
+                            <i class="bi bi-arrow-clockwise"></i> Atualizar dados
                         </button>
+
                         <button class="btn btn-success" onclick="window.location.href='imoveis.html'">
-                            <i class="bi bi-house-door"></i> Meus Imóveis
+                            <i class="bi bi-house-door"></i> Meus imóveis
                         </button>
                     </div>
                 </div>
@@ -210,78 +255,112 @@
                         </div>
                     </div>
                 </div>
+
             </div>
 
-            <div id="mensagem" class="alert alert-info mt-4 mb-0">
-                Usuário logado com sucesso.
+            <div id="mensagem" class="alert alert-success mt-4 mb-0 d-none">
+                Dados carregados com sucesso.
             </div>
         </div>
     </div>
 
     <div class="row g-4 mb-4">
-        <div class="col-md-6 col-xl-3">
-            <div class="card card-custom h-100 summary-card">
+        <div class="col-md-4">
+            <div class="card card-custom h-100 stat-card">
                 <div class="card-body p-4 text-center">
-                    <div class="summary-icon" style="background: rgba(79,70,229,0.12); color: #4f46e5;">
-                        <i class="bi bi-person-check-fill"></i>
-                    </div>
-                    <div class="summary-number" id="statusUsuario">OK</div>
-                    <div class="summary-label">Usuário autenticado</div>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-md-6 col-xl-3">
-            <div class="card card-custom h-100 summary-card">
-                <div class="card-body p-4 text-center">
-                    <div class="summary-icon" style="background: rgba(16,185,129,0.12); color: #10b981;">
+                    <div class="stat-icon" style="background: rgba(79,70,229,0.12); color: #4f46e5;">
                         <i class="bi bi-house-check-fill"></i>
                     </div>
-                    <div class="summary-number" id="totalImoveis">0</div>
-                    <div class="summary-label">Imóveis cadastrados</div>
+                    <div class="stat-number" id="totalImoveis">0</div>
+                    <div class="stat-label">Imóveis cadastrados</div>
                 </div>
             </div>
         </div>
 
-        <div class="col-md-6 col-xl-3">
-            <div class="card card-custom h-100 summary-card">
+        <div class="col-md-4">
+            <div class="card card-custom h-100 stat-card">
                 <div class="card-body p-4 text-center">
-                    <div class="summary-icon" style="background: rgba(59,130,246,0.12); color: #3b82f6;">
-                        <i class="bi bi-cloud-check-fill"></i>
+                    <div class="stat-icon" style="background: rgba(16,185,129,0.12); color: #198754;">
+                        <i class="bi bi-person-badge-fill"></i>
                     </div>
-                    <div class="summary-number">LIVE</div>
-                    <div class="summary-label">Sistema online</div>
+                    <div class="stat-number" id="nomeResumo">--</div>
+                    <div class="stat-label">Usuário atual</div>
                 </div>
             </div>
         </div>
 
-        <div class="col-md-6 col-xl-3">
-            <div class="card card-custom h-100 summary-card">
+        <div class="col-md-4">
+            <div class="card card-custom h-100 stat-card">
                 <div class="card-body p-4 text-center">
-                    <div class="summary-icon" style="background: rgba(31,45,61,0.10); color: #1f2d3d;">
-                        <i class="bi bi-shield-lock-fill"></i>
+                    <div class="stat-icon" style="background: rgba(59,130,246,0.12); color: #3b82f6;">
+                        <i class="bi bi-shield-check"></i>
                     </div>
-                    <div class="summary-number">JWT</div>
-                    <div class="summary-label">Segurança ativa</div>
+                    <div class="stat-number">Ativa</div>
+                    <div class="stat-label">Sessão</div>
                 </div>
             </div>
         </div>
     </div>
 
-    <div class="card card-custom">
-        <div class="card-body p-4">
-            <h3 class="title mb-3">
-                <i class="bi bi-person-lines-fill"></i> Meus dados
-            </h3>
-            <div class="info-box">
-                <pre id="resultado">Carregando informações do usuário...</pre>
+    <div class="row g-4">
+        <div class="col-lg-7">
+            <div class="card card-custom h-100">
+                <div class="card-body p-4">
+                    <h3 class="title mb-3">
+                        <i class="bi bi-person-lines-fill"></i> Meus dados
+                    </h3>
+
+                    <div class="info-box">
+                        <div class="info-item">
+                            <div class="info-label">Nome</div>
+                            <div class="info-value" id="nomeUsuario">Carregando...</div>
+                        </div>
+
+                        <div class="info-item">
+                            <div class="info-label">E-mail</div>
+                            <div class="info-value" id="emailUsuario">Carregando...</div>
+                        </div>
+
+                        <div class="info-item">
+                            <div class="info-label">Identificador</div>
+                            <div class="info-value" id="idUsuario">Carregando...</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-5">
+            <div class="card card-custom quick-card">
+                <div class="card-body p-4">
+                    <h3 class="title mb-3">
+                        <i class="bi bi-lightning-charge-fill"></i> Ações rápidas
+                    </h3>
+
+                    <div class="d-grid gap-3">
+                        <a href="imoveis.html" class="quick-link">
+                            <span><i class="bi bi-house-door-fill"></i> Abrir meus imóveis</span>
+                            <i class="bi bi-arrow-right"></i>
+                        </a>
+
+                        <button class="quick-link text-start border-0" id="btnAtualizar2" type="button">
+                            <span><i class="bi bi-arrow-repeat"></i> Atualizar informações</span>
+                            <i class="bi bi-arrow-right"></i>
+                        </button>
+
+                        <a href="index.html" class="quick-link">
+                            <span><i class="bi bi-grid-fill"></i> Voltar para a página inicial</span>
+                            <i class="bi bi-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 
 </div>
 
-<footer class="text-center py-4">
+<footer class="text-center py-4 mt-4">
     <small>© 2026 Corretor Pro • Desenvolvido por Maycon Cordeiro</small>
 </footer>
 
@@ -298,19 +377,27 @@
 
 <script>
 const token = localStorage.getItem("token");
+
 const mensagem = document.getElementById("mensagem");
-const resultado = document.getElementById("resultado");
 const boasVindas = document.getElementById("boasVindas");
 const nomeUsuarioMini = document.getElementById("nomeUsuarioMini");
 const emailUsuarioMini = document.getElementById("emailUsuarioMini");
+
+const nomeUsuario = document.getElementById("nomeUsuario");
+const emailUsuario = document.getElementById("emailUsuario");
+const idUsuario = document.getElementById("idUsuario");
+
+const nomeResumo = document.getElementById("nomeResumo");
 const totalImoveis = document.getElementById("totalImoveis");
 
 if (!token) {
-    mensagem.className = "alert alert-warning mt-4 mb-0";
-    mensagem.innerText = "Você não está logado. Redirecionando...";
-    setTimeout(() => {
-        window.location.href = "login.html";
-    }, 1000);
+    window.location.href = "login.html";
+}
+
+function mostrarMensagem(texto, tipo = "success") {
+    mensagem.className = `alert alert-${tipo} mt-4 mb-0`;
+    mensagem.classList.remove("d-none");
+    mensagem.innerText = texto;
 }
 
 function mostrarToast(texto, tipo = "success") {
@@ -334,7 +421,7 @@ function mostrarToast(texto, tipo = "success") {
         toastEl.classList.add("bg-primary");
     }
 
-    const toast = new bootstrap.Toast(toastEl, { delay: 3000 });
+    const toast = new bootstrap.Toast(toastEl, { delay: 2800 });
     toast.show();
 }
 
@@ -380,33 +467,26 @@ async function carregarPerfil() {
 
         if (!resposta.ok) {
             const erro = await extrairMensagemErro(resposta);
-            mensagem.className = "alert alert-danger mt-4 mb-0";
-            mensagem.innerText = erro;
-            resultado.innerText = erro;
+            mostrarMensagem(erro, "danger");
             mostrarToast(erro, "danger");
             return;
         }
 
         const dados = await resposta.json();
-        resultado.innerText = JSON.stringify(dados, null, 2);
 
-        if (dados.nome) {
-            boasVindas.innerText = `Bem-vindo, ${dados.nome}!`;
-            nomeUsuarioMini.innerText = dados.nome;
-        }
+        boasVindas.innerText = `Bem-vindo, ${dados.nome}!`;
+        nomeUsuarioMini.innerText = dados.nome;
+        emailUsuarioMini.innerText = dados.email;
 
-        if (dados.email) {
-            emailUsuarioMini.innerText = dados.email;
-        }
+        nomeUsuario.innerText = dados.nome;
+        emailUsuario.innerText = dados.email;
+        idUsuario.innerText = dados.id;
+        nomeResumo.innerText = dados.nome ? dados.nome.split(" ")[0] : "--";
 
-        mensagem.className = "alert alert-success mt-4 mb-0";
-        mensagem.innerText = "Dados carregados com sucesso.";
-
+        mostrarMensagem("Dados carregados com sucesso.", "success");
     } catch (erro) {
-        mensagem.className = "alert alert-danger mt-4 mb-0";
-        mensagem.innerText = "Não foi possível conectar ao servidor.";
-        resultado.innerText = "Erro ao buscar dados.";
         console.error(erro);
+        mostrarMensagem("Não foi possível carregar suas informações.", "danger");
         mostrarToast("Não foi possível conectar ao servidor.", "danger");
     }
 }
@@ -439,12 +519,16 @@ async function carregarResumoImoveis() {
     }
 }
 
-document.getElementById("btnPerfil").addEventListener("click", async () => {
+async function atualizarTudo() {
     await carregarPerfil();
-    mostrarToast("Dados atualizados com sucesso.", "success");
-});
+    await carregarResumoImoveis();
+    mostrarToast("Painel atualizado com sucesso.", "success");
+}
 
-document.getElementById("btnLogout").addEventListener("click", function() {
+document.getElementById("btnAtualizar").addEventListener("click", atualizarTudo);
+document.getElementById("btnAtualizar2").addEventListener("click", atualizarTudo);
+
+document.getElementById("btnLogout").addEventListener("click", function () {
     localStorage.removeItem("token");
     window.location.href = "login.html";
 });
