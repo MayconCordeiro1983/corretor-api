@@ -326,6 +326,8 @@
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
+<script src="js/api.js"></script>
+
 <script>
 let idEditando = null;
 
@@ -446,8 +448,8 @@ btnSalvar.addEventListener("click", async () => {
 
     try {
         const url = idEditando
-            ? `https://corretor-api-1.onrender.com/imoveis/${idEditando}`
-            : "https://corretor-api-1.onrender.com/imoveis";
+    ? `${API_URL}/imoveis/${idEditando}`
+    : `${API_URL}/imoveis`;
 
         const metodo = idEditando ? "PUT" : "POST";
 
@@ -504,7 +506,7 @@ async function carregarImoveis() {
     btnAtualizarLista.innerHTML = `<i class="bi bi-hourglass-split"></i> Carregando...`;
 
     try {
-        const resposta = await fetch("https://corretor-api-1.onrender.com/imoveis/meus", {
+        const resposta = await fetch(`${API_URL}/imoveis/meus`, {
             method: "GET",
             headers: {
                 "Authorization": "Bearer " + token
@@ -602,7 +604,7 @@ async function excluirImovel(id) {
     if (!confirmar) return;
 
     try {
-        const resposta = await fetch(`https://corretor-api-1.onrender.com/imoveis/${id}`, {
+        const resposta = await fetch(`${API_URL}/imoveis/${id}`, {
             method: "DELETE",
             headers: {
                 "Authorization": "Bearer " + token

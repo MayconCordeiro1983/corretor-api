@@ -79,4 +79,15 @@ public class ImovelService {
 
         imovelRepository.delete(imovel);
     }
+    public List<Imovel> listarPublicos() {
+    return imovelRepository.findAll();
+}
+
+public List<Imovel> buscarPublicoPorTitulo(String titulo) {
+    return imovelRepository.findByTituloContainingIgnoreCase(titulo);
+}
+
+public List<Imovel> buscarPublicoPorPrecoMax(Double precoMax) {
+    return imovelRepository.findByPrecoLessThanEqual(precoMax);
+}
 }

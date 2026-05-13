@@ -191,6 +191,8 @@
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
+<script src="js/api.js"></script>
+
 <script>
 const mensagem = document.getElementById("mensagem");
 const btnLogin = document.getElementById("btnLogin");
@@ -257,7 +259,7 @@ document.getElementById("btnLogin").addEventListener("click", async () => {
     btnLogin.innerHTML = `<i class="bi bi-hourglass-split"></i> Entrando...`;
 
     try {
-        const resposta = await fetch("https://corretor-api-1.onrender.com/usuarios/login", {
+        const resposta = await fetch(`${API_URL}/usuarios/login`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"

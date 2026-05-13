@@ -375,6 +375,8 @@
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
+<script src="js/api.js"></script>
+
 <script>
 const token = localStorage.getItem("token");
 
@@ -453,7 +455,7 @@ function tratarSessaoExpirada() {
 
 async function carregarPerfil() {
     try {
-        const resposta = await fetch("https://corretor-api-1.onrender.com/usuarios/me", {
+        const resposta = await fetch(`${API_URL}/usuarios/me`, {
             method: "GET",
             headers: {
                 "Authorization": "Bearer " + token
@@ -493,7 +495,7 @@ async function carregarPerfil() {
 
 async function carregarResumoImoveis() {
     try {
-        const resposta = await fetch("https://corretor-api-1.onrender.com/imoveis/meus", {
+        const resposta = await fetch(`${API_URL}/imoveis/meus`, {
             method: "GET",
             headers: {
                 "Authorization": "Bearer " + token

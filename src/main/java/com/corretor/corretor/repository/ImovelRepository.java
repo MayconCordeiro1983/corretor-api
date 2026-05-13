@@ -12,4 +12,8 @@ public interface ImovelRepository extends JpaRepository<Imovel, Long> {
     List<Imovel> findByUsuarioEmailAndTituloContainingIgnoreCase(String email, String titulo);
 
     List<Imovel> findByUsuarioEmailAndPrecoLessThanEqual(String email, Double preco);
+
+    List<Imovel> findByTituloContainingIgnoreCase(String titulo);
+
+    List<Imovel> findByPrecoLessThanEqual(Double preco);
 }
