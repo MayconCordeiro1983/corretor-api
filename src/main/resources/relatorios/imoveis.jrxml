@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<jasperReport
+ xmlns="http://jasperreports.sourceforge.net/jasperreports"
+ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+ xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd"
+ name="imoveis"
+ pageWidth="595"
+ pageHeight="842"
+ columnWidth="555"
+ leftMargin="20"
+ rightMargin="20"
+ topMargin="20"
+ bottomMargin="20">
+
+    <parameter name="DATA_GERACAO" class="java.lang.String"/>
+    <parameter name="TOTAL_IMOVEIS" class="java.lang.Integer"/>
+    <parameter name="VALOR_TOTAL" class="java.lang.Double"/>
+    <parameter name="MEDIA_PRECOS" class="java.lang.Double"/>
+
+    <field name="titulo" class="java.lang.String"/>
+    <field name="endereco" class="java.lang.String"/>
+    <field name="preco" class="java.lang.Double"/>
+
+    <title>
+        <band height="90">
+            <staticText>
+                <reportElement x="0" y="0" width="555" height="30"/>
+                <textElement textAlignment="Center">
+                    <font size="20" isBold="true"/>
+                </textElement>
+                <text><![CDATA[🏢 Corretor Pro]]></text>
+            </staticText>
+
+            <staticText>
+                <reportElement x="0" y="35" width="555" height="25"/>
+                <textElement textAlignment="Center">
+                    <font size="15" isBold="true"/>
+                </textElement>
+                <text><![CDATA[RELATÓRIO DE IMÓVEIS]]></text>
+            </staticText>
+
+            <textField>
+                <reportElement x="0" y="65" width="555" height="20"/>
+                <textElement textAlignment="Center">
+                    <font size="10"/>
+                </textElement>
+                <textFieldExpression><![CDATA["Gerado em: " + $P{DATA_GERACAO}]]></textFieldExpression>
+            </textField>
+        </band>
+    </title>
+
+    <columnHeader>
+        <band height="28">
+            <staticText>
+                <reportElement x="0" y="5" width="180" height="20"/>
+                <textElement>
+                    <font isBold="true"/>
+                </textElement>
+                <text><![CDATA[Título]]></text>
+            </staticText>
+
+            <staticText>
+                <reportElement x="190" y="5" width="220" height="20"/>
+                <textElement>
+                    <font isBold="true"/>
+                </textElement>
+                <text><![CDATA[Endereço]]></text>
+            </staticText>
+
+            <staticText>
+                <reportElement x="420" y="5" width="130" height="20"/>
+                <textElement textAlignment="Right">
+                    <font isBold="true"/>
+                </textElement>
+                <text><![CDATA[Preço]]></text>
+            </staticText>
+        </band>
+    </columnHeader>
+
+    <detail>
+        <band height="24">
+            <textField>
+                <reportElement x="0" y="2" width="180" height="20"/>
+                <textFieldExpression><![CDATA[$F{titulo}]]></textFieldExpression>
+            </textField>
+
+            <textField>
+                <reportElement x="190" y="2" width="220" height="20"/>
+                <textFieldExpression><![CDATA[$F{endereco}]]></textFieldExpression>
+            </textField>
+
+            <textField pattern="¤ #,##0.00">
+                <reportElement x="420" y="2" width="130" height="20"/>
+                <textElement textAlignment="Right"/>
+                <textFieldExpression><![CDATA[$F{preco}]]></textFieldExpression>
+            </textField>
+        </band>
+    </detail>
+
+    <summary>
+        <band height="90">
+            <line>
+                <reportElement x="0" y="10" width="555" height="1"/>
+            </line>
+
+            <textField>
+                <reportElement x="0" y="25" width="250" height="20"/>
+                <textElement>
+                    <font isBold="true"/>
+                </textElement>
+                <textFieldExpression><![CDATA["Total de imóveis: " + $P{TOTAL_IMOVEIS}]]></textFieldExpression>
+            </textField>
+
+            <textField pattern="¤ #,##0.00">
+                <reportElement x="300" y="25" width="255" height="20"/>
+                <textElement textAlignment="Right">
+                    <font isBold="true"/>
+                </textElement>
+                <textFieldExpression><![CDATA["Valor total: R$ " + new java.text.DecimalFormat("#,##0.00").format($P{VALOR_TOTAL})]]></textFieldExpression>
+            </textField>
+
+            <textField>
+                <reportElement x="300" y="50" width="255" height="20"/>
+                <textElement textAlignment="Right">
+                    <font isBold="true"/>
+                </textElement>
+                <textFieldExpression><![CDATA["Média dos preços: R$ " + new java.text.DecimalFormat("#,##0.00").format($P{MEDIA_PRECOS})]]></textFieldExpression>
+            </textField>
+        </band>
+    </summary>
+
+    <pageFooter>
+        <band height="35">
+            <textField>
+                <reportElement x="0" y="5" width="300" height="20"/>
+                <textElement>
+                    <font size="9"/>
+                </textElement>
+                <textFieldExpression><![CDATA["Desenvolvido por Maycon Cordeiro"]]></textFieldExpression>
+            </textField>
+
+            <textField>
+                <reportElement x="430" y="5" width="125" height="20"/>
+                <textElement textAlignment="Right">
+                    <font size="9"/>
+                </textElement>
+                <textFieldExpression><![CDATA["Página " + $V{PAGE_NUMBER}]]></textFieldExpression>
+            </textField>
+        </band>
+    </pageFooter>
+
+</jasperReport>

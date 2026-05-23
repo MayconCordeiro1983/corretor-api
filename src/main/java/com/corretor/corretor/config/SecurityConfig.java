@@ -41,6 +41,7 @@ public class SecurityConfig {
                         // imóveis públicos
                         .requestMatchers(HttpMethod.GET, "/imoveis/publicos").permitAll()
                         .requestMatchers(HttpMethod.GET, "/imoveis/publicos/buscar").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/relatorios/imoveis/pdf").permitAll()
 
                         .anyRequest().authenticated()
                 )
