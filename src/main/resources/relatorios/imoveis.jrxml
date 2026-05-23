@@ -98,6 +98,26 @@
         </band>
     </detail>
 
+    <pageFooter>
+        <band height="35">
+            <textField>
+                <reportElement x="0" y="5" width="300" height="20"/>
+                <textElement>
+                    <font size="9"/>
+                </textElement>
+                <textFieldExpression><![CDATA["Desenvolvido por Maycon Cordeiro"]]></textFieldExpression>
+            </textField>
+
+            <textField>
+                <reportElement x="430" y="5" width="125" height="20"/>
+                <textElement textAlignment="Right">
+                    <font size="9"/>
+                </textElement>
+                <textFieldExpression><![CDATA["Página " + $V{PAGE_NUMBER}]]></textFieldExpression>
+            </textField>
+        </band>
+    </pageFooter>
+
     <summary>
         <band height="90">
             <line>
@@ -129,25 +149,5 @@
             </textField>
         </band>
     </summary>
-
-    <pageFooter>
-        <band height="35">
-            <textField>
-                <reportElement x="0" y="5" width="300" height="20"/>
-                <textElement>
-                    <font size="9"/>
-                </textElement>
-                <textFieldExpression><![CDATA["Desenvolvido por Maycon Cordeiro"]]></textFieldExpression>
-            </textField>
-
-            <textField>
-                <reportElement x="430" y="5" width="125" height="20"/>
-                <textElement textAlignment="Right">
-                    <font size="9"/>
-                </textElement>
-                <textFieldExpression><![CDATA["Página " + $V{PAGE_NUMBER}]]></textFieldExpression>
-            </textField>
-        </band>
-    </pageFooter>
-
+    
 </jasperReport>

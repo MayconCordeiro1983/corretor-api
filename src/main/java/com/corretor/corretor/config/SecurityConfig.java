@@ -22,31 +22,41 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
         http
-                .cors(cors -> {})
-                .csrf(csrf -> csrf.disable())
+            .cors(cors -> {})
+            .csrf(csrf -> csrf.disable())
 
-                .sessionManagement(session ->
-                        session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                )
+            .sessionManagement(session ->
+                session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+            )
 
-                .authorizeHttpRequests(auth -> auth
+            .authorizeHttpRequests(auth -> auth
 
-                        // liberar OPTIONS
-                        .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
+                // OPTIONS (CORS)
+                .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
 
-                        // usuários
-                        .requestMatchers("/usuarios/login").permitAll()
-                        .requestMatchers(HttpMethod.POST, "/usuarios").permitAll()
+                // LOGIN
+                .requestMatchers("/usuarios/login").permitAll()
 
-                        // imóveis públicos
-                        .requestMatchers(HttpMethod.GET, "/imoveis/publicos").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/imoveis/publicos/buscar").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/relatorios/imoveis/pdf").permitAll()
+                // CADASTRO USUÁRIO
+                .requestMatchers(HttpMethod.POST, "/usuarios").permitAll()
 
-                        .anyRequest().authenticated()
-                )
+                // IMÓVEIS PÚBLICOS
+                .requestMatchers(HttpMethod.GET,
+                        "/imoveis/publicos").permitAll()
 
-                .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
+                .requestMatchers(HttpMethod.GET,
+                        "/imoveis/publicos/buscar").permitAll()
+
+                // TODO RESTANTE PROTEGIDO
+
+                .anyRequest().authenticated()
+
+            )
+
+            .addFilterBefore(
+                jwtAuthFilter,
+                UsernamePasswordAuthenticationFilter.class
+            );
 
         return http.build();
     }

@@ -17,12 +17,15 @@ public class RelatorioController {
     }
 
     @GetMapping("/imoveis/pdf")
-public ResponseEntity<byte[]> gerarRelatorioImoveisPdf() {
-    byte[] pdf = relatorioService.gerarRelatorioImoveis();
+    public ResponseEntity<byte[]> gerarRelatorioImoveisPdf(
+            @RequestParam(required = false) String titulo,
+            @RequestParam(defaultValue = "titulo") String ordenarPor) {
 
-    return ResponseEntity.ok()
-            .header(HttpHeaders.CONTENT_DISPOSITION, "inline; filename=relatorio-imoveis.pdf")
-            .contentType(MediaType.APPLICATION_PDF)
-            .body(pdf);
+        byte[] pdf = relatorioService.gerarRelatorioImoveis(titulo, ordenarPor);
+
+        return ResponseEntity.ok()
+                .header(HttpHeaders.CONTENT_DISPOSITION, "inline; filename=relatorio-imoveis.pdf")
+                .contentType(MediaType.APPLICATION_PDF)
+                .body(pdf);
     }
 }
