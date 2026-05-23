@@ -2,6 +2,7 @@ package com.corretor.corretor.service;
 
 import com.corretor.corretor.dto.ImovelRequest;
 import com.corretor.corretor.model.Imovel;
+import com.corretor.corretor.model.StatusImovel;
 import com.corretor.corretor.model.Usuario;
 import com.corretor.corretor.repository.ImovelRepository;
 import org.springframework.stereotype.Service;
@@ -26,11 +27,12 @@ public class ImovelService {
         i.setTitulo(req.getTitulo());
         i.setEndereco(req.getEndereco());
         i.setPreco(req.getPreco());
+        i.setStatus(req.getStatus() != null ? req.getStatus() : StatusImovel.DISPONIVEL);
         i.setUsuario(logado);
 
         return imovelRepository.save(i);
     }
-    
+
     public List<Imovel> listarTodos() {
         return imovelRepository.findAll();
     }
@@ -63,6 +65,7 @@ public class ImovelService {
         imovel.setTitulo(req.getTitulo());
         imovel.setEndereco(req.getEndereco());
         imovel.setPreco(req.getPreco());
+        imovel.setStatus(req.getStatus() != null ? req.getStatus() : imovel.getStatus());
 
         return imovelRepository.save(imovel);
     }
@@ -79,15 +82,16 @@ public class ImovelService {
 
         imovelRepository.delete(imovel);
     }
+
     public List<Imovel> listarPublicos() {
-    return imovelRepository.findAll();
-}
+        return imovelRepository.findAll();
+    }
 
-public List<Imovel> buscarPublicoPorTitulo(String titulo) {
-    return imovelRepository.findByTituloContainingIgnoreCase(titulo);
-}
+    public List<Imovel> buscarPublicoPorTitulo(String titulo) {
+        return imovelRepository.findByTituloContainingIgnoreCase(titulo);
+    }
 
-public List<Imovel> buscarPublicoPorPrecoMax(Double precoMax) {
-    return imovelRepository.findByPrecoLessThanEqual(precoMax);
-}
+    public List<Imovel> buscarPublicoPorPrecoMax(Double precoMax) {
+        return imovelRepository.findByPrecoLessThanEqual(precoMax);
+    }
 }

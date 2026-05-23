@@ -1,640 +1,681 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
+
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Corretor Pro | Meus Imóveis</title>
-    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+
+    <title>
+        Imóveis - Corretor Pro
+    </title>
+
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+
     <style>
-        :root {
-            --bg: #eef3f9;
-            --card: rgba(255, 255, 255, 0.94);
-            --primary: #1f2d3d;
-            --accent: #4f46e5;
-            --accent-hover: #4338ca;
-            --success: #198754;
-            --muted: #6b7280;
-            --border: #e5e7eb;
-            --shadow: 0 18px 45px rgba(31, 45, 61, 0.08);
-            --radius: 24px;
-        }
-
-        * {
-            transition: all 0.2s ease;
-        }
-
         body {
-            background:
-                radial-gradient(circle at top left, rgba(79, 70, 229, 0.08), transparent 30%),
-                radial-gradient(circle at bottom right, rgba(59, 130, 246, 0.08), transparent 30%),
-                var(--bg);
-            min-height: 100vh;
-            font-family: Arial, Helvetica, sans-serif;
-            color: var(--primary);
+            background: #eef3f8;
         }
 
-        .navbar-custom {
-            background: rgba(255,255,255,0.78);
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid rgba(255,255,255,0.65);
-        }
+        .card-sistema {
 
-        .brand {
-            font-weight: 700;
-            color: var(--primary);
-        }
-
-        .card-custom {
             border: none;
-            border-radius: var(--radius);
-            background: var(--card);
-            box-shadow: var(--shadow);
+
+            border-radius: 20px;
+
+            box-shadow:
+                0 6px 25px rgba(0, 0, 0, .08);
+
         }
 
-        .title {
-            font-weight: 800;
-            color: var(--primary);
+        .badge-status {
+
+            font-size: 13px;
+
+            padding: 8px 12px;
+
         }
 
-        .muted {
-            color: var(--muted);
-        }
+        .btn {
 
-        .hero-badge {
-            width: 78px;
-            height: 78px;
-            border-radius: 24px;
-            background: linear-gradient(135deg, var(--accent), #7c3aed);
-            color: white;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 34px;
-            box-shadow: 0 12px 24px rgba(79, 70, 229, 0.25);
-        }
+            border-radius: 10px;
 
-        .btn-primary {
-            background: linear-gradient(135deg, var(--accent), #6366f1);
-            border: none;
-            border-radius: 14px;
-            font-weight: 700;
-        }
+            font-weight: 600;
 
-        .btn-primary:hover {
-            background: linear-gradient(135deg, var(--accent-hover), #4f46e5);
-        }
-
-        .btn-success,
-        .btn-outline-secondary,
-        .btn-outline-danger,
-        .btn-outline-primary {
-            border-radius: 14px;
-            font-weight: 700;
-        }
-
-        .form-control {
-            border-radius: 14px;
-            border: 1px solid var(--border);
-            padding: 12px 14px;
-        }
-
-        .form-control:focus {
-            box-shadow: 0 0 0 0.2rem rgba(79, 70, 229, 0.15);
-            border-color: var(--accent);
-        }
-
-        .stat-card:hover,
-        .imovel-card:hover {
-            transform: translateY(-4px);
-        }
-
-        .stat-icon {
-            width: 58px;
-            height: 58px;
-            border-radius: 18px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 24px;
-            margin: 0 auto 14px;
-        }
-
-        .stat-number {
-            font-size: 30px;
-            font-weight: 800;
-            line-height: 1;
-            color: var(--primary);
-        }
-
-        .stat-label {
-            color: var(--muted);
-            font-size: 14px;
-            margin-top: 8px;
-        }
-
-        .imovel-card {
-            border: none;
-            border-radius: 22px;
-            box-shadow: var(--shadow);
-            background: var(--card);
-            overflow: hidden;
-            height: 100%;
-        }
-
-        .imovel-banner {
-            height: 88px;
-            background: linear-gradient(135deg, #4f46e5, #7c3aed);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 34px;
-        }
-
-        .imovel-preco {
-            font-size: 24px;
-            font-weight: 800;
-            color: var(--primary);
-        }
-
-        .imovel-meta {
-            color: var(--muted);
-            font-size: 14px;
-        }
-
-        .empty-box {
-            border: 2px dashed var(--border);
-            border-radius: 18px;
-            padding: 32px;
-            background: #f8fafc;
-        }
-
-        footer {
-            color: var(--muted);
-            font-size: 14px;
         }
     </style>
+
 </head>
+
 <body>
 
-<nav class="navbar navbar-expand-lg navbar-custom">
-    <div class="container py-2">
-        <span class="navbar-brand brand mb-0 h1">
-            <i class="bi bi-buildings-fill"></i> Corretor Pro
-        </span>
+    <nav class="navbar navbar-dark bg-dark">
 
-        <div class="d-flex gap-2">
-            <a href="dashboard.html" class="btn btn-outline-secondary btn-sm">
-                <i class="bi bi-arrow-left"></i> Dashboard
+        <div class="container">
+
+            <a href="dashboard.html" class="navbar-brand fw-bold">
+
+                🏢 Corretor Pro
+
             </a>
-            <button class="btn btn-outline-danger btn-sm" onclick="logout()">
-                <i class="bi bi-box-arrow-right"></i> Sair
-            </button>
-        </div>
-    </div>
-</nav>
 
-<div class="container py-4">
+            <div class="d-flex gap-2">
 
-    <div class="card card-custom mb-4">
-        <div class="card-body p-4 p-md-5">
-            <div class="d-flex flex-column flex-lg-row align-items-start align-items-lg-center gap-4">
-                <div class="hero-badge">
-                    <i class="bi bi-house-door-fill"></i>
-                </div>
+                <a href="dashboard.html" class="btn btn-outline-light">
 
-                <div class="flex-grow-1">
-                    <h2 class="title mb-2">Meus imóveis</h2>
-                    <p class="muted mb-0">
-                        Cadastre, atualize e acompanhe seus imóveis em um só lugar.
-                    </p>
-                </div>
-            </div>
-        </div>
-    </div>
+                    <i class="bi bi-speedometer2"></i>
 
-    <div class="row g-4 mb-4">
-        <div class="col-md-4">
-            <div class="card card-custom h-100 stat-card">
-                <div class="card-body p-4 text-center">
-                    <div class="stat-icon" style="background: rgba(79,70,229,0.12); color: #4f46e5;">
-                        <i class="bi bi-house-check-fill"></i>
-                    </div>
-                    <div class="stat-number" id="contador">0</div>
-                    <div class="stat-label">Imóveis cadastrados</div>
-                </div>
-            </div>
-        </div>
+                    Dashboard
 
-        <div class="col-md-4">
-            <div class="card card-custom h-100 stat-card">
-                <div class="card-body p-4 text-center">
-                    <div class="stat-icon" style="background: rgba(16,185,129,0.12); color: #198754;">
-                        <i class="bi bi-currency-dollar"></i>
-                    </div>
-                    <div class="stat-number" id="mediaPreco">R$ 0</div>
-                    <div class="stat-label">Preço médio</div>
-                </div>
-            </div>
-        </div>
+                </a>
 
-        <div class="col-md-4">
-            <div class="card card-custom h-100 stat-card">
-                <div class="card-body p-4 text-center">
-                    <div class="stat-icon" style="background: rgba(59,130,246,0.12); color: #3b82f6;">
-                        <i class="bi bi-graph-up-arrow"></i>
-                    </div>
-                    <div class="stat-number" id="maiorPreco">R$ 0</div>
-                    <div class="stat-label">Maior preço</div>
-                </div>
-            </div>
-        </div>
-    </div>
+                <button id="btnLogout" class="btn btn-danger">
 
-    <div class="card card-custom mb-4">
-        <div class="card-body p-4">
-            <h3 class="title h4 mb-4">
-                <i class="bi bi-plus-circle-fill text-primary"></i> Novo imóvel
-            </h3>
+                    <i class="bi bi-box-arrow-right"></i>
 
-            <div class="row g-3">
-                <div class="col-md-4">
-                    <label class="form-label fw-semibold">Título</label>
-                    <input type="text" id="titulo" class="form-control" placeholder="Ex: Casa no centro">
-                </div>
+                    Sair
 
-                <div class="col-md-4">
-                    <label class="form-label fw-semibold">Endereço</label>
-                    <input type="text" id="endereco" class="form-control" placeholder="Digite o endereço">
-                </div>
-
-                <div class="col-md-4">
-                    <label class="form-label fw-semibold">Preço</label>
-                    <input type="number" id="preco" class="form-control" placeholder="Digite o preço">
-                </div>
-            </div>
-
-            <div class="d-flex flex-wrap gap-2 mt-4">
-                <button class="btn btn-primary" id="btnSalvar">
-                    <i class="bi bi-save"></i> Salvar
                 </button>
 
-                <button class="btn btn-outline-secondary" id="btnAtualizarLista">
-                    <i class="bi bi-arrow-clockwise"></i> Atualizar lista
-                </button>
-
-                <button class="btn btn-outline-danger d-none" id="btnCancelarEdicao">
-                    <i class="bi bi-x-circle"></i> Cancelar edição
-                </button>
-            </div>
-        </div>
-    </div>
-
-    <div class="card card-custom">
-        <div class="card-body p-4">
-            <div class="d-flex justify-content-between align-items-center mb-3">
-                <h3 class="title h4 mb-0">
-                    <i class="bi bi-grid-1x2-fill"></i> Lista de imóveis
-                </h3>
             </div>
 
-            <div class="row g-4" id="listaImoveis"></div>
+        </div>
 
-            <div class="empty-box text-center text-muted d-none mt-3" id="vazio">
-                <i class="bi bi-house-x fs-1 d-block mb-2"></i>
-                Nenhum imóvel encontrado.
+    </nav>
+
+    <div class="container py-5">
+
+        <div class="card card-sistema">
+
+            <div class="card-body p-4">
+
+                <h2>
+
+                    <i class="bi bi-house"></i>
+
+                    Cadastro de imóveis
+
+                </h2>
+
+                <hr>
+
+                <div id="mensagem" class="alert d-none">
+                </div>
+
+                <div class="row g-3">
+
+                    <div class="col-md-3">
+
+                        <label>Título</label>
+
+                        <input id="titulo" class="form-control">
+
+                    </div>
+
+                    <div class="col-md-3">
+
+                        <label>Endereço</label>
+
+                        <input id="endereco" class="form-control">
+
+                    </div>
+
+                    <div class="col-md-2">
+
+                        <label>Preço</label>
+
+                        <input id="preco" type="number" step="0.01" class="form-control">
+
+                    </div>
+
+                    <div class="col-md-2">
+
+                        <label>Status</label>
+
+                        <select id="status" class="form-select">
+
+                            <option value="DISPONIVEL">
+
+                                Disponível
+
+                            </option>
+
+                            <option value="RESERVADO">
+
+                                Reservado
+
+                            </option>
+
+                            <option value="VENDIDO">
+
+                                Vendido
+
+                            </option>
+
+                            <option value="ALUGADO">
+
+                                Alugado
+
+                            </option>
+
+                        </select>
+
+                    </div>
+
+                    <div class="col-md-2 d-flex align-items-end">
+
+                        <button id="btnSalvar" class="btn btn-primary w-100">
+
+                            <i class="bi bi-plus-circle"></i>
+
+                            Cadastrar
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+                <hr>
+
+                <div class="table-responsive">
+
+                    <table class="table table-hover">
+
+                        <thead>
+
+                            <tr>
+
+                                <th>ID</th>
+
+                                <th>Título</th>
+
+                                <th>Endereço</th>
+
+                                <th>Preço</th>
+
+                                <th>Status</th>
+
+                                <th>Ações</th>
+
+                            </tr>
+
+                        </thead>
+
+                        <tbody id="tabelaImoveis">
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
             </div>
+
         </div>
+
     </div>
 
-</div>
+    <script src="js/api.js"></script>
 
-<footer class="text-center py-4 mt-4">
-    <small>© 2026 Corretor Pro • Desenvolvido por Maycon Cordeiro</small>
-</footer>
+    <script>
 
-<div class="toast-container position-fixed top-0 end-0 p-3" style="z-index: 1080;">
-    <div id="appToast" class="toast align-items-center border-0 text-white" role="alert" aria-live="assertive" aria-atomic="true">
-        <div class="d-flex">
-            <div id="appToastBody" class="toast-body fw-semibold">Mensagem</div>
-            <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Fechar"></button>
-        </div>
-    </div>
-</div>
+        const API = API_URL;
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+        const token = obterToken();
 
-<script src="js/api.js"></script>
+        let idEditando = null;
 
-<script>
-let idEditando = null;
+        if (!token) {
 
-const token = localStorage.getItem("token");
+            window.location.href = "login.html";
 
-if (!token) {
-    window.location.href = "login.html";
-}
-
-const btnSalvar = document.getElementById("btnSalvar");
-const btnAtualizarLista = document.getElementById("btnAtualizarLista");
-const btnCancelarEdicao = document.getElementById("btnCancelarEdicao");
-
-const contador = document.getElementById("contador");
-const mediaPreco = document.getElementById("mediaPreco");
-const maiorPreco = document.getElementById("maiorPreco");
-const vazio = document.getElementById("vazio");
-const listaImoveis = document.getElementById("listaImoveis");
-
-function logout() {
-    localStorage.removeItem("token");
-    window.location.href = "login.html";
-}
-
-function mostrarToast(texto, tipo = "success") {
-    const toastEl = document.getElementById("appToast");
-    const toastBody = document.getElementById("appToastBody");
-    const closeBtn = toastEl.querySelector(".btn-close");
-
-    toastBody.innerText = texto;
-
-    toastEl.className = "toast align-items-center border-0 text-white";
-    closeBtn.className = "btn-close btn-close-white me-2 m-auto";
-
-    if (tipo === "success") {
-        toastEl.classList.add("bg-success");
-    } else if (tipo === "danger") {
-        toastEl.classList.add("bg-danger");
-    } else if (tipo === "warning") {
-        toastEl.classList.add("bg-warning", "text-dark");
-        closeBtn.className = "btn-close me-2 m-auto";
-    } else {
-        toastEl.classList.add("bg-primary");
-    }
-
-    const toast = new bootstrap.Toast(toastEl, { delay: 2800 });
-    toast.show();
-}
-
-async function extrairMensagemErro(resposta) {
-    try {
-        const data = await resposta.json();
-
-        if (data.fields) {
-            return Object.values(data.fields).join(" | ");
         }
 
-        if (data.error) {
-            return data.error;
+        function mensagem(
+
+            texto,
+            tipo = "success"
+
+        ) {
+
+            const alerta =
+
+                document.getElementById(
+                    "mensagem"
+                );
+
+            alerta.className =
+
+                `alert alert-${tipo}`;
+
+            alerta.innerText =
+
+                texto;
+
+            alerta.classList.remove(
+                "d-none"
+            );
+
+            setTimeout(() => {
+
+                alerta.classList.add(
+                    "d-none"
+                );
+
+            }, 3000);
+
         }
 
-        return "Ocorreu um erro na requisição.";
-    } catch {
-        return "Ocorreu um erro na requisição.";
-    }
-}
+        function badgeStatus(status) {
 
-function tratarSessaoExpirada() {
-    localStorage.removeItem("token");
-    mostrarToast("Sessão expirada. Faça login novamente.", "warning");
-    setTimeout(() => {
-        window.location.href = "login.html";
-    }, 1200);
-}
+            if (status === "DISPONIVEL") {
 
-function resetForm() {
-    idEditando = null;
-    document.getElementById("titulo").value = "";
-    document.getElementById("endereco").value = "";
-    document.getElementById("preco").value = "";
+                return `
+<span class="badge bg-success">
+Disponível
+</span>`;
 
-    btnSalvar.innerHTML = `<i class="bi bi-save"></i> Salvar`;
-    btnCancelarEdicao.classList.add("d-none");
-}
+            }
 
-function editarImovel(id, titulo, endereco, preco) {
-    document.getElementById("titulo").value = titulo;
-    document.getElementById("endereco").value = endereco;
-    document.getElementById("preco").value = preco;
+            if (status === "RESERVADO") {
 
-    idEditando = id;
-    btnSalvar.innerHTML = `<i class="bi bi-pencil-square"></i> Atualizar`;
-    btnCancelarEdicao.classList.remove("d-none");
+                return `
+<span class="badge bg-warning text-dark">
+Reservado
+</span>`;
 
-    mostrarToast("Modo de edição ativado.", "warning");
-    window.scrollTo({ top: 0, behavior: "smooth" });
-}
+            }
 
-btnCancelarEdicao.addEventListener("click", () => {
-    resetForm();
-    mostrarToast("Edição cancelada.", "warning");
-});
+            if (status === "VENDIDO") {
 
-btnSalvar.addEventListener("click", async () => {
-    const titulo = document.getElementById("titulo").value.trim();
-    const endereco = document.getElementById("endereco").value.trim();
-    const preco = document.getElementById("preco").value;
+                return `
+<span class="badge bg-danger">
+Vendido
+</span>`;
 
-    if (!titulo || !endereco || !preco) {
-        mostrarToast("Preencha todos os campos.", "warning");
-        return;
-    }
+            }
 
-    btnSalvar.disabled = true;
-    btnSalvar.innerHTML = idEditando
-        ? `<i class="bi bi-hourglass-split"></i> Atualizando...`
-        : `<i class="bi bi-hourglass-split"></i> Salvando...`;
+            if (status === "ALUGADO") {
 
-    try {
-        const url = idEditando
-    ? `${API_URL}/imoveis/${idEditando}`
-    : `${API_URL}/imoveis`;
+                return `
+<span class="badge bg-primary">
+Alugado
+</span>`;
 
-        const metodo = idEditando ? "PUT" : "POST";
+            }
 
-        const resposta = await fetch(url, {
-            method: metodo,
-            headers: {
-                "Content-Type": "application/json",
-                "Authorization": "Bearer " + token
-            },
-            body: JSON.stringify({
-                titulo,
-                endereco,
-                preco: Number(preco)
-            })
-        });
+            return `
+<span class="badge bg-secondary">
+Sem status
+</span>`;
 
-        if (resposta.status === 401 || resposta.status === 403) {
-            tratarSessaoExpirada();
-            return;
         }
 
-        if (!resposta.ok) {
-            const erro = await extrairMensagemErro(resposta);
-            mostrarToast(erro, "danger");
-            return;
+        function limparFormulario() {
+
+            titulo.value = "";
+
+            endereco.value = "";
+
+            preco.value = "";
+
+            status.value = "DISPONIVEL";
+
+            idEditando = null;
+
+            btnSalvar.innerHTML =
+
+                `
+<i class="bi bi-plus-circle"></i>
+Cadastrar
+`;
+
+            btnSalvar.className =
+
+                "btn btn-primary w-100";
+
         }
 
-        mostrarToast(
-            idEditando ? "Imóvel atualizado com sucesso!" : "Imóvel cadastrado com sucesso!",
-            "success"
+        async function carregarImoveis() {
+
+            const resposta =
+
+                await fetch(
+
+                    `${API}/imoveis/meus`,
+
+                    {
+
+                        headers: {
+
+                            Authorization:
+
+                                "Bearer " + token
+
+                        }
+
+                    }
+
+                );
+
+            const dados =
+
+                await resposta.json();
+
+            tabelaImoveis.innerHTML = "";
+
+            dados.forEach(imovel => {
+
+                tabelaImoveis.innerHTML += `
+
+<tr>
+
+<td>
+
+${imovel.id}
+
+</td>
+
+<td>
+
+${imovel.titulo}
+
+</td>
+
+<td>
+
+${imovel.endereco}
+
+</td>
+
+<td>
+
+R$
+
+${Number(
+                    imovel.preco
+                ).toLocaleString(
+                    "pt-BR"
+                )}
+
+</td>
+
+<td>
+
+${badgeStatus(
+                    imovel.status
+                )}
+
+</td>
+
+<td>
+
+<button
+
+onclick=
+
+"editarImovel(
+
+${imovel.id},
+
+'${imovel.titulo}',
+
+'${imovel.endereco}',
+
+${imovel.preco},
+
+'${imovel.status}'
+
+)"
+
+class=
+
+"btn btn-warning btn-sm me-1">
+
+Editar
+
+</button>
+
+<button
+
+onclick=
+
+"deletar(
+
+${imovel.id}
+
+)"
+
+class=
+
+"btn btn-danger btn-sm">
+
+Excluir
+
+</button>
+
+</td>
+
+</tr>
+
+`;
+
+            });
+
+        }
+
+        function editarImovel(
+
+            id,
+            tituloValor,
+            enderecoValor,
+            precoValor,
+            statusValor
+
+        ) {
+
+            idEditando = id;
+
+            titulo.value = tituloValor;
+
+            endereco.value = enderecoValor;
+
+            preco.value = precoValor;
+
+            status.value =
+
+                statusValor
+                || "DISPONIVEL";
+
+            btnSalvar.innerHTML =
+
+                `
+<i class="bi bi-pencil"></i>
+Atualizar
+`;
+
+            btnSalvar.className =
+
+                "btn btn-warning w-100";
+
+        }
+
+        btnSalvar.addEventListener(
+
+            "click",
+
+            async () => {
+
+                const url =
+
+                    idEditando
+
+                        ?
+
+                        `${API}/imoveis/${idEditando}`
+
+                        :
+
+                        `${API}/imoveis`;
+
+                const metodo =
+
+                    idEditando
+
+                        ?
+
+                        "PUT"
+
+                        :
+
+                        "POST";
+
+                const resposta =
+
+                    await fetch(
+
+                        url,
+
+                        {
+
+                            method: metodo,
+
+                            headers: {
+
+                                "Content-Type":
+
+                                    "application/json",
+
+                                Authorization:
+
+                                    "Bearer " + token
+
+                            },
+
+                            body:
+
+                                JSON.stringify({
+
+                                    titulo:
+
+                                        titulo.value,
+
+                                    endereco:
+
+                                        endereco.value,
+
+                                    preco:
+
+                                        Number(preco.value),
+
+                                    status:
+
+                                        status.value
+
+                                })
+
+                        }
+
+                    );
+
+                if (!resposta.ok) {
+
+                    mensagem(
+                        "Erro salvar",
+                        "danger"
+                    );
+
+                    return;
+
+                }
+
+                mensagem(
+
+                    idEditando
+
+                        ?
+
+                        "Imóvel atualizado"
+
+                        :
+
+                        "Imóvel cadastrado"
+
+                );
+
+                limparFormulario();
+
+                carregarImoveis();
+
+            }
+
         );
 
-        resetForm();
-        await carregarImoveis();
+        async function deletar(id) {
 
-    } catch (e) {
-        console.error(e);
-        mostrarToast("Não foi possível salvar o imóvel. Tente novamente.", "danger");
-    } finally {
-        btnSalvar.disabled = false;
-        btnSalvar.innerHTML = idEditando
-            ? `<i class="bi bi-pencil-square"></i> Atualizar`
-            : `<i class="bi bi-save"></i> Salvar`;
-    }
-});
+            if (
 
-btnAtualizarLista.addEventListener("click", async () => {
-    await carregarImoveis();
-    mostrarToast("Lista atualizada com sucesso.", "success");
-});
+                !confirm(
+                    "Deseja excluir?"
+                )
 
-async function carregarImoveis() {
-    btnAtualizarLista.disabled = true;
-    btnAtualizarLista.innerHTML = `<i class="bi bi-hourglass-split"></i> Carregando...`;
+            ) {
 
-    try {
-        const resposta = await fetch(`${API_URL}/imoveis/meus`, {
-            method: "GET",
-            headers: {
-                "Authorization": "Bearer " + token
+                return;
+
             }
-        });
 
-        if (resposta.status === 401 || resposta.status === 403) {
-            tratarSessaoExpirada();
-            return;
+            await fetch(
+
+                `${API}/imoveis/${id}`,
+
+                {
+
+                    method: "DELETE",
+
+                    headers: {
+
+                        Authorization:
+
+                            "Bearer " + token
+
+                    }
+
+                }
+
+            );
+
+            mensagem(
+                "Excluído"
+            );
+
+            carregarImoveis();
+
         }
 
-        if (!resposta.ok) {
-            const erro = await extrairMensagemErro(resposta);
-            mostrarToast(erro, "danger");
-            return;
-        }
+        btnLogout.addEventListener(
 
-        const dados = await resposta.json();
+            "click",
 
-        listaImoveis.innerHTML = "";
-        contador.innerText = Array.isArray(dados) ? dados.length : 0;
-        vazio.classList.toggle("d-none", dados.length !== 0);
+            () => {
 
-        if (dados.length > 0) {
-            const precos = dados.map(i => Number(i.preco) || 0);
-            const media = precos.reduce((a, b) => a + b, 0) / precos.length;
-            const maior = Math.max(...precos);
+                removerToken();
 
-            mediaPreco.innerText = `R$ ${media.toLocaleString("pt-BR", { maximumFractionDigits: 2 })}`;
-            maiorPreco.innerText = `R$ ${maior.toLocaleString("pt-BR", { maximumFractionDigits: 2 })}`;
-        } else {
-            mediaPreco.innerText = "R$ 0";
-            maiorPreco.innerText = "R$ 0";
-        }
+                window.location.href =
 
-        dados.forEach(imovel => {
-            const tituloSeguro = String(imovel.titulo).replace(/'/g, "\\'");
-            const enderecoSeguro = String(imovel.endereco).replace(/'/g, "\\'");
+                    "login.html";
 
-            const card = `
-                <div class="col-md-6 col-xl-4">
-                    <div class="imovel-card">
-                        <div class="imovel-banner">
-                            <i class="bi bi-house-fill"></i>
-                        </div>
-                        <div class="p-4">
-                            <div class="d-flex justify-content-between align-items-start mb-3">
-                                <div>
-                                    <div class="imovel-meta">ID do imóvel</div>
-                                    <div class="fw-bold text-dark">#${imovel.id}</div>
-                                </div>
-                                <span class="badge text-bg-light border">Cadastrado</span>
-                            </div>
-
-                            <h5 class="fw-bold text-dark mb-2">${imovel.titulo}</h5>
-
-                            <p class="text-secondary mb-3">
-                                <i class="bi bi-geo-alt-fill text-danger"></i> ${imovel.endereco}
-                            </p>
-
-                            <div class="imovel-preco mb-3">
-                                R$ ${Number(imovel.preco).toLocaleString("pt-BR", { maximumFractionDigits: 2 })}
-                            </div>
-
-                            <div class="d-flex flex-wrap gap-2">
-                                <button class="btn btn-outline-primary btn-sm"
-                                    onclick="editarImovel(${imovel.id}, '${tituloSeguro}', '${enderecoSeguro}', ${imovel.preco})">
-                                    <i class="bi bi-pencil"></i> Editar
-                                </button>
-
-                                <button class="btn btn-outline-danger btn-sm"
-                                    onclick="excluirImovel(${imovel.id})">
-                                    <i class="bi bi-trash"></i> Excluir
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            `;
-
-            listaImoveis.innerHTML += card;
-        });
-
-    } catch (e) {
-        console.error(e);
-        mostrarToast("Não foi possível carregar os imóveis. Tente novamente.", "danger");
-    } finally {
-        btnAtualizarLista.disabled = false;
-        btnAtualizarLista.innerHTML = `<i class="bi bi-arrow-clockwise"></i> Atualizar lista`;
-    }
-}
-
-async function excluirImovel(id) {
-    const confirmar = confirm("Deseja excluir este imóvel?");
-    if (!confirmar) return;
-
-    try {
-        const resposta = await fetch(`${API_URL}/imoveis/${id}`, {
-            method: "DELETE",
-            headers: {
-                "Authorization": "Bearer " + token
             }
-        });
 
-        if (resposta.status === 401 || resposta.status === 403) {
-            tratarSessaoExpirada();
-            return;
-        }
+        );
 
-        if (!resposta.ok) {
-            const erro = await extrairMensagemErro(resposta);
-            mostrarToast(erro, "danger");
-            return;
-        }
+        carregarImoveis();
 
-        mostrarToast("Imóvel excluído com sucesso!", "success");
-        await carregarImoveis();
-
-    } catch (e) {
-        console.error(e);
-        mostrarToast("Não foi possível excluir o imóvel. Tente novamente.", "danger");
-    }
-}
-
-window.onload = async () => {
-    await carregarImoveis();
-};
-</script>
+    </script>
 
 </body>
+
 </html>

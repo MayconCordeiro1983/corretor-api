@@ -14,6 +14,9 @@ public class Imovel {
     private String endereco;
     private Double preco;
 
+    @Enumerated(EnumType.STRING)
+    private StatusImovel status = StatusImovel.DISPONIVEL;
+
     @ManyToOne
     @JoinColumn(name = "usuario_id")
     private Usuario usuario;
@@ -29,6 +32,9 @@ public class Imovel {
 
     public Double getPreco() { return preco; }
     public void setPreco(Double preco) { this.preco = preco; }
+
+    public StatusImovel getStatus() { return status; }
+    public void setStatus(StatusImovel status) { this.status = status; }
 
     public Usuario getUsuario() { return usuario; }
     public void setUsuario(Usuario usuario) { this.usuario = usuario; }

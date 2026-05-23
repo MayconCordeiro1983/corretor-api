@@ -27,7 +27,8 @@ public class ImovelController {
                 salvo.getId(),
                 salvo.getTitulo(),
                 salvo.getEndereco(),
-                salvo.getPreco()
+                salvo.getPreco(),
+                salvo.getStatus()
         );
     }
 
@@ -38,7 +39,8 @@ public class ImovelController {
                         i.getId(),
                         i.getTitulo(),
                         i.getEndereco(),
-                        i.getPreco()
+                        i.getPreco(),
+                        i.getStatus()
                 ))
                 .toList();
     }
@@ -54,7 +56,8 @@ public class ImovelController {
                             i.getId(),
                             i.getTitulo(),
                             i.getEndereco(),
-                            i.getPreco()
+                            i.getPreco(),
+                            i.getStatus()
                     ))
                     .toList();
         }
@@ -65,7 +68,8 @@ public class ImovelController {
                             i.getId(),
                             i.getTitulo(),
                             i.getEndereco(),
-                            i.getPreco()
+                            i.getPreco(),
+                            i.getStatus()
                     ))
                     .toList();
         }
@@ -75,39 +79,64 @@ public class ImovelController {
                         i.getId(),
                         i.getTitulo(),
                         i.getEndereco(),
-                        i.getPreco()
+                        i.getPreco(),
+                        i.getStatus()
                 ))
                 .toList();
     }
 
     @GetMapping("/publicos")
-public List<ImovelResponse> publicos() {
-    return service.listarPublicos().stream()
-            .map(i -> new ImovelResponse(i.getId(), i.getTitulo(), i.getEndereco(), i.getPreco()))
-            .toList();
-}
-
-@GetMapping("/publicos/buscar")
-public List<ImovelResponse> buscarPublicos(
-        @RequestParam(required = false) String titulo,
-        @RequestParam(required = false) Double precoMax) {
-
-    if (titulo != null && !titulo.isBlank()) {
-        return service.buscarPublicoPorTitulo(titulo).stream()
-                .map(i -> new ImovelResponse(i.getId(), i.getTitulo(), i.getEndereco(), i.getPreco()))
+    public List<ImovelResponse> publicos() {
+        return service.listarPublicos().stream()
+                .map(i -> new ImovelResponse(
+                        i.getId(),
+                        i.getTitulo(),
+                        i.getEndereco(),
+                        i.getPreco(),
+                        i.getStatus()
+                ))
                 .toList();
     }
 
-    if (precoMax != null) {
-        return service.buscarPublicoPorPrecoMax(precoMax).stream()
-                .map(i -> new ImovelResponse(i.getId(), i.getTitulo(), i.getEndereco(), i.getPreco()))
+    @GetMapping("/publicos/buscar")
+    public List<ImovelResponse> buscarPublicos(
+            @RequestParam(required = false) String titulo,
+            @RequestParam(required = false) Double precoMax) {
+
+        if (titulo != null && !titulo.isBlank()) {
+            return service.buscarPublicoPorTitulo(titulo).stream()
+                    .map(i -> new ImovelResponse(
+                            i.getId(),
+                            i.getTitulo(),
+                            i.getEndereco(),
+                            i.getPreco(),
+                            i.getStatus()
+                    ))
+                    .toList();
+        }
+
+        if (precoMax != null) {
+            return service.buscarPublicoPorPrecoMax(precoMax).stream()
+                    .map(i -> new ImovelResponse(
+                            i.getId(),
+                            i.getTitulo(),
+                            i.getEndereco(),
+                            i.getPreco(),
+                            i.getStatus()
+                    ))
+                    .toList();
+        }
+
+        return service.listarPublicos().stream()
+                .map(i -> new ImovelResponse(
+                        i.getId(),
+                        i.getTitulo(),
+                        i.getEndereco(),
+                        i.getPreco(),
+                        i.getStatus()
+                ))
                 .toList();
     }
-
-    return service.listarPublicos().stream()
-            .map(i -> new ImovelResponse(i.getId(), i.getTitulo(), i.getEndereco(), i.getPreco()))
-            .toList();
-}
 
     @PutMapping("/{id}")
     public ImovelResponse atualizar(
@@ -120,7 +149,8 @@ public List<ImovelResponse> buscarPublicos(
                 atualizado.getId(),
                 atualizado.getTitulo(),
                 atualizado.getEndereco(),
-                atualizado.getPreco()
+                atualizado.getPreco(),
+                atualizado.getStatus()
         );
     }
 

@@ -21,6 +21,7 @@
     <field name="titulo" class="java.lang.String"/>
     <field name="endereco" class="java.lang.String"/>
     <field name="preco" class="java.lang.Double"/>
+    <field name="status" class="com.corretor.corretor.model.StatusImovel"/>
 
     <title>
         <band height="90">
@@ -29,7 +30,7 @@
                 <textElement textAlignment="Center">
                     <font size="20" isBold="true"/>
                 </textElement>
-                <text><![CDATA[🏢 Corretor Pro]]></text>
+                <text><![CDATA[Corretor Pro]]></text>
             </staticText>
 
             <staticText>
@@ -53,7 +54,7 @@
     <columnHeader>
         <band height="28">
             <staticText>
-                <reportElement x="0" y="5" width="180" height="20"/>
+                <reportElement x="0" y="5" width="150" height="20"/>
                 <textElement>
                     <font isBold="true"/>
                 </textElement>
@@ -61,7 +62,7 @@
             </staticText>
 
             <staticText>
-                <reportElement x="190" y="5" width="220" height="20"/>
+                <reportElement x="155" y="5" width="180" height="20"/>
                 <textElement>
                     <font isBold="true"/>
                 </textElement>
@@ -69,37 +70,51 @@
             </staticText>
 
             <staticText>
-                <reportElement x="420" y="5" width="130" height="20"/>
+                <reportElement x="340" y="5" width="125" height="20"/>
                 <textElement textAlignment="Right">
                     <font isBold="true"/>
                 </textElement>
                 <text><![CDATA[Preço]]></text>
             </staticText>
+
+            <staticText>
+                <reportElement x="475" y="5" width="80" height="20"/>
+                <textElement textAlignment="Right">
+                    <font isBold="true"/>
+                </textElement>
+                <text><![CDATA[Status]]></text>
+            </staticText>
         </band>
     </columnHeader>
 
     <detail>
-        <band height="24">
+        <band height="26">
             <textField>
-                <reportElement x="0" y="2" width="180" height="20"/>
+                <reportElement x="0" y="3" width="150" height="20"/>
                 <textFieldExpression><![CDATA[$F{titulo}]]></textFieldExpression>
             </textField>
 
             <textField>
-                <reportElement x="190" y="2" width="220" height="20"/>
+                <reportElement x="155" y="3" width="180" height="20"/>
                 <textFieldExpression><![CDATA[$F{endereco}]]></textFieldExpression>
             </textField>
 
-            <textField pattern="¤ #,##0.00">
-                <reportElement x="420" y="2" width="130" height="20"/>
+            <textField>
+                <reportElement x="340" y="3" width="125" height="20"/>
                 <textElement textAlignment="Right"/>
-                <textFieldExpression><![CDATA[$F{preco}]]></textFieldExpression>
+                <textFieldExpression><![CDATA["R$ " + new java.text.DecimalFormat("#,##0.00").format($F{preco})]]></textFieldExpression>
+            </textField>
+
+            <textField>
+                <reportElement x="475" y="3" width="80" height="20"/>
+                <textElement textAlignment="Right"/>
+                <textFieldExpression><![CDATA[$F{status} == null ? "DISPONIVEL" : $F{status}.toString()]]></textFieldExpression>
             </textField>
         </band>
     </detail>
 
     <pageFooter>
-        <band height="35">
+        <band height="30">
             <textField>
                 <reportElement x="0" y="5" width="300" height="20"/>
                 <textElement>
@@ -132,7 +147,7 @@
                 <textFieldExpression><![CDATA["Total de imóveis: " + $P{TOTAL_IMOVEIS}]]></textFieldExpression>
             </textField>
 
-            <textField pattern="¤ #,##0.00">
+            <textField>
                 <reportElement x="300" y="25" width="255" height="20"/>
                 <textElement textAlignment="Right">
                     <font isBold="true"/>
@@ -149,5 +164,5 @@
             </textField>
         </band>
     </summary>
-    
+
 </jasperReport>
