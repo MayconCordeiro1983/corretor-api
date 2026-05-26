@@ -27,6 +27,7 @@ public class ImovelService {
         i.setTitulo(req.getTitulo());
         i.setEndereco(req.getEndereco());
         i.setPreco(req.getPreco());
+        i.setImagemUrl(req.getImagemUrl());
         i.setStatus(req.getStatus() != null ? req.getStatus() : StatusImovel.DISPONIVEL);
         i.setUsuario(logado);
 
@@ -65,6 +66,7 @@ public class ImovelService {
         imovel.setTitulo(req.getTitulo());
         imovel.setEndereco(req.getEndereco());
         imovel.setPreco(req.getPreco());
+        imovel.setImagemUrl(req.getImagemUrl());
         imovel.setStatus(req.getStatus() != null ? req.getStatus() : imovel.getStatus());
 
         return imovelRepository.save(imovel);

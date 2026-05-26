@@ -28,7 +28,8 @@ public class ImovelController {
                 salvo.getTitulo(),
                 salvo.getEndereco(),
                 salvo.getPreco(),
-                salvo.getStatus()
+                salvo.getStatus(),
+                salvo.getImagemUrl()
         );
     }
 
@@ -40,7 +41,8 @@ public class ImovelController {
                         i.getTitulo(),
                         i.getEndereco(),
                         i.getPreco(),
-                        i.getStatus()
+                        i.getStatus(),
+                        i.getImagemUrl()
                 ))
                 .toList();
     }
@@ -57,7 +59,8 @@ public class ImovelController {
                             i.getTitulo(),
                             i.getEndereco(),
                             i.getPreco(),
-                            i.getStatus()
+                            i.getStatus(),
+                            i.getImagemUrl()
                     ))
                     .toList();
         }
@@ -69,7 +72,8 @@ public class ImovelController {
                             i.getTitulo(),
                             i.getEndereco(),
                             i.getPreco(),
-                            i.getStatus()
+                            i.getStatus(),
+                            i.getImagemUrl()
                     ))
                     .toList();
         }
@@ -80,7 +84,8 @@ public class ImovelController {
                         i.getTitulo(),
                         i.getEndereco(),
                         i.getPreco(),
-                        i.getStatus()
+                        i.getStatus(),
+                        i.getImagemUrl()
                 ))
                 .toList();
     }
@@ -93,7 +98,8 @@ public class ImovelController {
                         i.getTitulo(),
                         i.getEndereco(),
                         i.getPreco(),
-                        i.getStatus()
+                        i.getStatus(),
+                        i.getImagemUrl()
                 ))
                 .toList();
     }
@@ -110,7 +116,8 @@ public class ImovelController {
                             i.getTitulo(),
                             i.getEndereco(),
                             i.getPreco(),
-                            i.getStatus()
+                            i.getStatus(),
+                            i.getImagemUrl()
                     ))
                     .toList();
         }
@@ -122,7 +129,8 @@ public class ImovelController {
                             i.getTitulo(),
                             i.getEndereco(),
                             i.getPreco(),
-                            i.getStatus()
+                            i.getStatus(),
+                            i.getImagemUrl()
                     ))
                     .toList();
         }
@@ -133,7 +141,8 @@ public class ImovelController {
                         i.getTitulo(),
                         i.getEndereco(),
                         i.getPreco(),
-                        i.getStatus()
+                        i.getStatus(),
+                        i.getImagemUrl()
                 ))
                 .toList();
     }
@@ -150,7 +159,8 @@ public class ImovelController {
                 atualizado.getTitulo(),
                 atualizado.getEndereco(),
                 atualizado.getPreco(),
-                atualizado.getStatus()
+                atualizado.getStatus(),
+                atualizado.getImagemUrl()
         );
     }
 

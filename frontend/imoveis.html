@@ -2,16 +2,12 @@
 <html lang="pt-BR">
 
 <head>
-
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
 
-    <title>
-        Imóveis - Corretor Pro
-    </title>
+    <title>Imóveis - Corretor Pro</title>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
 
     <style>
@@ -20,660 +16,469 @@
         }
 
         .card-sistema {
-
             border: none;
-
             border-radius: 20px;
-
-            box-shadow:
-                0 6px 25px rgba(0, 0, 0, .08);
-
+            box-shadow: 0 6px 25px rgba(0, 0, 0, .08);
         }
 
         .badge-status {
-
             font-size: 13px;
-
             padding: 8px 12px;
-
         }
 
         .btn {
-
             border-radius: 10px;
-
             font-weight: 600;
+        }
 
+        .img-imovel {
+            width: 110px;
+            height: 75px;
+            object-fit: cover;
+            border-radius: 10px;
+            border: 1px solid #ddd;
+        }
+
+        .sem-imagem {
+            width: 110px;
+            height: 75px;
+            border-radius: 10px;
+            background: #e5e7eb;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #6b7280;
+            font-size: 12px;
+            text-align: center;
+        }
+
+        .filtro-box {
+            background: #f8fafc;
+            border: 1px solid #e5e7eb;
+            border-radius: 16px;
+            padding: 18px;
         }
     </style>
-
 </head>
 
 <body>
 
     <nav class="navbar navbar-dark bg-dark">
-
         <div class="container">
-
             <a href="dashboard.html" class="navbar-brand fw-bold">
-
                 🏢 Corretor Pro
-
             </a>
 
             <div class="d-flex gap-2">
-
                 <a href="dashboard.html" class="btn btn-outline-light">
-
-                    <i class="bi bi-speedometer2"></i>
-
-                    Dashboard
-
+                    <i class="bi bi-speedometer2"></i> Dashboard
                 </a>
 
                 <button id="btnLogout" class="btn btn-danger">
-
-                    <i class="bi bi-box-arrow-right"></i>
-
-                    Sair
-
+                    <i class="bi bi-box-arrow-right"></i> Sair
                 </button>
-
             </div>
-
         </div>
-
     </nav>
 
     <div class="container py-5">
-
         <div class="card card-sistema">
-
             <div class="card-body p-4">
 
                 <h2>
-
                     <i class="bi bi-house"></i>
-
                     Cadastro de imóveis
-
                 </h2>
 
                 <hr>
 
-                <div id="mensagem" class="alert d-none">
-                </div>
+                <div id="mensagem" class="alert d-none"></div>
 
                 <div class="row g-3">
 
                     <div class="col-md-3">
-
-                        <label>Título</label>
-
+                        <label class="form-label">Título</label>
                         <input id="titulo" class="form-control">
-
                     </div>
 
                     <div class="col-md-3">
-
-                        <label>Endereço</label>
-
+                        <label class="form-label">Endereço</label>
                         <input id="endereco" class="form-control">
-
                     </div>
 
                     <div class="col-md-2">
-
-                        <label>Preço</label>
-
+                        <label class="form-label">Preço</label>
                         <input id="preco" type="number" step="0.01" class="form-control">
-
                     </div>
 
                     <div class="col-md-2">
-
-                        <label>Status</label>
-
+                        <label class="form-label">Status</label>
                         <select id="status" class="form-select">
-
-                            <option value="DISPONIVEL">
-
-                                Disponível
-
-                            </option>
-
-                            <option value="RESERVADO">
-
-                                Reservado
-
-                            </option>
-
-                            <option value="VENDIDO">
-
-                                Vendido
-
-                            </option>
-
-                            <option value="ALUGADO">
-
-                                Alugado
-
-                            </option>
-
+                            <option value="DISPONIVEL">Disponível</option>
+                            <option value="RESERVADO">Reservado</option>
+                            <option value="VENDIDO">Vendido</option>
+                            <option value="ALUGADO">Alugado</option>
                         </select>
-
                     </div>
 
                     <div class="col-md-2 d-flex align-items-end">
-
                         <button id="btnSalvar" class="btn btn-primary w-100">
-
-                            <i class="bi bi-plus-circle"></i>
-
-                            Cadastrar
-
+                            <i class="bi bi-plus-circle"></i> Cadastrar
                         </button>
+                    </div>
 
+                    <div class="col-md-12">
+                        <label class="form-label">Imagem do imóvel (URL)</label>
+                        <input id="imagemUrl" class="form-control" placeholder="https://site.com/imagem.jpg">
                     </div>
 
                 </div>
 
                 <hr>
 
+                <div class="filtro-box mb-4">
+                    <h5 class="mb-3">
+                        <i class="bi bi-funnel"></i> Busca e filtros
+                    </h5>
+
+                    <div class="row g-3">
+                        <div class="col-md-4">
+                            <label class="form-label">Pesquisar</label>
+                            <input id="filtroTexto" class="form-control" placeholder="Digite título ou endereço">
+                        </div>
+
+                        <div class="col-md-3">
+                            <label class="form-label">Status</label>
+                            <select id="filtroStatus" class="form-select">
+                                <option value="">Todos</option>
+                                <option value="DISPONIVEL">Disponível</option>
+                                <option value="RESERVADO">Reservado</option>
+                                <option value="VENDIDO">Vendido</option>
+                                <option value="ALUGADO">Alugado</option>
+                            </select>
+                        </div>
+
+                        <div class="col-md-3">
+                            <label class="form-label">Ordenar</label>
+                            <select id="ordenacao" class="form-select">
+                                <option value="">Sem ordenação</option>
+                                <option value="az">Título A-Z</option>
+                                <option value="precoMenor">Menor preço</option>
+                                <option value="precoMaior">Maior preço</option>
+                            </select>
+                        </div>
+
+                        <div class="col-md-2 d-flex align-items-end">
+                            <button id="btnLimparFiltros" class="btn btn-outline-secondary w-100">
+                                Limpar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <strong>Total exibido:</strong>
+                    <span id="totalExibido">0</span>
+                </div>
+
                 <div class="table-responsive">
-
-                    <table class="table table-hover">
-
+                    <table class="table table-hover align-middle">
                         <thead>
-
                             <tr>
-
+                                <th>Imagem</th>
                                 <th>ID</th>
-
                                 <th>Título</th>
-
                                 <th>Endereço</th>
-
                                 <th>Preço</th>
-
                                 <th>Status</th>
-
                                 <th>Ações</th>
-
                             </tr>
-
                         </thead>
 
-                        <tbody id="tabelaImoveis">
-
-                        </tbody>
-
+                        <tbody id="tabelaImoveis"></tbody>
                     </table>
-
                 </div>
 
             </div>
-
         </div>
-
     </div>
 
     <script src="js/api.js"></script>
 
     <script>
-
         const API = API_URL;
-
         const token = obterToken();
 
         let idEditando = null;
+        let listaImoveis = [];
 
         if (!token) {
-
             window.location.href = "login.html";
-
         }
 
-        function mensagem(
+        function mensagem(texto, tipo = "success") {
+            const alerta = document.getElementById("mensagem");
 
-            texto,
-            tipo = "success"
-
-        ) {
-
-            const alerta =
-
-                document.getElementById(
-                    "mensagem"
-                );
-
-            alerta.className =
-
-                `alert alert-${tipo}`;
-
-            alerta.innerText =
-
-                texto;
-
-            alerta.classList.remove(
-                "d-none"
-            );
+            alerta.className = `alert alert-${tipo}`;
+            alerta.innerText = texto;
+            alerta.classList.remove("d-none");
 
             setTimeout(() => {
-
-                alerta.classList.add(
-                    "d-none"
-                );
-
+                alerta.classList.add("d-none");
             }, 3000);
-
         }
 
         function badgeStatus(status) {
-
             if (status === "DISPONIVEL") {
-
-                return `
-<span class="badge bg-success">
-Disponível
-</span>`;
-
+                return `<span class="badge bg-success badge-status">Disponível</span>`;
             }
 
             if (status === "RESERVADO") {
-
-                return `
-<span class="badge bg-warning text-dark">
-Reservado
-</span>`;
-
+                return `<span class="badge bg-warning text-dark badge-status">Reservado</span>`;
             }
 
             if (status === "VENDIDO") {
-
-                return `
-<span class="badge bg-danger">
-Vendido
-</span>`;
-
+                return `<span class="badge bg-danger badge-status">Vendido</span>`;
             }
 
             if (status === "ALUGADO") {
-
-                return `
-<span class="badge bg-primary">
-Alugado
-</span>`;
-
+                return `<span class="badge bg-primary badge-status">Alugado</span>`;
             }
 
-            return `
-<span class="badge bg-secondary">
-Sem status
-</span>`;
+            return `<span class="badge bg-secondary badge-status">Sem status</span>`;
+        }
 
+        function imagemImovel(imagemUrl) {
+            if (imagemUrl && imagemUrl.trim() !== "") {
+                return `
+                <a href="${imagemUrl}" target="_blank">
+                    <img
+                        src="${imagemUrl}"
+                        class="img-imovel"
+                        alt="Imagem do imóvel"
+                        onerror="this.outerHTML='<div class=&quot;sem-imagem&quot;>Imagem inválida</div>'">
+                </a>
+            `;
+            }
+
+            return `<div class="sem-imagem">Sem imagem</div>`;
         }
 
         function limparFormulario() {
-
             titulo.value = "";
-
             endereco.value = "";
-
             preco.value = "";
-
             status.value = "DISPONIVEL";
+            imagemUrl.value = "";
 
             idEditando = null;
 
-            btnSalvar.innerHTML =
+            btnSalvar.innerHTML = `<i class="bi bi-plus-circle"></i> Cadastrar`;
+            btnSalvar.className = "btn btn-primary w-100";
+        }
 
-                `
-<i class="bi bi-plus-circle"></i>
-Cadastrar
-`;
+        function aplicarFiltros() {
+            const texto = filtroTexto.value.trim().toLowerCase();
+            const statusSelecionado = filtroStatus.value;
+            const ordem = ordenacao.value;
 
-            btnSalvar.className =
+            let resultado = [...listaImoveis];
 
-                "btn btn-primary w-100";
+            if (texto) {
+                resultado = resultado.filter(imovel => {
+                    const titulo = (imovel.titulo || "").toLowerCase();
+                    const endereco = (imovel.endereco || "").toLowerCase();
 
+                    return titulo.includes(texto) || endereco.includes(texto);
+                });
+            }
+
+            if (statusSelecionado) {
+                resultado = resultado.filter(imovel => imovel.status === statusSelecionado);
+            }
+
+            if (ordem === "az") {
+                resultado.sort((a, b) =>
+                    (a.titulo || "").localeCompare(b.titulo || "", "pt-BR")
+                );
+            }
+
+            if (ordem === "precoMenor") {
+                resultado.sort((a, b) => Number(a.preco || 0) - Number(b.preco || 0));
+            }
+
+            if (ordem === "precoMaior") {
+                resultado.sort((a, b) => Number(b.preco || 0) - Number(a.preco || 0));
+            }
+
+            renderizarTabela(resultado);
+        }
+
+        function renderizarTabela(dados) {
+            tabelaImoveis.innerHTML = "";
+            totalExibido.innerText = dados.length;
+
+            if (dados.length === 0) {
+                tabelaImoveis.innerHTML = `
+                <tr>
+                    <td colspan="7" class="text-center text-muted py-4">
+                        Nenhum imóvel encontrado.
+                    </td>
+                </tr>
+            `;
+                return;
+            }
+
+            dados.forEach(imovel => {
+                tabelaImoveis.innerHTML += `
+                <tr>
+                    <td>${imagemImovel(imovel.imagemUrl)}</td>
+                    <td>${imovel.id}</td>
+                    <td>${imovel.titulo}</td>
+                    <td>${imovel.endereco}</td>
+                    <td>R$ ${Number(imovel.preco).toLocaleString("pt-BR")}</td>
+                    <td>${badgeStatus(imovel.status)}</td>
+                    <td>
+                        <button
+                            onclick='editarImovel(${JSON.stringify(imovel)})'
+                            class="btn btn-warning btn-sm me-1">
+                            <i class="bi bi-pencil"></i> Editar
+                        </button>
+
+                        <button
+                            onclick="deletar(${imovel.id})"
+                            class="btn btn-danger btn-sm">
+                            <i class="bi bi-trash"></i> Excluir
+                        </button>
+                    </td>
+                </tr>
+            `;
+            });
         }
 
         async function carregarImoveis() {
-
-            const resposta =
-
-                await fetch(
-
-                    `${API}/imoveis/meus`,
-
-                    {
-
-                        headers: {
-
-                            Authorization:
-
-                                "Bearer " + token
-
-                        }
-
+            try {
+                const resposta = await fetch(`${API}/imoveis/meus`, {
+                    headers: {
+                        Authorization: "Bearer " + token
                     }
+                });
 
-                );
+                if (resposta.status === 401 || resposta.status === 403) {
+                    removerToken();
+                    window.location.href = "login.html";
+                    return;
+                }
 
-            const dados =
+                listaImoveis = await resposta.json();
 
-                await resposta.json();
+                aplicarFiltros();
 
-            tabelaImoveis.innerHTML = "";
-
-            dados.forEach(imovel => {
-
-                tabelaImoveis.innerHTML += `
-
-<tr>
-
-<td>
-
-${imovel.id}
-
-</td>
-
-<td>
-
-${imovel.titulo}
-
-</td>
-
-<td>
-
-${imovel.endereco}
-
-</td>
-
-<td>
-
-R$
-
-${Number(
-                    imovel.preco
-                ).toLocaleString(
-                    "pt-BR"
-                )}
-
-</td>
-
-<td>
-
-${badgeStatus(
-                    imovel.status
-                )}
-
-</td>
-
-<td>
-
-<button
-
-onclick=
-
-"editarImovel(
-
-${imovel.id},
-
-'${imovel.titulo}',
-
-'${imovel.endereco}',
-
-${imovel.preco},
-
-'${imovel.status}'
-
-)"
-
-class=
-
-"btn btn-warning btn-sm me-1">
-
-Editar
-
-</button>
-
-<button
-
-onclick=
-
-"deletar(
-
-${imovel.id}
-
-)"
-
-class=
-
-"btn btn-danger btn-sm">
-
-Excluir
-
-</button>
-
-</td>
-
-</tr>
-
-`;
-
-            });
-
+            } catch (erro) {
+                console.error(erro);
+                mensagem("Erro ao carregar imóveis", "danger");
+            }
         }
 
-        function editarImovel(
+        function editarImovel(imovel) {
+            idEditando = imovel.id;
 
-            id,
-            tituloValor,
-            enderecoValor,
-            precoValor,
-            statusValor
+            titulo.value = imovel.titulo || "";
+            endereco.value = imovel.endereco || "";
+            preco.value = imovel.preco || "";
+            status.value = imovel.status || "DISPONIVEL";
+            imagemUrl.value = imovel.imagemUrl || "";
 
-        ) {
+            btnSalvar.innerHTML = `<i class="bi bi-pencil"></i> Atualizar`;
+            btnSalvar.className = "btn btn-warning w-100";
 
-            idEditando = id;
-
-            titulo.value = tituloValor;
-
-            endereco.value = enderecoValor;
-
-            preco.value = precoValor;
-
-            status.value =
-
-                statusValor
-                || "DISPONIVEL";
-
-            btnSalvar.innerHTML =
-
-                `
-<i class="bi bi-pencil"></i>
-Atualizar
-`;
-
-            btnSalvar.className =
-
-                "btn btn-warning w-100";
-
+            window.scrollTo({ top: 0, behavior: "smooth" });
         }
 
-        btnSalvar.addEventListener(
+        btnSalvar.addEventListener("click", async () => {
+            const url = idEditando
+                ? `${API}/imoveis/${idEditando}`
+                : `${API}/imoveis`;
 
-            "click",
+            const metodo = idEditando ? "PUT" : "POST";
 
-            async () => {
-
-                const url =
-
-                    idEditando
-
-                        ?
-
-                        `${API}/imoveis/${idEditando}`
-
-                        :
-
-                        `${API}/imoveis`;
-
-                const metodo =
-
-                    idEditando
-
-                        ?
-
-                        "PUT"
-
-                        :
-
-                        "POST";
-
-                const resposta =
-
-                    await fetch(
-
-                        url,
-
-                        {
-
-                            method: metodo,
-
-                            headers: {
-
-                                "Content-Type":
-
-                                    "application/json",
-
-                                Authorization:
-
-                                    "Bearer " + token
-
-                            },
-
-                            body:
-
-                                JSON.stringify({
-
-                                    titulo:
-
-                                        titulo.value,
-
-                                    endereco:
-
-                                        endereco.value,
-
-                                    preco:
-
-                                        Number(preco.value),
-
-                                    status:
-
-                                        status.value
-
-                                })
-
-                        }
-
-                    );
+            try {
+                const resposta = await fetch(url, {
+                    method: metodo,
+                    headers: {
+                        "Content-Type": "application/json",
+                        Authorization: "Bearer " + token
+                    },
+                    body: JSON.stringify({
+                        titulo: titulo.value,
+                        endereco: endereco.value,
+                        preco: Number(preco.value),
+                        status: status.value,
+                        imagemUrl: imagemUrl.value.trim()
+                    })
+                });
 
                 if (!resposta.ok) {
-
-                    mensagem(
-                        "Erro salvar",
-                        "danger"
-                    );
-
+                    mensagem("Erro ao salvar imóvel", "danger");
                     return;
-
                 }
 
-                mensagem(
-
-                    idEditando
-
-                        ?
-
-                        "Imóvel atualizado"
-
-                        :
-
-                        "Imóvel cadastrado"
-
-                );
+                mensagem(idEditando ? "Imóvel atualizado" : "Imóvel cadastrado");
 
                 limparFormulario();
+                await carregarImoveis();
 
-                carregarImoveis();
-
+            } catch (erro) {
+                console.error(erro);
+                mensagem("Erro ao salvar imóvel", "danger");
             }
-
-        );
+        });
 
         async function deletar(id) {
-
-            if (
-
-                !confirm(
-                    "Deseja excluir?"
-                )
-
-            ) {
-
+            if (!confirm("Deseja excluir?")) {
                 return;
-
             }
 
-            await fetch(
-
-                `${API}/imoveis/${id}`,
-
-                {
-
+            try {
+                const resposta = await fetch(`${API}/imoveis/${id}`, {
                     method: "DELETE",
-
                     headers: {
-
-                        Authorization:
-
-                            "Bearer " + token
-
+                        Authorization: "Bearer " + token
                     }
+                });
 
+                if (!resposta.ok) {
+                    mensagem("Erro ao excluir imóvel", "danger");
+                    return;
                 }
 
-            );
+                mensagem("Imóvel excluído");
+                await carregarImoveis();
 
-            mensagem(
-                "Excluído"
-            );
-
-            carregarImoveis();
-
+            } catch (erro) {
+                console.error(erro);
+                mensagem("Erro ao excluir imóvel", "danger");
+            }
         }
 
-        btnLogout.addEventListener(
+        filtroTexto.addEventListener("input", aplicarFiltros);
+        filtroStatus.addEventListener("change", aplicarFiltros);
+        ordenacao.addEventListener("change", aplicarFiltros);
 
-            "click",
+        btnLimparFiltros.addEventListener("click", () => {
+            filtroTexto.value = "";
+            filtroStatus.value = "";
+            ordenacao.value = "";
 
-            () => {
+            aplicarFiltros();
+        });
 
-                removerToken();
-
-                window.location.href =
-
-                    "login.html";
-
-            }
-
-        );
+        btnLogout.addEventListener("click", () => {
+            removerToken();
+            window.location.href = "login.html";
+        });
 
         carregarImoveis();
-
     </script>
 
 </body>

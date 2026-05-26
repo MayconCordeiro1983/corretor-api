@@ -11,8 +11,13 @@ public class Imovel {
     private Long id;
 
     private String titulo;
+
     private String endereco;
+
     private Double preco;
+
+    @Column(name = "imagem_url", length = 500)
+    private String imagemUrl;
 
     @Enumerated(EnumType.STRING)
     private StatusImovel status = StatusImovel.DISPONIVEL;
@@ -21,21 +26,60 @@ public class Imovel {
     @JoinColumn(name = "usuario_id")
     private Usuario usuario;
 
-    public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
+    public Long getId() {
+        return id;
+    }
 
-    public String getTitulo() { return titulo; }
-    public void setTitulo(String titulo) { this.titulo = titulo; }
+    public void setId(Long id){
+        this.id=id;
+    }
 
-    public String getEndereco() { return endereco; }
-    public void setEndereco(String endereco) { this.endereco = endereco; }
+    public String getTitulo(){
+        return titulo;
+    }
 
-    public Double getPreco() { return preco; }
-    public void setPreco(Double preco) { this.preco = preco; }
+    public void setTitulo(String titulo){
+        this.titulo=titulo;
+    }
 
-    public StatusImovel getStatus() { return status; }
-    public void setStatus(StatusImovel status) { this.status = status; }
+    public String getEndereco(){
+        return endereco;
+    }
 
-    public Usuario getUsuario() { return usuario; }
-    public void setUsuario(Usuario usuario) { this.usuario = usuario; }
+    public void setEndereco(String endereco){
+        this.endereco=endereco;
+    }
+
+    public Double getPreco(){
+        return preco;
+    }
+
+    public void setPreco(Double preco){
+        this.preco=preco;
+    }
+
+    public String getImagemUrl() {
+        return imagemUrl;
+    }
+
+    public void setImagemUrl(String imagemUrl) {
+        this.imagemUrl = imagemUrl;
+    }
+
+    public StatusImovel getStatus(){
+        return status;
+    }
+
+    public void setStatus(StatusImovel status){
+        this.status=status;
+    }
+
+    public Usuario getUsuario(){
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario){
+        this.usuario=usuario;
+    }
+
 }
