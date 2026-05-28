@@ -3,75 +3,238 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-
-    <title>Imóveis - Corretor Pro</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Carteira de Imóveis - Corretor Pro</title>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
 
     <style>
+        :root {
+            --bg: #f3f6fb;
+            --dark: #17202a;
+            --primary: #3056d3;
+            --soft: #eef2ff;
+            --border: #dfe6f0;
+            --muted: #6b7280;
+            --success: #15803d;
+            --warning: #ca8a04;
+            --danger: #dc2626;
+        }
+
         body {
-            background: #eef3f8;
+            background: var(--bg);
+            color: #111827;
+            min-height: 100vh;
         }
 
-        .card-sistema {
-            border: none;
-            border-radius: 20px;
-            box-shadow: 0 6px 25px rgba(0, 0, 0, .08);
+        .topbar {
+            background: #111827;
+            padding: 14px 0;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, .12);
         }
 
-        .badge-status {
-            font-size: 13px;
-            padding: 8px 12px;
+        .brand {
+            color: white;
+            text-decoration: none;
+            font-weight: 800;
+            letter-spacing: -.3px;
+        }
+
+        .page-shell {
+            max-width: 1240px;
+            margin: 0 auto;
+        }
+
+        .hero {
+            background: linear-gradient(135deg, #18253f, #304c89);
+            color: white;
+            border-radius: 28px;
+            padding: 34px;
+            box-shadow: 0 18px 42px rgba(31, 41, 55, .18);
+        }
+
+        .hero h1 {
+            font-weight: 900;
+            letter-spacing: -.8px;
+        }
+
+        .hero p {
+            color: #dbeafe;
+            margin: 0;
+        }
+
+        .panel {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 24px;
+            box-shadow: 0 10px 28px rgba(15, 23, 42, .06);
+        }
+
+        .panel-title {
+            font-weight: 800;
+            letter-spacing: -.3px;
+        }
+
+        .form-control,
+        .form-select {
+            border-radius: 14px;
+            padding: 11px 13px;
+            border-color: #d9e2ef;
+        }
+
+        .form-control:focus,
+        .form-select:focus {
+            box-shadow: 0 0 0 .20rem rgba(48, 86, 211, .15);
+            border-color: var(--primary);
         }
 
         .btn {
-            border-radius: 10px;
-            font-weight: 600;
+            border-radius: 14px;
+            font-weight: 700;
+            padding: 10px 15px;
         }
 
-        .img-imovel {
-            width: 110px;
-            height: 75px;
+        .summary-pill {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 18px;
+            padding: 16px 18px;
+            height: 100%;
+        }
+
+        .summary-pill small {
+            color: var(--muted);
+            font-weight: 700;
+        }
+
+        .summary-pill strong {
+            font-size: 26px;
+        }
+
+        .property-card {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: 0 10px 26px rgba(15, 23, 42, .06);
+            transition: .2s ease;
+            height: 100%;
+        }
+
+        .property-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 16px 34px rgba(15, 23, 42, .10);
+        }
+
+        .property-img {
+            width: 100%;
+            height: 190px;
             object-fit: cover;
-            border-radius: 10px;
-            border: 1px solid #ddd;
+            background: #e5e7eb;
         }
 
-        .sem-imagem {
-            width: 110px;
-            height: 75px;
-            border-radius: 10px;
-            background: #e5e7eb;
+        .empty-photo {
+            height: 190px;
+            background: linear-gradient(135deg, #e5e7eb, #f8fafc);
             display: flex;
             align-items: center;
             justify-content: center;
-            color: #6b7280;
-            font-size: 12px;
-            text-align: center;
+            color: #64748b;
+            font-weight: 700;
         }
 
-        .filtro-box {
+        .property-body {
+            padding: 20px;
+        }
+
+        .property-title {
+            font-weight: 900;
+            font-size: 20px;
+            letter-spacing: -.3px;
+            margin-bottom: 6px;
+        }
+
+        .property-location {
+            color: var(--muted);
+            font-size: 14px;
+            min-height: 44px;
+        }
+
+        .property-price {
+            font-size: 22px;
+            font-weight: 900;
+            margin-top: 12px;
+            color: #0f172a;
+        }
+
+        .status-badge {
+            border-radius: 999px;
+            padding: 8px 13px;
+            font-size: 12px;
+            font-weight: 800;
+        }
+
+        .status-disponivel {
+            background: #dcfce7;
+            color: #166534;
+        }
+
+        .status-reservado {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        .status-vendido {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        .status-alugado {
+            background: #dbeafe;
+            color: #1d4ed8;
+        }
+
+        .filter-box {
             background: #f8fafc;
-            border: 1px solid #e5e7eb;
-            border-radius: 16px;
+            border: 1px solid var(--border);
+            border-radius: 22px;
             padding: 18px;
+        }
+
+        .small-label {
+            font-size: 13px;
+            font-weight: 800;
+            color: #374151;
+            margin-bottom: 6px;
+        }
+
+        .action-row {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-top: 16px;
+        }
+
+        .map-link {
+            text-decoration: none;
+            font-weight: 800;
+            font-size: 13px;
         }
     </style>
 </head>
 
 <body>
 
-    <nav class="navbar navbar-dark bg-dark">
-        <div class="container">
-            <a href="dashboard.html" class="navbar-brand fw-bold">
+    <nav class="topbar">
+        <div class="container page-shell d-flex justify-content-between align-items-center">
+            <a href="dashboard.html" class="brand">
                 🏢 Corretor Pro
             </a>
 
             <div class="d-flex gap-2">
                 <a href="dashboard.html" class="btn btn-outline-light">
-                    <i class="bi bi-speedometer2"></i> Dashboard
+                    <i class="bi bi-speedometer2"></i> Painel
                 </a>
 
                 <button id="btnLogout" class="btn btn-danger">
@@ -81,127 +244,154 @@
         </div>
     </nav>
 
-    <div class="container py-5">
-        <div class="card card-sistema">
-            <div class="card-body p-4">
+    <main class="container page-shell py-5">
 
-                <h2>
-                    <i class="bi bi-house"></i>
-                    Cadastro de imóveis
-                </h2>
-
-                <hr>
-
-                <div id="mensagem" class="alert d-none"></div>
-
-                <div class="row g-3">
-
-                    <div class="col-md-3">
-                        <label class="form-label">Título</label>
-                        <input id="titulo" class="form-control">
-                    </div>
-
-                    <div class="col-md-3">
-                        <label class="form-label">Endereço</label>
-                        <input id="endereco" class="form-control">
-                    </div>
-
-                    <div class="col-md-2">
-                        <label class="form-label">Preço</label>
-                        <input id="preco" type="number" step="0.01" class="form-control">
-                    </div>
-
-                    <div class="col-md-2">
-                        <label class="form-label">Status</label>
-                        <select id="status" class="form-select">
-                            <option value="DISPONIVEL">Disponível</option>
-                            <option value="RESERVADO">Reservado</option>
-                            <option value="VENDIDO">Vendido</option>
-                            <option value="ALUGADO">Alugado</option>
-                        </select>
-                    </div>
-
-                    <div class="col-md-2 d-flex align-items-end">
-                        <button id="btnSalvar" class="btn btn-primary w-100">
-                            <i class="bi bi-plus-circle"></i> Cadastrar
-                        </button>
-                    </div>
-
-                    <div class="col-md-12">
-                        <label class="form-label">Imagem do imóvel (URL)</label>
-                        <input id="imagemUrl" class="form-control" placeholder="https://site.com/imagem.jpg">
-                    </div>
-
+        <section class="hero mb-4">
+            <div class="row align-items-center g-4">
+                <div class="col-md-8">
+                    <h1>Carteira de Imóveis</h1>
+                    <p>
+                        Cadastre, organize e acompanhe seus imóveis com status, localização, imagem e mapa.
+                    </p>
                 </div>
 
-                <hr>
-
-                <div class="filtro-box mb-4">
-                    <h5 class="mb-3">
-                        <i class="bi bi-funnel"></i> Busca e filtros
-                    </h5>
-
+                <div class="col-md-4">
                     <div class="row g-3">
-                        <div class="col-md-4">
-                            <label class="form-label">Pesquisar</label>
-                            <input id="filtroTexto" class="form-control" placeholder="Digite título ou endereço">
+                        <div class="col-6">
+                            <div class="summary-pill text-dark">
+                                <small>Total</small><br>
+                                <strong id="resumoTotal">0</strong>
+                            </div>
                         </div>
 
-                        <div class="col-md-3">
-                            <label class="form-label">Status</label>
-                            <select id="filtroStatus" class="form-select">
-                                <option value="">Todos</option>
-                                <option value="DISPONIVEL">Disponível</option>
-                                <option value="RESERVADO">Reservado</option>
-                                <option value="VENDIDO">Vendido</option>
-                                <option value="ALUGADO">Alugado</option>
-                            </select>
-                        </div>
-
-                        <div class="col-md-3">
-                            <label class="form-label">Ordenar</label>
-                            <select id="ordenacao" class="form-select">
-                                <option value="">Sem ordenação</option>
-                                <option value="az">Título A-Z</option>
-                                <option value="precoMenor">Menor preço</option>
-                                <option value="precoMaior">Maior preço</option>
-                            </select>
-                        </div>
-
-                        <div class="col-md-2 d-flex align-items-end">
-                            <button id="btnLimparFiltros" class="btn btn-outline-secondary w-100">
-                                Limpar
-                            </button>
+                        <div class="col-6">
+                            <div class="summary-pill text-dark">
+                                <small>Exibidos</small><br>
+                                <strong id="resumoExibidos">0</strong>
+                            </div>
                         </div>
                     </div>
                 </div>
-
-                <div class="mb-3">
-                    <strong>Total exibido:</strong>
-                    <span id="totalExibido">0</span>
-                </div>
-
-                <div class="table-responsive">
-                    <table class="table table-hover align-middle">
-                        <thead>
-                            <tr>
-                                <th>Imagem</th>
-                                <th>ID</th>
-                                <th>Título</th>
-                                <th>Endereço</th>
-                                <th>Preço</th>
-                                <th>Status</th>
-                                <th>Ações</th>
-                            </tr>
-                        </thead>
-
-                        <tbody id="tabelaImoveis"></tbody>
-                    </table>
-                </div>
-
             </div>
-        </div>
-    </div>
+        </section>
+
+        <div id="mensagem" class="alert d-none"></div>
+
+        <section class="panel p-4 mb-4">
+            <h4 class="panel-title mb-3">
+                <i class="bi bi-pencil-square"></i>
+                Dados do imóvel
+            </h4>
+
+            <div class="row g-3">
+                <div class="col-md-3">
+                    <div class="small-label">Título</div>
+                    <input id="titulo" class="form-control" placeholder="Ex: Casa Jardins">
+                </div>
+
+                <div class="col-md-3">
+                    <div class="small-label">Endereço</div>
+                    <input id="endereco" class="form-control" placeholder="Rua, avenida ou condomínio">
+                </div>
+
+                <div class="col-md-2">
+                    <div class="small-label">Preço</div>
+                    <input id="preco" type="number" step="0.01" class="form-control" placeholder="850000">
+                </div>
+
+                <div class="col-md-2">
+                    <div class="small-label">Status</div>
+                    <select id="status" class="form-select">
+                        <option value="DISPONIVEL">Disponível</option>
+                        <option value="RESERVADO">Reservado</option>
+                        <option value="VENDIDO">Vendido</option>
+                        <option value="ALUGADO">Alugado</option>
+                    </select>
+                </div>
+
+                <div class="col-md-2 d-flex align-items-end">
+                    <button id="btnSalvar" class="btn btn-primary w-100">
+                        <i class="bi bi-plus-circle"></i> Salvar
+                    </button>
+                </div>
+
+                <div class="col-md-3">
+                    <div class="small-label">Bairro</div>
+                    <input id="bairro" class="form-control" placeholder="Setor Bueno">
+                </div>
+
+                <div class="col-md-3">
+                    <div class="small-label">Cidade</div>
+                    <input id="cidade" class="form-control" placeholder="Goiânia">
+                </div>
+
+                <div class="col-md-2">
+                    <div class="small-label">Estado</div>
+                    <input id="estado" class="form-control" maxlength="2" placeholder="GO">
+                </div>
+
+                <div class="col-md-2">
+                    <div class="small-label">CEP</div>
+                    <input id="cep" class="form-control" placeholder="74000-000">
+                </div>
+
+                <div class="col-md-2">
+                    <div class="small-label">Mapa</div>
+                    <input id="mapaUrl" class="form-control" placeholder="Google Maps">
+                </div>
+
+                <div class="col-md-12">
+                    <div class="small-label">Imagem do imóvel</div>
+                    <input id="imagemUrl" class="form-control" placeholder="https://site.com/imagem.jpg">
+                </div>
+            </div>
+        </section>
+
+        <section class="filter-box mb-4">
+            <div class="row g-3 align-items-end">
+                <div class="col-md-5">
+                    <div class="small-label">
+                        <i class="bi bi-search"></i>
+                        Buscar na carteira
+                    </div>
+                    <input id="filtroTexto" class="form-control"
+                        placeholder="Título, endereço, bairro, cidade, estado ou CEP">
+                </div>
+
+                <div class="col-md-3">
+                    <div class="small-label">Status</div>
+                    <select id="filtroStatus" class="form-select">
+                        <option value="">Todos</option>
+                        <option value="DISPONIVEL">Disponível</option>
+                        <option value="RESERVADO">Reservado</option>
+                        <option value="VENDIDO">Vendido</option>
+                        <option value="ALUGADO">Alugado</option>
+                    </select>
+                </div>
+
+                <div class="col-md-2">
+                    <div class="small-label">Ordenar</div>
+                    <select id="ordenacao" class="form-select">
+                        <option value="">Padrão</option>
+                        <option value="az">Nome A-Z</option>
+                        <option value="precoMenor">Menor preço</option>
+                        <option value="precoMaior">Maior preço</option>
+                    </select>
+                </div>
+
+                <div class="col-md-2">
+                    <button id="btnLimparFiltros" class="btn btn-outline-secondary w-100">
+                        Limpar filtros
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <div id="listaCards" class="row g-4"></div>
+        </section>
+
+    </main>
 
     <script src="js/api.js"></script>
 
@@ -218,7 +408,6 @@
 
         function mensagem(texto, tipo = "success") {
             const alerta = document.getElementById("mensagem");
-
             alerta.className = `alert alert-${tipo}`;
             alerta.innerText = texto;
             alerta.classList.remove("d-none");
@@ -228,52 +417,87 @@
             }, 3000);
         }
 
-        function badgeStatus(status) {
-            if (status === "DISPONIVEL") {
-                return `<span class="badge bg-success badge-status">Disponível</span>`;
-            }
-
-            if (status === "RESERVADO") {
-                return `<span class="badge bg-warning text-dark badge-status">Reservado</span>`;
-            }
-
-            if (status === "VENDIDO") {
-                return `<span class="badge bg-danger badge-status">Vendido</span>`;
-            }
-
-            if (status === "ALUGADO") {
-                return `<span class="badge bg-primary badge-status">Alugado</span>`;
-            }
-
-            return `<span class="badge bg-secondary badge-status">Sem status</span>`;
+        function textoStatus(status) {
+            if (status === "DISPONIVEL") return "Disponível";
+            if (status === "RESERVADO") return "Reservado";
+            if (status === "VENDIDO") return "Vendido";
+            if (status === "ALUGADO") return "Alugado";
+            return "Sem status";
         }
 
-        function imagemImovel(imagemUrl) {
+        function classeStatus(status) {
+            if (status === "DISPONIVEL") return "status-disponivel";
+            if (status === "RESERVADO") return "status-reservado";
+            if (status === "VENDIDO") return "status-vendido";
+            if (status === "ALUGADO") return "status-alugado";
+            return "status-disponivel";
+        }
+
+        function moeda(valor) {
+            return Number(valor || 0).toLocaleString("pt-BR", {
+                style: "currency",
+                currency: "BRL"
+            });
+        }
+
+        function imagemCard(imagemUrl) {
             if (imagemUrl && imagemUrl.trim() !== "") {
                 return `
                 <a href="${imagemUrl}" target="_blank">
                     <img
                         src="${imagemUrl}"
-                        class="img-imovel"
+                        class="property-img"
                         alt="Imagem do imóvel"
-                        onerror="this.outerHTML='<div class=&quot;sem-imagem&quot;>Imagem inválida</div>'">
+                        onerror="this.outerHTML='<div class=&quot;empty-photo&quot;>Imagem indisponível</div>'">
                 </a>
             `;
             }
 
-            return `<div class="sem-imagem">Sem imagem</div>`;
+            return `<div class="empty-photo">Sem imagem cadastrada</div>`;
+        }
+
+        function mapaLink(mapaUrl) {
+            if (mapaUrl && mapaUrl.trim() !== "") {
+                return `
+                <a href="${mapaUrl}" target="_blank" class="map-link">
+                    <i class="bi bi-geo-alt-fill"></i> Abrir localização
+                </a>
+            `;
+            }
+
+            return `<span class="text-muted small">Mapa não informado</span>`;
+        }
+
+        function descricaoLocal(imovel) {
+            const partes = [];
+
+            if (imovel.bairro) partes.push(imovel.bairro);
+
+            const cidadeEstado =
+                `${imovel.cidade || ""}${imovel.estado ? " - " + imovel.estado : ""}`.trim();
+
+            if (cidadeEstado) partes.push(cidadeEstado);
+
+            if (imovel.cep) partes.push("CEP " + imovel.cep);
+
+            return partes.length > 0 ? partes.join(" • ") : "Localização não detalhada";
         }
 
         function limparFormulario() {
             titulo.value = "";
             endereco.value = "";
             preco.value = "";
-            status.value = "DISPONIVEL";
+            document.getElementById("status").value = "DISPONIVEL";
+            bairro.value = "";
+            cidade.value = "";
+            estado.value = "";
+            cep.value = "";
+            mapaUrl.value = "";
             imagemUrl.value = "";
 
             idEditando = null;
 
-            btnSalvar.innerHTML = `<i class="bi bi-plus-circle"></i> Cadastrar`;
+            btnSalvar.innerHTML = `<i class="bi bi-plus-circle"></i> Salvar`;
             btnSalvar.className = "btn btn-primary w-100";
         }
 
@@ -286,10 +510,16 @@
 
             if (texto) {
                 resultado = resultado.filter(imovel => {
-                    const titulo = (imovel.titulo || "").toLowerCase();
-                    const endereco = (imovel.endereco || "").toLowerCase();
+                    const campos = [
+                        imovel.titulo,
+                        imovel.endereco,
+                        imovel.bairro,
+                        imovel.cidade,
+                        imovel.estado,
+                        imovel.cep
+                    ].join(" ").toLowerCase();
 
-                    return titulo.includes(texto) || endereco.includes(texto);
+                    return campos.includes(texto);
                 });
             }
 
@@ -311,47 +541,82 @@
                 resultado.sort((a, b) => Number(b.preco || 0) - Number(a.preco || 0));
             }
 
-            renderizarTabela(resultado);
+            renderizarCards(resultado);
         }
 
-        function renderizarTabela(dados) {
-            tabelaImoveis.innerHTML = "";
-            totalExibido.innerText = dados.length;
+        function renderizarCards(dados) {
+            listaCards.innerHTML = "";
+
+            resumoTotal.innerText = listaImoveis.length;
+            resumoExibidos.innerText = dados.length;
 
             if (dados.length === 0) {
-                tabelaImoveis.innerHTML = `
-                <tr>
-                    <td colspan="7" class="text-center text-muted py-4">
-                        Nenhum imóvel encontrado.
-                    </td>
-                </tr>
+                listaCards.innerHTML = `
+                <div class="col-12">
+                    <div class="panel p-5 text-center">
+                        <h5>Nenhum imóvel encontrado</h5>
+                        <p class="text-muted mb-0">
+                            Ajuste os filtros ou cadastre um novo imóvel.
+                        </p>
+                    </div>
+                </div>
             `;
                 return;
             }
 
             dados.forEach(imovel => {
-                tabelaImoveis.innerHTML += `
-                <tr>
-                    <td>${imagemImovel(imovel.imagemUrl)}</td>
-                    <td>${imovel.id}</td>
-                    <td>${imovel.titulo}</td>
-                    <td>${imovel.endereco}</td>
-                    <td>R$ ${Number(imovel.preco).toLocaleString("pt-BR")}</td>
-                    <td>${badgeStatus(imovel.status)}</td>
-                    <td>
-                        <button
-                            onclick='editarImovel(${JSON.stringify(imovel)})'
-                            class="btn btn-warning btn-sm me-1">
-                            <i class="bi bi-pencil"></i> Editar
-                        </button>
+                listaCards.innerHTML += `
+                <div class="col-md-6 col-lg-4">
+                    <article class="property-card">
+                        ${imagemCard(imovel.imagemUrl)}
 
-                        <button
-                            onclick="deletar(${imovel.id})"
-                            class="btn btn-danger btn-sm">
-                            <i class="bi bi-trash"></i> Excluir
-                        </button>
-                    </td>
-                </tr>
+                        <div class="property-body">
+                            <div class="d-flex justify-content-between align-items-start gap-2 mb-2">
+                                <div>
+                                    <div class="property-title">
+                                        ${imovel.titulo || "Imóvel sem título"}
+                                    </div>
+
+                                    <div class="property-location">
+                                        <i class="bi bi-pin-map"></i>
+                                        ${descricaoLocal(imovel)}
+                                    </div>
+                                </div>
+
+                                <span class="status-badge ${classeStatus(imovel.status)}">
+                                    ${textoStatus(imovel.status)}
+                                </span>
+                            </div>
+
+                            <div class="mt-3">
+                                <strong>Endereço:</strong><br>
+                                <span class="text-muted">${imovel.endereco || "---"}</span>
+                            </div>
+
+                            <div class="property-price">
+                                ${moeda(imovel.preco)}
+                            </div>
+
+                            <div class="mt-2">
+                                ${mapaLink(imovel.mapaUrl)}
+                            </div>
+
+                            <div class="action-row">
+                                <button
+                                    onclick='editarImovel(${JSON.stringify(imovel)})'
+                                    class="btn btn-warning btn-sm">
+                                    <i class="bi bi-pencil"></i> Editar
+                                </button>
+
+                                <button
+                                    onclick="deletar(${imovel.id})"
+                                    class="btn btn-outline-danger btn-sm">
+                                    <i class="bi bi-trash"></i> Excluir
+                                </button>
+                            </div>
+                        </div>
+                    </article>
+                </div>
             `;
             });
         }
@@ -371,7 +636,6 @@
                 }
 
                 listaImoveis = await resposta.json();
-
                 aplicarFiltros();
 
             } catch (erro) {
@@ -386,7 +650,13 @@
             titulo.value = imovel.titulo || "";
             endereco.value = imovel.endereco || "";
             preco.value = imovel.preco || "";
-            status.value = imovel.status || "DISPONIVEL";
+            document.getElementById("status").value = imovel.status || "DISPONIVEL";
+
+            bairro.value = imovel.bairro || "";
+            cidade.value = imovel.cidade || "";
+            estado.value = imovel.estado || "";
+            cep.value = imovel.cep || "";
+            mapaUrl.value = imovel.mapaUrl || "";
             imagemUrl.value = imovel.imagemUrl || "";
 
             btnSalvar.innerHTML = `<i class="bi bi-pencil"></i> Atualizar`;
@@ -413,17 +683,22 @@
                         titulo: titulo.value,
                         endereco: endereco.value,
                         preco: Number(preco.value),
-                        status: status.value,
+                        bairro: bairro.value,
+                        cidade: cidade.value,
+                        estado: estado.value,
+                        cep: cep.value,
+                        mapaUrl: mapaUrl.value,
+                        status: document.getElementById("status").value,
                         imagemUrl: imagemUrl.value.trim()
                     })
                 });
 
                 if (!resposta.ok) {
-                    mensagem("Erro ao salvar imóvel", "danger");
+                    mensagem("Não foi possível salvar o imóvel.", "danger");
                     return;
                 }
 
-                mensagem(idEditando ? "Imóvel atualizado" : "Imóvel cadastrado");
+                mensagem(idEditando ? "Imóvel atualizado com sucesso." : "Imóvel cadastrado com sucesso.");
 
                 limparFormulario();
                 await carregarImoveis();
@@ -435,7 +710,7 @@
         });
 
         async function deletar(id) {
-            if (!confirm("Deseja excluir?")) {
+            if (!confirm("Deseja excluir este imóvel da carteira?")) {
                 return;
             }
 
@@ -452,7 +727,7 @@
                     return;
                 }
 
-                mensagem("Imóvel excluído");
+                mensagem("Imóvel removido da carteira.");
                 await carregarImoveis();
 
             } catch (erro) {
@@ -469,7 +744,6 @@
             filtroTexto.value = "";
             filtroStatus.value = "";
             ordenacao.value = "";
-
             aplicarFiltros();
         });
 

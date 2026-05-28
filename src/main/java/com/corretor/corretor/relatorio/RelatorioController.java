@@ -28,4 +28,15 @@ public class RelatorioController {
                 .contentType(MediaType.APPLICATION_PDF)
                 .body(pdf);
     }
+
+    @GetMapping("/propostas/pdf")
+    public ResponseEntity<byte[]> gerarRelatorioPropostasPdf() {
+
+        byte[] pdf = relatorioService.gerarRelatorioPropostas();
+
+        return ResponseEntity.ok()
+                .header(HttpHeaders.CONTENT_DISPOSITION, "inline; filename=relatorio-propostas.pdf")
+                .contentType(MediaType.APPLICATION_PDF)
+                .body(pdf);
+    }
 }

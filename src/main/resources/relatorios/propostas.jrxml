@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<jasperReport
+ xmlns="http://jasperreports.sourceforge.net/jasperreports"
+ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+ xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd"
+ name="propostas"
+ pageWidth="842"
+ pageHeight="595"
+ orientation="Landscape"
+ columnWidth="802"
+ leftMargin="20"
+ rightMargin="20"
+ topMargin="20"
+ bottomMargin="20">
+
+    <parameter name="DATA_GERACAO" class="java.lang.String"/>
+    <parameter name="TOTAL_PROPOSTAS" class="java.lang.Integer"/>
+    <parameter name="VALOR_TOTAL" class="java.lang.Double"/>
+    <parameter name="MEDIA_PROPOSTAS" class="java.lang.Double"/>
+    <parameter name="TOTAL_EM_ANALISE" class="java.lang.Long"/>
+    <parameter name="TOTAL_ACEITAS" class="java.lang.Long"/>
+    <parameter name="TOTAL_RECUSADAS" class="java.lang.Long"/>
+
+    <field name="nomeCliente" class="java.lang.String"/>
+    <field name="telefoneCliente" class="java.lang.String"/>
+    <field name="valorProposto" class="java.lang.Double"/>
+    <field name="mensagem" class="java.lang.String"/>
+    <field name="status" class="com.corretor.corretor.model.StatusProposta"/>
+    <field name="dataCriacao" class="java.time.LocalDateTime"/>
+    <field name="imovel" class="com.corretor.corretor.model.Imovel"/>
+
+    <title>
+        <band height="85">
+            <staticText>
+                <reportElement x="0" y="0" width="802" height="30"/>
+                <textElement textAlignment="Center">
+                    <font size="20" isBold="true"/>
+                </textElement>
+                <text><![CDATA[Corretor Pro]]></text>
+            </staticText>
+
+            <staticText>
+                <reportElement x="0" y="35" width="802" height="25"/>
+                <textElement textAlignment="Center">
+                    <font size="15" isBold="true"/>
+                </textElement>
+                <text><![CDATA[RELATÓRIO DE PROPOSTAS]]></text>
+            </staticText>
+
+            <textField>
+                <reportElement x="0" y="62" width="802" height="20"/>
+                <textElement textAlignment="Center">
+                    <font size="10"/>
+                </textElement>
+                <textFieldExpression><![CDATA["Gerado em: " + $P{DATA_GERACAO}]]></textFieldExpression>
+            </textField>
+        </band>
+    </title>
+
+    <columnHeader>
+        <band height="30">
+            <staticText>
+                <reportElement x="0" y="5" width="115" height="20"/>
+                <textElement><font isBold="true"/></textElement>
+                <text><![CDATA[Cliente]]></text>
+            </staticText>
+
+            <staticText>
+                <reportElement x="120" y="5" width="95" height="20"/>
+                <textElement><font isBold="true"/></textElement>
+                <text><![CDATA[Telefone]]></text>
+            </staticText>
+
+            <staticText>
+                <reportElement x="220" y="5" width="130" height="20"/>
+                <textElement><font isBold="true"/></textElement>
+                <text><![CDATA[Imóvel]]></text>
+            </staticText>
+
+            <staticText>
+                <reportElement x="355" y="5" width="150" height="20"/>
+                <textElement><font isBold="true"/></textElement>
+                <text><![CDATA[Endereço]]></text>
+            </staticText>
+
+            <staticText>
+                <reportElement x="510" y="5" width="105" height="20"/>
+                <textElement textAlignment="Right"><font isBold="true"/></textElement>
+                <text><![CDATA[Valor]]></text>
+            </staticText>
+
+            <staticText>
+                <reportElement x="625" y="5" width="85" height="20"/>
+                <textElement textAlignment="Center"><font isBold="true"/></textElement>
+                <text><![CDATA[Status]]></text>
+            </staticText>
+
+            <staticText>
+                <reportElement x="715" y="5" width="87" height="20"/>
+                <textElement textAlignment="Center"><font isBold="true"/></textElement>
+                <text><![CDATA[Data]]></text>
+            </staticText>
+        </band>
+    </columnHeader>
+
+    <detail>
+        <band height="28">
+            <textField>
+                <reportElement x="0" y="4" width="115" height="20"/>
+                <textFieldExpression><![CDATA[$F{nomeCliente}]]></textFieldExpression>
+            </textField>
+
+            <textField>
+                <reportElement x="120" y="4" width="95" height="20"/>
+                <textFieldExpression><![CDATA[$F{telefoneCliente}]]></textFieldExpression>
+            </textField>
+
+            <textField>
+                <reportElement x="220" y="4" width="130" height="20"/>
+                <textFieldExpression><![CDATA[$F{imovel} == null ? "" : $F{imovel}.getTitulo()]]></textFieldExpression>
+            </textField>
+
+            <textField>
+                <reportElement x="355" y="4" width="150" height="20"/>
+                <textFieldExpression><![CDATA[$F{imovel} == null ? "" : $F{imovel}.getEndereco()]]></textFieldExpression>
+            </textField>
+
+            <textField>
+                <reportElement x="510" y="4" width="105" height="20"/>
+                <textElement textAlignment="Right"/>
+                <textFieldExpression><![CDATA["R$ " + new java.text.DecimalFormat("#,##0.00").format($F{valorProposto})]]></textFieldExpression>
+            </textField>
+
+            <textField>
+                <reportElement x="625" y="4" width="85" height="20"/>
+                <textElement textAlignment="Center"/>
+                <textFieldExpression><![CDATA[
+$F{status} == null
+? "Em análise"
+: (
+    $F{status}.toString().equals("EM_ANALISE")
+    ? "Em análise"
+    : (
+        $F{status}.toString().equals("ACEITA")
+        ? "Aceita"
+        : (
+            $F{status}.toString().equals("RECUSADA")
+            ? "Recusada"
+            : $F{status}.toString()
+        )
+    )
+)
+]]></textFieldExpression>
+            </textField>
+
+            <textField>
+                <reportElement x="715" y="4" width="87" height="20"/>
+                <textElement textAlignment="Center"/>
+                <textFieldExpression><![CDATA[$F{dataCriacao} == null ? "" : $F{dataCriacao}.format(java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy"))]]></textFieldExpression>
+            </textField>
+        </band>
+    </detail>
+
+    <pageFooter>
+        <band height="30">
+            <textField>
+                <reportElement x="0" y="5" width="350" height="20"/>
+                <textElement>
+                    <font size="9"/>
+                </textElement>
+                <textFieldExpression><![CDATA["Desenvolvido por Maycon Cordeiro"]]></textFieldExpression>
+            </textField>
+
+            <textField>
+                <reportElement x="650" y="5" width="152" height="20"/>
+                <textElement textAlignment="Right">
+                    <font size="9"/>
+                </textElement>
+                <textFieldExpression><![CDATA["Página " + $V{PAGE_NUMBER}]]></textFieldExpression>
+            </textField>
+        </band>
+    </pageFooter>
+
+    <summary>
+        <band height="95">
+            <line>
+                <reportElement x="0" y="10" width="802" height="1"/>
+            </line>
+
+            <textField>
+                <reportElement x="0" y="25" width="220" height="20"/>
+                <textElement><font isBold="true"/></textElement>
+                <textFieldExpression><![CDATA["Total de propostas: " + $P{TOTAL_PROPOSTAS}]]></textFieldExpression>
+            </textField>
+
+            <textField>
+                <reportElement x="250" y="25" width="260" height="20"/>
+                <textElement><font isBold="true"/></textElement>
+                <textFieldExpression><![CDATA["Em análise: " + $P{TOTAL_EM_ANALISE} + " | Aceitas: " + $P{TOTAL_ACEITAS} + " | Recusadas: " + $P{TOTAL_RECUSADAS}]]></textFieldExpression>
+            </textField>
+
+            <textField>
+                <reportElement x="520" y="25" width="282" height="20"/>
+                <textElement textAlignment="Right"><font isBold="true"/></textElement>
+                <textFieldExpression><![CDATA["Valor total: R$ " + new java.text.DecimalFormat("#,##0.00").format($P{VALOR_TOTAL})]]></textFieldExpression>
+            </textField>
+
+            <textField>
+                <reportElement x="520" y="50" width="282" height="20"/>
+                <textElement textAlignment="Right"><font isBold="true"/></textElement>
+                <textFieldExpression><![CDATA["Média das propostas: R$ " + new java.text.DecimalFormat("#,##0.00").format($P{MEDIA_PROPOSTAS})]]></textFieldExpression>
+            </textField>
+        </band>
+    </summary>
+
+</jasperReport>

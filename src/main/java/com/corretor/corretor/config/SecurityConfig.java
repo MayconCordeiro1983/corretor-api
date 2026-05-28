@@ -22,41 +22,43 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
         http
-            .cors(cors -> {})
-            .csrf(csrf -> csrf.disable())
+                .cors(cors -> {
+                })
+                .csrf(csrf -> csrf.disable())
 
-            .sessionManagement(session ->
-                session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-            )
+                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
 
-            .authorizeHttpRequests(auth -> auth
+                .authorizeHttpRequests(auth -> auth
 
-                // OPTIONS (CORS)
-                .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
+                        // OPTIONS (CORS)
+                        .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
 
-                // LOGIN
-                .requestMatchers("/usuarios/login").permitAll()
+                        // LOGIN
+                        .requestMatchers("/usuarios/login").permitAll()
 
-                // CADASTRO USUÁRIO
-                .requestMatchers(HttpMethod.POST, "/usuarios").permitAll()
+                        // CADASTRO USUÁRIO
+                        .requestMatchers(HttpMethod.POST, "/usuarios").permitAll()
 
-                // IMÓVEIS PÚBLICOS
-                .requestMatchers(HttpMethod.GET,
-                        "/imoveis/publicos").permitAll()
+                        // IMÓVEIS PÚBLICOS
+                        .requestMatchers(HttpMethod.GET,
+                                "/imoveis/publicos")
+                        .permitAll()
 
-                .requestMatchers(HttpMethod.GET,
-                        "/imoveis/publicos/buscar").permitAll()
+                        .requestMatchers(HttpMethod.GET,
+                                "/imoveis/publicos/buscar")
+                        .permitAll()
 
-                // TODO RESTANTE PROTEGIDO
+                        // TODO RESTANTE PROTEGIDO
 
-                .anyRequest().authenticated()
+                        .requestMatchers(HttpMethod.POST, "/propostas/imovel/**").permitAll()
 
-            )
+                        .anyRequest().authenticated()
 
-            .addFilterBefore(
-                jwtAuthFilter,
-                UsernamePasswordAuthenticationFilter.class
-            );
+                )
+
+                .addFilterBefore(
+                        jwtAuthFilter,
+                        UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
     }

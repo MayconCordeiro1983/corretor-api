@@ -16,6 +16,17 @@ public class Imovel {
 
     private Double preco;
 
+    private String bairro;
+
+    private String cidade;
+
+    private String estado;
+
+    private String cep;
+
+    @Column(length = 1000)
+    private String mapaUrl;
+
     @Column(name = "imagem_url", length = 500)
     private String imagemUrl;
 
@@ -30,32 +41,72 @@ public class Imovel {
         return id;
     }
 
-    public void setId(Long id){
-        this.id=id;
+    public void setId(Long id) {
+        this.id = id;
     }
 
-    public String getTitulo(){
+    public String getTitulo() {
         return titulo;
     }
 
-    public void setTitulo(String titulo){
-        this.titulo=titulo;
+    public void setTitulo(String titulo) {
+        this.titulo = titulo;
     }
 
-    public String getEndereco(){
+    public String getEndereco() {
         return endereco;
     }
 
-    public void setEndereco(String endereco){
-        this.endereco=endereco;
+    public void setEndereco(String endereco) {
+        this.endereco = endereco;
     }
 
-    public Double getPreco(){
+    public Double getPreco() {
         return preco;
     }
 
-    public void setPreco(Double preco){
-        this.preco=preco;
+    public void setPreco(Double preco) {
+        this.preco = preco;
+    }
+
+    public String getBairro() {
+        return bairro;
+    }
+
+    public void setBairro(String bairro) {
+        this.bairro = bairro;
+    }
+
+    public String getCidade() {
+        return cidade;
+    }
+
+    public void setCidade(String cidade) {
+        this.cidade = cidade;
+    }
+
+    public String getEstado() {
+        return estado;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
+    }
+
+    public String getCep() {
+        return cep;
+    }
+
+    public void setCep(String cep) {
+        this.cep = cep;
+    }
+
+    public String getMapaUrl() {
+        return mapaUrl;
+    }
+
+    public void setMapaUrl(String mapaUrl) {
+        this.mapaUrl = mapaUrl;
     }
 
     public String getImagemUrl() {
@@ -66,20 +117,20 @@ public class Imovel {
         this.imagemUrl = imagemUrl;
     }
 
-    public StatusImovel getStatus(){
+    public StatusImovel getStatus() {
         return status;
     }
 
-    public void setStatus(StatusImovel status){
-        this.status=status;
+    public void setStatus(StatusImovel status) {
+        this.status = status;
     }
 
-    public Usuario getUsuario(){
+    public Usuario getUsuario() {
         return usuario;
     }
 
-    public void setUsuario(Usuario usuario){
-        this.usuario=usuario;
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
     }
 
 }

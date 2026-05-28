@@ -1,7 +1,9 @@
 package com.corretor.corretor.relatorio;
 
 import com.corretor.corretor.model.Imovel;
+import com.corretor.corretor.model.Proposta;
 import com.corretor.corretor.repository.ImovelRepository;
+import com.corretor.corretor.repository.PropostaRepository;
 import com.corretor.corretor.service.UsuarioService;
 import net.sf.jasperreports.engine.*;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
@@ -21,10 +23,15 @@ public class RelatorioService {
 
     private final ImovelRepository imovelRepository;
     private final UsuarioService usuarioService;
+    private final PropostaRepository propostaRepository;
 
-    public RelatorioService(ImovelRepository imovelRepository, UsuarioService usuarioService) {
+    public RelatorioService(
+            ImovelRepository imovelRepository,
+            UsuarioService usuarioService,
+            PropostaRepository propostaRepository) {
         this.imovelRepository = imovelRepository;
         this.usuarioService = usuarioService;
+        this.propostaRepository = propostaRepository;
     }
 
     public byte[] gerarRelatorioImoveis(String titulo, String ordenarPor) {
@@ -46,7 +53,8 @@ public class RelatorioService {
                         .toList();
             } else {
                 imoveis = imoveis.stream()
-                        .sorted(Comparator.comparing(Imovel::getTitulo, Comparator.nullsLast(String::compareToIgnoreCase)))
+                        .sorted(Comparator.comparing(Imovel::getTitulo,
+                                Comparator.nullsLast(String::compareToIgnoreCase)))
                         .toList();
             }
 
@@ -72,7 +80,8 @@ public class RelatorioService {
             parametros.put("TOTAL_IMOVEIS", imoveis.size());
             parametros.put("VALOR_TOTAL", valorTotal);
             parametros.put("MEDIA_PRECOS", mediaPrecos);
-            parametros.put("FILTRO", titulo == null || titulo.isBlank() ? "Todos os imóveis" : "Título contendo: " + titulo);
+            parametros.put("FILTRO",
+                    titulo == null || titulo.isBlank() ? "Todos os imóveis" : "Título contendo: " + titulo);
             parametros.put("ORDENACAO", "preco".equalsIgnoreCase(ordenarPor) ? "Preço" : "Título");
 
             JasperReport jasperReport = JasperCompileManager.compileReport(arquivo);
@@ -87,6 +96,77 @@ public class RelatorioService {
 
         } catch (Exception e) {
             throw new RuntimeException("Erro gerar PDF: " + e.getMessage());
+        }
+    }
+
+    public byte[] gerarRelatorioPropostas() {
+        try {
+            String email = usuarioService.getEmailLogado();
+
+            List<Proposta> propostas = propostaRepository.findByImovelUsuarioEmail(email);
+
+            propostas = propostas.stream()
+                    .sorted(Comparator
+                            .comparing(Proposta::getDataCriacao, Comparator.nullsLast(LocalDateTime::compareTo))
+                            .reversed())
+                    .toList();
+
+            InputStream arquivo = getClass().getResourceAsStream("/relatorios/propostas.jrxml");
+
+            if (arquivo == null) {
+                throw new RuntimeException("Arquivo propostas.jrxml não encontrado");
+            }
+
+            double valorTotal = propostas.stream()
+                    .filter(p -> p.getValorProposto() != null)
+                    .mapToDouble(Proposta::getValorProposto)
+                    .sum();
+
+            double mediaPropostas = propostas.stream()
+                    .filter(p -> p.getValorProposto() != null)
+                    .mapToDouble(Proposta::getValorProposto)
+                    .average()
+                    .orElse(0.0);
+
+            long totalEmAnalise = propostas.stream()
+                    .filter(p -> p.getStatus() != null && p.getStatus().name().equals("EM_ANALISE"))
+                    .count();
+
+            long totalAceitas = propostas.stream()
+                    .filter(p -> p.getStatus() != null && p.getStatus().name().equals("ACEITA"))
+                    .count();
+
+            long totalRecusadas = propostas.stream()
+                    .filter(p -> p.getStatus() != null && p.getStatus().name().equals("RECUSADA"))
+                    .count();
+
+            Map<String, Object> parametros = new HashMap<>();
+
+            parametros.put(
+                    "DATA_GERACAO",
+                    LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm")));
+
+            parametros.put("TOTAL_PROPOSTAS", propostas.size());
+            parametros.put("VALOR_TOTAL", valorTotal);
+            parametros.put("MEDIA_PROPOSTAS", mediaPropostas);
+            parametros.put("TOTAL_EM_ANALISE", totalEmAnalise);
+            parametros.put("TOTAL_ACEITAS", totalAceitas);
+            parametros.put("TOTAL_RECUSADAS", totalRecusadas);
+
+            JasperReport jasperReport = JasperCompileManager.compileReport(arquivo);
+
+            JRBeanCollectionDataSource dados = new JRBeanCollectionDataSource(propostas);
+
+            JasperPrint print = JasperFillManager.fillReport(jasperReport, parametros, dados);
+
+            ByteArrayOutputStream pdf = new ByteArrayOutputStream();
+
+            JasperExportManager.exportReportToPdfStream(print, pdf);
+
+            return pdf.toByteArray();
+
+        } catch (Exception e) {
+            throw new RuntimeException("Erro gerar PDF propostas: " + e.getMessage());
         }
     }
 }

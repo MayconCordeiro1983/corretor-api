@@ -24,11 +24,24 @@ public class ImovelService {
         Usuario logado = usuarioService.getUsuarioLogado();
 
         Imovel i = new Imovel();
+
         i.setTitulo(req.getTitulo());
         i.setEndereco(req.getEndereco());
         i.setPreco(req.getPreco());
+
+        i.setBairro(req.getBairro());
+        i.setCidade(req.getCidade());
+        i.setEstado(req.getEstado());
+        i.setCep(req.getCep());
+        i.setMapaUrl(req.getMapaUrl());
+
         i.setImagemUrl(req.getImagemUrl());
-        i.setStatus(req.getStatus() != null ? req.getStatus() : StatusImovel.DISPONIVEL);
+
+        i.setStatus(
+                req.getStatus() != null
+                        ? req.getStatus()
+                        : StatusImovel.DISPONIVEL);
+
         i.setUsuario(logado);
 
         return imovelRepository.save(i);
@@ -66,8 +79,19 @@ public class ImovelService {
         imovel.setTitulo(req.getTitulo());
         imovel.setEndereco(req.getEndereco());
         imovel.setPreco(req.getPreco());
+
+        imovel.setBairro(req.getBairro());
+        imovel.setCidade(req.getCidade());
+        imovel.setEstado(req.getEstado());
+        imovel.setCep(req.getCep());
+        imovel.setMapaUrl(req.getMapaUrl());
+
         imovel.setImagemUrl(req.getImagemUrl());
-        imovel.setStatus(req.getStatus() != null ? req.getStatus() : imovel.getStatus());
+
+        imovel.setStatus(
+                req.getStatus() != null
+                        ? req.getStatus()
+                        : imovel.getStatus());
 
         return imovelRepository.save(imovel);
     }

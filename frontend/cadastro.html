@@ -1,308 +1,377 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Corretor Pro | Cadastro</title>
+    <title>Criar conta - Corretor Pro</title>
+
     <link rel="icon" type="image/x-icon" href="/favicon.ico">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+
     <style>
         :root {
-            --bg: #eef3f9;
-            --card: rgba(255, 255, 255, 0.92);
-            --primary: #1f2d3d;
-            --accent: #4f46e5;
-            --accent-hover: #4338ca;
-            --success: #10b981;
-            --success-hover: #059669;
+            --bg: #f3f6fb;
+            --dark: #17202a;
+            --primary: #3056d3;
+            --border: #dfe6f0;
             --muted: #6b7280;
-            --border: #e5e7eb;
-            --shadow: 0 18px 45px rgba(31, 45, 61, 0.10);
-            --radius: 24px;
-        }
-
-        * {
-            transition: all 0.2s ease;
+            --success: #15803d;
         }
 
         body {
-            min-height: 100vh;
             background:
-                radial-gradient(circle at top left, rgba(16, 185, 129, 0.10), transparent 30%),
-                radial-gradient(circle at bottom right, rgba(79, 70, 229, 0.10), transparent 30%),
+                radial-gradient(circle at top left, rgba(21, 128, 61, .13), transparent 30%),
+                radial-gradient(circle at bottom right, rgba(48, 86, 211, .12), transparent 32%),
                 var(--bg);
-            font-family: Arial, Helvetica, sans-serif;
+            min-height: 100vh;
+            color: #111827;
         }
 
-        .navbar-custom {
-            background: rgba(255,255,255,0.78);
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid rgba(255,255,255,0.6);
+        .topbar {
+            background: #111827;
+            padding: 14px 0;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, .12);
         }
 
         .brand {
-            font-weight: 700;
-            color: var(--primary);
+            color: white;
+            text-decoration: none;
+            font-weight: 800;
+            letter-spacing: -.3px;
         }
 
-        .auth-wrapper {
-            min-height: calc(100vh - 140px);
+        .page-shell {
+            max-width: 1180px;
+            margin: 0 auto;
+        }
+
+        .auth-shell {
+            min-height: calc(100vh - 90px);
+            display: flex;
+            align-items: center;
+        }
+
+        .hero-box {
+            background: linear-gradient(135deg, #18253f, #304c89);
+            color: white;
+            border-radius: 32px;
+            padding: 42px;
+            box-shadow: 0 18px 42px rgba(31, 41, 55, .18);
+            height: 100%;
+        }
+
+        .hero-box h1 {
+            font-weight: 900;
+            letter-spacing: -.8px;
+        }
+
+        .hero-box p {
+            color: #dbeafe;
+            font-size: 16px;
+        }
+
+        .feature-line {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+            margin-top: 18px;
+            color: #e0e7ff;
+            font-weight: 700;
+        }
+
+        .feature-line i {
+            background: rgba(255, 255, 255, .14);
+            width: 38px;
+            height: 38px;
+            border-radius: 12px;
+            display: grid;
+            place-items: center;
         }
 
         .auth-card {
-            width: 100%;
-            max-width: 460px;
-            background: var(--card);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255,255,255,0.6);
-            border-radius: var(--radius);
-            box-shadow: var(--shadow);
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 28px;
+            box-shadow: 0 14px 36px rgba(15, 23, 42, .08);
+            padding: 34px;
         }
 
-        .brand-badge {
-            width: 68px;
-            height: 68px;
+        .auth-icon {
+            width: 64px;
+            height: 64px;
             border-radius: 20px;
-            background: linear-gradient(135deg, var(--success), #34d399);
-            color: white;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            background: #dcfce7;
+            color: var(--success);
+            display: grid;
+            place-items: center;
             font-size: 30px;
-            margin: 0 auto 18px;
-            box-shadow: 0 12px 24px rgba(16, 185, 129, 0.25);
+            margin-bottom: 20px;
         }
 
-        .brand-title {
-            font-weight: 800;
-            color: var(--primary);
+        .auth-card h2 {
+            font-weight: 900;
+            letter-spacing: -.5px;
         }
 
-        .subtitle {
+        .auth-card p {
             color: var(--muted);
-            font-size: 14px;
         }
 
         .form-label {
-            font-weight: 600;
-            color: var(--primary);
+            font-size: 13px;
+            font-weight: 800;
+            color: #374151;
         }
 
         .form-control {
             border-radius: 14px;
-            border: 1px solid var(--border);
             padding: 12px 14px;
+            border-color: #d9e2ef;
         }
 
         .form-control:focus {
-            box-shadow: 0 0 0 0.2rem rgba(16, 185, 129, 0.15);
+            box-shadow: 0 0 0 .20rem rgba(21, 128, 61, .15);
             border-color: var(--success);
         }
 
-        .btn-success {
-            background: linear-gradient(135deg, var(--success), #34d399);
-            border: none;
+        .btn {
             border-radius: 14px;
-            padding: 12px;
-            font-weight: 700;
-        }
-
-        .btn-success:hover {
-            background: linear-gradient(135deg, var(--success-hover), #10b981);
+            font-weight: 800;
+            padding: 12px 15px;
         }
 
         .link-auth {
-            color: var(--accent);
-            font-weight: 600;
+            color: var(--primary);
+            font-weight: 800;
+            text-decoration: none;
         }
 
         .link-auth:hover {
-            color: var(--accent-hover);
+            text-decoration: underline;
         }
 
-        footer {
+        .footer-text {
             color: var(--muted);
-            font-size: 14px;
+            font-size: 13px;
         }
     </style>
 </head>
+
 <body>
 
-<nav class="navbar navbar-expand-lg navbar-custom">
-    <div class="container py-2">
-        <span class="navbar-brand brand mb-0 h1">
-            <i class="bi bi-buildings-fill"></i> Corretor Pro
-        </span>
-        <div class="d-flex gap-2">
-            <a href="index.html" class="btn btn-outline-secondary btn-sm">
-                <i class="bi bi-house-door"></i> Início
+    <nav class="topbar">
+        <div class="container page-shell d-flex justify-content-between align-items-center">
+            <a href="index.html" class="brand">
+                🏢 Corretor Pro
             </a>
-            <a href="login.html" class="btn btn-outline-primary btn-sm">
-                <i class="bi bi-box-arrow-in-right"></i> Entrar
-            </a>
+
+            <div class="d-flex gap-2">
+                <a href="index.html" class="btn btn-outline-light btn-sm">
+                    <i class="bi bi-house-door"></i> Início
+                </a>
+
+                <a href="login.html" class="btn btn-primary btn-sm">
+                    Entrar
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container page-shell auth-shell py-5">
+        <div class="row g-4 align-items-stretch w-100">
+
+            <div class="col-lg-6">
+                <section class="hero-box">
+                    <h1>Monte sua operação imobiliária.</h1>
+
+                    <p class="mt-3 mb-4">
+                        Crie sua conta e comece a organizar imóveis, propostas, relatórios e negociações em um único
+                        painel.
+                    </p>
+
+                    <div class="feature-line">
+                        <i class="bi bi-person-check"></i>
+                        Cadastro rápido para corretores e administradores
+                    </div>
+
+                    <div class="feature-line">
+                        <i class="bi bi-houses"></i>
+                        Carteira de imóveis com imagem, localização e status
+                    </div>
+
+                    <div class="feature-line">
+                        <i class="bi bi-cash-coin"></i>
+                        Controle de propostas recebidas
+                    </div>
+
+                    <div class="feature-line">
+                        <i class="bi bi-file-earmark-pdf"></i>
+                        Relatórios profissionais em PDF
+                    </div>
+                </section>
+            </div>
+
+            <div class="col-lg-6">
+                <section class="auth-card">
+                    <div class="auth-icon">
+                        <i class="bi bi-person-plus-fill"></i>
+                    </div>
+
+                    <h2>Criar conta</h2>
+
+                    <p class="mb-4">
+                        Preencha os dados abaixo para acessar o Corretor Pro.
+                    </p>
+
+                    <div class="mb-3">
+                        <label class="form-label">Nome completo</label>
+                        <input type="text" id="nome" class="form-control" placeholder="Seu nome">
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">E-mail</label>
+                        <input type="email" id="email" class="form-control" placeholder="seuemail@exemplo.com">
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Senha</label>
+                        <input type="password" id="senha" class="form-control" placeholder="Crie uma senha">
+                    </div>
+
+                    <button class="btn btn-success w-100" id="btnCadastro">
+                        <i class="bi bi-person-check-fill"></i> Criar conta
+                    </button>
+
+                    <div id="mensagem" class="alert mt-3 d-none" role="alert"></div>
+
+                    <p class="text-center mt-4 mb-0 text-secondary">
+                        Já possui conta?
+                        <a href="login.html" class="link-auth">Entrar no sistema</a>
+                    </p>
+                </section>
+
+                <p class="text-center mt-4 footer-text">
+                    © 2026 Corretor Pro • Desenvolvido por Maycon Cordeiro
+                </p>
+            </div>
+
+        </div>
+    </main>
+
+    <div class="toast-container position-fixed top-0 end-0 p-3" style="z-index: 1080;">
+        <div id="appToast" class="toast align-items-center border-0 text-white" role="alert" aria-live="assertive"
+            aria-atomic="true">
+            <div class="d-flex">
+                <div id="appToastBody" class="toast-body fw-semibold">Mensagem</div>
+                <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"
+                    aria-label="Fechar"></button>
+            </div>
         </div>
     </div>
-</nav>
 
-<div class="container auth-wrapper d-flex align-items-center justify-content-center py-4">
-    <div class="card auth-card p-4">
-        <div class="card-body">
-            <div class="brand-badge">
-                <i class="bi bi-person-plus-fill"></i>
-            </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
-            <h2 class="brand-title text-center mb-2">Criar conta</h2>
-            <p class="subtitle text-center mb-4">Cadastre-se para acessar o sistema</p>
+    <script src="js/api.js"></script>
 
-            <div class="mb-3">
-                <label class="form-label">Nome</label>
-                <input type="text" id="nome" class="form-control" placeholder="Digite seu nome">
-            </div>
+    <script>
+        const mensagem = document.getElementById("mensagem");
+        const btnCadastro = document.getElementById("btnCadastro");
 
-            <div class="mb-3">
-                <label class="form-label">E-mail</label>
-                <input type="email" id="email" class="form-control" placeholder="Digite seu e-mail">
-            </div>
-
-            <div class="mb-3">
-                <label class="form-label">Senha</label>
-                <input type="password" id="senha" class="form-control" placeholder="Digite sua senha">
-            </div>
-
-            <button class="btn btn-success w-100" id="btnCadastro">
-                <i class="bi bi-person-check-fill"></i> Cadastrar
-            </button>
-
-            <div id="mensagem" class="alert mt-3 d-none" role="alert"></div>
-
-            <p class="text-center mt-4 mb-0 text-secondary">
-                Já tem conta?
-                <a href="login.html" class="text-decoration-none link-auth">Fazer login</a>
-            </p>
-        </div>
-    </div>
-</div>
-
-<footer class="text-center py-4">
-    <small>© 2026 Corretor Pro • Desenvolvido por Maycon Cordeiro</small>
-</footer>
-
-<div class="toast-container position-fixed top-0 end-0 p-3" style="z-index: 1080;">
-    <div id="appToast" class="toast align-items-center border-0 text-white" role="alert" aria-live="assertive" aria-atomic="true">
-        <div class="d-flex">
-            <div id="appToastBody" class="toast-body fw-semibold">Mensagem</div>
-            <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Fechar"></button>
-        </div>
-    </div>
-</div>
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-
-<script src="js/api.js"></script>
-
-<script>
-const mensagem = document.getElementById("mensagem");
-const btnCadastro = document.getElementById("btnCadastro");
-
-function mostrarMensagem(texto, tipo = "danger") {
-    mensagem.className = `alert alert-${tipo} mt-3`;
-    mensagem.classList.remove("d-none");
-    mensagem.innerText = texto;
-}
-
-function esconderMensagem() {
-    mensagem.classList.add("d-none");
-}
-
-function mostrarToast(texto, tipo = "success") {
-    const toastEl = document.getElementById("appToast");
-    const toastBody = document.getElementById("appToastBody");
-    const closeBtn = toastEl.querySelector(".btn-close");
-
-    toastBody.innerText = texto;
-
-    toastEl.className = "toast align-items-center border-0 text-white";
-    closeBtn.className = "btn-close btn-close-white me-2 m-auto";
-
-    if (tipo === "success") {
-        toastEl.classList.add("bg-success");
-    } else if (tipo === "danger") {
-        toastEl.classList.add("bg-danger");
-    } else if (tipo === "warning") {
-        toastEl.classList.add("bg-warning", "text-dark");
-        closeBtn.className = "btn-close me-2 m-auto";
-    } else {
-        toastEl.classList.add("bg-primary");
-    }
-
-    const toast = new bootstrap.Toast(toastEl, { delay: 3000 });
-    toast.show();
-}
-
-async function extrairMensagemErro(resposta) {
-    try {
-        const data = await resposta.json();
-
-        if (data.fields) {
-            return Object.values(data.fields).join(" | ");
+        function esconderMensagem() {
+            mensagem.classList.add("d-none");
         }
 
-        if (data.error) {
-            return data.error;
+        function mostrarToast(texto, tipo = "success") {
+            const toastEl = document.getElementById("appToast");
+            const toastBody = document.getElementById("appToastBody");
+            const closeBtn = toastEl.querySelector(".btn-close");
+
+            toastBody.innerText = texto;
+
+            toastEl.className = "toast align-items-center border-0 text-white";
+            closeBtn.className = "btn-close btn-close-white me-2 m-auto";
+
+            if (tipo === "success") {
+                toastEl.classList.add("bg-success");
+            } else if (tipo === "danger") {
+                toastEl.classList.add("bg-danger");
+            } else if (tipo === "warning") {
+                toastEl.classList.add("bg-warning", "text-dark");
+                closeBtn.className = "btn-close me-2 m-auto";
+            } else {
+                toastEl.classList.add("bg-primary");
+            }
+
+            const toast = new bootstrap.Toast(toastEl, { delay: 3000 });
+            toast.show();
         }
 
-        return "Ocorreu um erro na requisição.";
-    } catch {
-        return "Ocorreu um erro na requisição.";
-    }
-}
+        async function extrairMensagemErro(resposta) {
+            try {
+                const data = await resposta.json();
 
-document.getElementById("btnCadastro").addEventListener("click", async () => {
-    esconderMensagem();
+                if (data.fields) {
+                    return Object.values(data.fields).join(" | ");
+                }
 
-    const nome = document.getElementById("nome").value.trim();
-    const email = document.getElementById("email").value.trim();
-    const senha = document.getElementById("senha").value.trim();
+                if (data.error) {
+                    return data.error;
+                }
 
-    if (!nome || !email || !senha) {
-        mostrarToast("Preencha todos os campos.", "warning");
-        return;
-    }
+                return "Ocorreu um erro na requisição.";
+            } catch {
+                return "Ocorreu um erro na requisição.";
+            }
+        }
 
-    btnCadastro.disabled = true;
-    btnCadastro.innerHTML = `<i class="bi bi-hourglass-split"></i> Cadastrando...`;
+        btnCadastro.addEventListener("click", async () => {
+            esconderMensagem();
 
-    try {
-        const resposta = await fetch(`${API_URL}/usuarios`, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({ nome, email, senha })
+            const nome = document.getElementById("nome").value.trim();
+            const email = document.getElementById("email").value.trim();
+            const senha = document.getElementById("senha").value.trim();
+
+            if (!nome || !email || !senha) {
+                mostrarToast("Preencha todos os campos.", "warning");
+                return;
+            }
+
+            btnCadastro.disabled = true;
+            btnCadastro.innerHTML = `<i class="bi bi-hourglass-split"></i> Criando conta...`;
+
+            try {
+                const resposta = await fetch(`${API_URL}/usuarios`, {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({ nome, email, senha })
+                });
+
+                if (!resposta.ok) {
+                    const erro = await extrairMensagemErro(resposta);
+                    mostrarToast(erro, "danger");
+                    return;
+                }
+
+                mostrarToast("Cadastro realizado com sucesso!", "success");
+
+                setTimeout(() => {
+                    window.location.href = "login.html";
+                }, 1200);
+
+            } catch (e) {
+                console.error(e);
+                mostrarToast("Não foi possível conectar ao servidor. Tente novamente.", "danger");
+            } finally {
+                btnCadastro.disabled = false;
+                btnCadastro.innerHTML = `<i class="bi bi-person-check-fill"></i> Criar conta`;
+            }
         });
-
-        if (!resposta.ok) {
-            const erro = await extrairMensagemErro(resposta);
-            mostrarToast(erro, "danger");
-            return;
-        }
-
-        mostrarToast("Cadastro realizado com sucesso!", "success");
-
-        setTimeout(() => {
-            window.location.href = "login.html";
-        }, 1200);
-
-    } catch (e) {
-        console.error(e);
-        mostrarToast("Não foi possível conectar ao servidor. Tente novamente.", "danger");
-    } finally {
-        btnCadastro.disabled = false;
-        btnCadastro.innerHTML = `<i class="bi bi-person-check-fill"></i> Cadastrar`;
-    }
-});
-</script>
+    </script>
 
 </body>
+
 </html>

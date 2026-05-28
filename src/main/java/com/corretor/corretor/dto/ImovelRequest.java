@@ -18,6 +18,17 @@ public class ImovelRequest {
     @Positive(message = "O preço deve ser maior que zero")
     private Double preco;
 
+    private String bairro;
+
+    private String cidade;
+
+    private String estado;
+
+    private String cep;
+
+    @Size(max = 1000, message = "A URL do mapa deve ter no máximo 1000 caracteres")
+    private String mapaUrl;
+
     private StatusImovel status;
 
     @Size(max = 500, message = "A URL da imagem deve ter no máximo 500 caracteres")
@@ -45,6 +56,46 @@ public class ImovelRequest {
 
     public void setPreco(Double preco) {
         this.preco = preco;
+    }
+
+    public String getBairro() {
+        return bairro;
+    }
+
+    public void setBairro(String bairro) {
+        this.bairro = bairro;
+    }
+
+    public String getCidade() {
+        return cidade;
+    }
+
+    public void setCidade(String cidade) {
+        this.cidade = cidade;
+    }
+
+    public String getEstado() {
+        return estado;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
+    }
+
+    public String getCep() {
+        return cep;
+    }
+
+    public void setCep(String cep) {
+        this.cep = cep;
+    }
+
+    public String getMapaUrl() {
+        return mapaUrl;
+    }
+
+    public void setMapaUrl(String mapaUrl) {
+        this.mapaUrl = mapaUrl;
     }
 
     public StatusImovel getStatus() {
