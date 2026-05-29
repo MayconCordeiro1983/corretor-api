@@ -8,58 +8,86 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+
+import java.util.List;
 
 @Configuration
 public class SecurityConfig {
 
-    private final JwtAuthFilter jwtAuthFilter;
+        private final JwtAuthFilter jwtAuthFilter;
 
-    public SecurityConfig(JwtAuthFilter jwtAuthFilter) {
-        this.jwtAuthFilter = jwtAuthFilter;
-    }
+        public SecurityConfig(JwtAuthFilter jwtAuthFilter) {
+                this.jwtAuthFilter = jwtAuthFilter;
+        }
 
-    @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+        @Bean
+        public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
-        http
-                .cors(cors -> {
-                })
-                .csrf(csrf -> csrf.disable())
+                http
+                                .cors(cors -> cors.configurationSource(corsConfigurationSource()))
+                                .csrf(csrf -> csrf.disable())
 
-                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                                .sessionManagement(session -> session
+                                                .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
 
-                .authorizeHttpRequests(auth -> auth
+                                .authorizeHttpRequests(auth -> auth
 
-                        // OPTIONS (CORS)
-                        .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
+                                                .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
 
-                        // LOGIN
-                        .requestMatchers("/usuarios/login").permitAll()
+                                                .requestMatchers("/usuarios/login").permitAll()
+                                                .requestMatchers(HttpMethod.POST, "/usuarios").permitAll()
 
-                        // CADASTRO USUÁRIO
-                        .requestMatchers(HttpMethod.POST, "/usuarios").permitAll()
+                                                .requestMatchers(HttpMethod.GET, "/imoveis/publicos").permitAll()
+                                                .requestMatchers(HttpMethod.GET, "/imoveis/publicos/buscar").permitAll()
 
-                        // IMÓVEIS PÚBLICOS
-                        .requestMatchers(HttpMethod.GET,
-                                "/imoveis/publicos")
-                        .permitAll()
+                                                .requestMatchers(HttpMethod.POST, "/propostas/imovel/**").permitAll()
 
-                        .requestMatchers(HttpMethod.GET,
-                                "/imoveis/publicos/buscar")
-                        .permitAll()
+                                                .anyRequest().authenticated())
 
-                        // TODO RESTANTE PROTEGIDO
+                                .addFilterBefore(
+                                                jwtAuthFilter,
+                                                UsernamePasswordAuthenticationFilter.class);
 
-                        .requestMatchers(HttpMethod.POST, "/propostas/imovel/**").permitAll()
+                return http.build();
+        }
 
-                        .anyRequest().authenticated()
+        @Bean
+        public CorsConfigurationSource corsConfigurationSource() {
 
-                )
+                CorsConfiguration config = new CorsConfiguration();
 
-                .addFilterBefore(
-                        jwtAuthFilter,
-                        UsernamePasswordAuthenticationFilter.class);
+                config.setAllowedOrigins(List.of(
+                                "http://127.0.0.1:5500",
+                                "http://localhost:5500",
+                                "https://corretor-api-three.vercel.app",
+                                "https://corretor-9j0xszafp-mayconcordeiro1983s-projects.vercel.app"));
 
-        return http.build();
-    }
+                config.setAllowedMethods(List.of(
+                                "GET",
+                                "POST",
+                                "PUT",
+                                "DELETE",
+                                "OPTIONS"));
+
+                config.setAllowedHeaders(List.of(
+                                "Authorization",
+                                "Content-Type",
+                                "Accept",
+                                "Origin"));
+
+                config.setExposedHeaders(List.of(
+                                "Authorization",
+                                "Content-Disposition"));
+
+                config.setAllowCredentials(false);
+
+                UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+
+                source.registerCorsConfiguration("/**", config);
+
+                return source;
+        }
 }
