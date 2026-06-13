@@ -1,0 +1,181 @@
+MANUAL DE INSTRUÇÕES
+
+PROJETO: CORRETOR PRO
+
+Aluno: Maycon Cordeiro
+Curso: Análise e Desenvolvimento de Sistemas
+Disciplina: Projeto Final ADS
+Professor: Marcio de Souza Balian
+
+=================================================
+
+1. REQUISITOS PARA EXECUÇÃO
+   =================================================
+
+Antes de executar o sistema, é necessário possuir instalado:
+
+* Java JDK 17 ou superior
+* PostgreSQL 18 (ou compatível)
+* Maven
+* pgAdmin 4
+* Navegador Web (Google Chrome, Edge ou Firefox)
+* Visual Studio Code ou IntelliJ IDEA
+
+=================================================
+2. CONFIGURAÇÃO DO BANCO DE DADOS
+=================================
+
+1. Abrir o PostgreSQL.
+
+2. Criar um banco de dados com o nome:
+
+corretor_db
+
+3. Verificar as credenciais utilizadas no arquivo:
+
+application.properties
+
+Exemplo:
+
+spring.datasource.url=jdbc:postgresql://localhost:5432/corretor_db
+spring.datasource.username=postgres
+spring.datasource.password=SUA_SENHA
+
+4. Salvar as alterações.
+
+=================================================
+3. EXECUÇÃO DO BACKEND
+======================
+
+1. Abrir o terminal na pasta do backend.
+
+2. Executar o comando:
+
+mvn spring-boot:run
+
+ou
+
+.\mvnw spring-boot:run
+
+3. Aguardar a inicialização da aplicação.
+
+Mensagem esperada:
+
+Started CorretorApplication
+
+Servidor disponível em:
+
+http://localhost:8081
+
+=================================================
+4. EXECUÇÃO DO FRONTEND
+=======================
+
+1. Abrir a pasta frontend.
+
+2. Iniciar um servidor local.
+
+Exemplo utilizando Live Server do VS Code.
+
+3. Abrir o navegador no endereço:
+
+http://127.0.0.1:5500/frontend/index.html
+
+=================================================
+5. CADASTRO DE USUÁRIO
+======================
+
+1. Acessar a página inicial.
+
+2. Clicar em "Criar Conta".
+
+3. Informar:
+
+* Nome
+* E-mail
+* Senha
+
+4. Confirmar o cadastro.
+
+=================================================
+6. LOGIN NO SISTEMA
+===================
+
+1. Acessar a tela de Login.
+
+2. Informar:
+
+* E-mail
+* Senha
+
+3. Clicar em Entrar.
+
+Após a autenticação o usuário será direcionado para o Dashboard.
+
+=================================================
+7. FUNCIONALIDADES DISPONÍVEIS
+==============================
+
+Módulo de Imóveis
+
+* Cadastrar imóvel
+* Consultar imóvel
+* Editar imóvel
+* Excluir imóvel
+* Filtrar imóveis
+* Gerar relatório PDF de imóveis
+
+Módulo de Propostas
+
+* Registrar proposta
+* Consultar propostas
+* Alterar status da proposta
+* Excluir proposta
+* Gerar relatório PDF de propostas
+
+Dashboard
+
+* Visualização geral do sistema
+* Acesso rápido aos módulos
+
+=================================================
+8. TECNOLOGIAS UTILIZADAS
+=========================
+
+Backend
+
+* Java 17
+* Spring Boot
+* Spring Security
+* JPA
+* Hibernate
+* PostgreSQL
+
+Frontend
+
+* HTML5
+* CSS3
+* JavaScript
+* AJAX
+
+Relatórios
+
+* JasperReports
+
+Infraestrutura
+
+* Docker
+* Render
+* Vercel
+
+=================================================
+9. OBSERVAÇÕES
+==============
+
+O projeto foi preparado para execução em ambiente de nuvem utilizando Render e Vercel.
+
+Durante a apresentação e testes finais, o sistema foi executado localmente utilizando Spring Boot e PostgreSQL instalados no computador de desenvolvimento.
+
+Todas as funcionalidades descritas na documentação foram implementadas e testadas com sucesso.
+
+FIM DO MANUAL
