@@ -1,167 +1,164 @@
-# 🏠 Corretor API
+# 🏠 Corretor Pro
 
-Sistema full stack para gerenciamento de imóveis com autenticação JWT.
+Sistema Web para gerenciamento imobiliário desenvolvido como Projeto Final do curso de Análise e Desenvolvimento de Sistemas.
 
-O sistema permite cadastro de usuários, login seguro e gerenciamento de imóveis vinculados ao usuário autenticado.
+## 📋 Descrição
 
----
+O Corretor Pro é uma aplicação web desenvolvida para auxiliar corretores de imóveis no gerenciamento de sua carteira imobiliária, permitindo o cadastro de imóveis, controle de propostas, autenticação de usuários e geração de relatórios profissionais em PDF.
 
-## 🚀 Tecnologias utilizadas
+## 🚀 Funcionalidades
+
+### Usuários
+
+* Cadastro de usuários
+* Login seguro
+* Autenticação via JWT
+* Proteção de rotas com Spring Security
+
+### Imóveis
+
+* Cadastro de imóveis
+* Consulta de imóveis
+* Edição de imóveis
+* Exclusão de imóveis
+* Pesquisa e filtros
+* Localização integrada
+
+### Propostas
+
+* Registro de propostas
+* Consulta de propostas
+* Alteração de status
+* Exclusão de propostas
+
+### Relatórios
+
+* Relatório PDF de imóveis
+* Relatório PDF de propostas
+* Exportação profissional utilizando JasperReports
+
+## 🛠 Tecnologias Utilizadas
 
 ### Backend
-- Java 17
-- Spring Boot
-- Spring Security
-- JWT (JSON Web Token)
-- Maven
-- JPA / Hibernate
-- PostgreSQL / H2
+
+* Java 17
+* Spring Boot
+* Spring Security
+* Spring Data JPA
+* Hibernate
+* PostgreSQL
+* Maven
 
 ### Frontend
-- HTML
-- CSS
-- JavaScript
-- Bootstrap
 
----
+* HTML5
+* CSS3
+* JavaScript
+* AJAX
 
-## ⚙️ Funcionalidades
+### Relatórios
 
-- ✔ Cadastro de usuários
-- ✔ Login com autenticação JWT
-- ✔ Rotas protegidas com Spring Security
-- ✔ Dashboard do usuário
-- ✔ CRUD completo de imóveis
-- ✔ Imóveis vinculados ao usuário logado
+* JasperReports
 
----
+### Infraestrutura
 
-## 🔐 Autenticação
+* Docker
+* Render
+* Vercel
 
-A API utiliza JWT (JSON Web Token).
+## 🏗 Arquitetura
 
-### Fluxo:
+O projeto segue arquitetura em camadas:
 
-1. Usuário faz login  
-2. A API gera um token JWT  
-3. O token é enviado no header das requisições protegidas  
+* Controller
+* Service
+* Repository
+* Entity
+* Banco de Dados PostgreSQL
 
-### Header:
+## 🔒 Segurança
 
-```http
-Authorization: Bearer TOKEN
+O sistema utiliza Spring Security e autenticação JWT para proteção dos recursos da aplicação.
 
-📡 Endpoints da API
-👤 Usuários
+## 🗄 Banco de Dados
 
-Criar usuário
+Entidades principais:
 
-POST /usuarios
+* Usuario
+* Imovel
+* Proposta
 
-{
-  "nome": "Maycon",
-  "email": "maycon@email.com",
-  "senha": "123456"
-}
+Banco utilizado:
 
-Login
+* PostgreSQL
 
-POST /usuarios/login
+## 📄 Relatórios
 
-{
-  "email": "maycon@email.com",
-  "senha": "123456"
-}
+O sistema gera relatórios PDF profissionais utilizando JasperReports:
 
-Resposta:
+* Relatório de Imóveis
+* Relatório de Propostas
 
-{
-  "token": "jwt_token_aqui"
-}
+## ▶ Como Executar
 
-Usuário logado
+### Banco de Dados
 
-GET /usuarios/me
+Criar banco:
 
-Header:
+```sql
+CREATE DATABASE corretor_db;
+```
 
-Authorization: Bearer TOKEN
+### Backend
 
-🏠 Imóveis
-Criar imóvel
+```bash
+mvn spring-boot:run
+```
 
-POST /imoveis
-
-{
-  "titulo": "Casa Jardim América",
-  "endereco": "Rua C-150",
-  "preco": 850000
-}
-
-Listar imóveis do usuário logado
-
-GET /imoveis/meus
-
-Header:
-
-Authorization: Bearer TOKEN
-
-🏃 Como rodar o projeto
-
-1. Clonar o repositório
-
-git clone https://github.com/MayconCordeiro1983/corretor-api.git
-
-2. Entrar na pasta
-
-cd corretor-api
-
-3. Executar o backend
-
-.\mvnw spring-boot:run
-
-4. Acessar a aplicação
-
-http://localhost:8081
-
-🧪 Testes
-
-Você pode testar a API utilizando:
-
-Postman
-Insomnia
-Curl
-PowerShell
-
-```md
-📂 Estrutura do projeto
+Servidor:
 
 ```text
-corretor-api/
-├── src/
-├── frontend/
-├── img/
-├── pom.xml
-└── README.md
+http://localhost:8081
+```
 
-## 📸 Prints do sistema
+### Frontend
 
-### 🔐 Login
-![Login](img/login.png)
+Abrir:
 
-### 📝 Cadastro
-![Cadastro](img/cadastro.png)
+```text
+frontend/index.html
+```
 
-### 📊 Dashboard
-![Dashboard](img/dashboard.png)
+ou utilizar o Live Server do VS Code.
 
-### 🏠 Meus Imóveis
-![Imóveis](img/imoveis.png)
+## 🐳 Docker
 
-👨‍💻 Autor
+Build da imagem:
+
+```bash
+docker build -t corretor-pro .
+```
+
+Executar container:
+
+```bash
+docker run -p 8081:8081 corretor-pro
+```
+
+## 📚 Conceitos Aplicados
+
+* AJAX
+* Spring Framework
+* Spring Boot
+* Spring Security
+* JPA
+* Hibernate
+* JasperReports
+* PostgreSQL
+* Docker
+
+## 👨‍💻 Autor
 
 Maycon Cordeiro
 
-🔗 GitHub:
-https://github.com/MayconCordeiro1983
-
+Projeto desenvolvido para a disciplina Projeto Final ADS.
